@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'stylesheets/main.css') }}" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body> 
+        <div id="oscar-wrapper">
+
+
+        <header class="col-12"> UWE Taxi Travel </header>
+
+
+        <div class="col-1"></div>
+        <nav class="col-10">
+            <div class="nav-left">
+
+             </div>
+            <div class="nav-right">
+                <a href="#home"><i class="fa fa-bars"></i> Other Travel</a>
+            </div>
+        </nav>
+        <div class="col-1"></div>
+
+        <div class="col-12"></div>
+
+        <div class="col-1"></div>
+        <div class="col-10 info-bar"> 
+            <!-- {% if session.logged_in %} Welcome {{ username }}  -->
+                                    <form class="logout-form" action="/logout">
+                                    <input class="logout-input" type="submit" value="Logout"></form>
+                                  
+                                                            
+                                    <!-- {% else %} Welcome to UWE Taxi Travel. The best and fastest taxi's in the industry. {% endif %} -->
+
+        </div>
+        <div class="col-1"></div>
+
+        <div class="col-12"></div>
+
+        <div class="col-1"></div>
+        <div class="col-10 slideshow">
+             <div class="slideshow-slides fade">
+                <!-- <img class="slideshow-image" src="static/taxi-image-1.jpg"> -->
+            </div>
+            
+            <div class="slideshow-slides fade">
+                <!-- <img class="slideshow-image" src="static/taxi-image-2.jpg"> -->
+            </div>
+
+            <div class="slideshow-slides fade">
+                <!-- <img class="slideshow-image" src="static/taxi-image-3.jpg"> -->
+            </div>
+
+            <div class="slideshow-text">
+                <h1>UWE Taxi Travel</h1>
+            </div>
+        </div>
+        <div class="col-1"></div>
+
+        <div class="col-12"></div>
+
+        <div class="col-1"></div>
+        <div class="infobox leftimage col-3">
+            <!-- <img class="infobox-img" src="static/fast-taxi.jpg" alt="taxiimage1"> -->
+            <p>Drive fast. </p>
+            <p>UWE has the fastest drivers.</p>
+        </div>
+        <div class="infobox col-4">
+            <!-- <img class="infobox-img" src="static/cool-taxi.jpg" alt="taxiimage2"> -->
+            <p>Drive in style. </p>
+            <p>UWE drivers have the most style </p>
+        </div>
+        <div class="infobox col-3">
+            <!-- <img class="infobox-img" src="static/night-taxi.jpg" alt="taxiimage3"> -->
+            <p>Drive in the dark. </p>
+            <p>UWE drivers can see in the dark. </p>
+        </div>
+        <div class="col-1"></div>
+
+        <footer></br>&copy Oscar Averill</footer>
+        
+
+        <script>
+            var slideIndex = 0;
+            showSlides();
+
+            function showSlides() {
+            var i;
+            var slides = document.getElementsByClassName("slideshow-slides");
+            for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) {slideIndex = 1}
+            slides[slideIndex-1].style.display = "block";
+            setTimeout(showSlides, 6000); // Change image every 2 seconds
+            } 
+        </script>
+        </div>
+    </body>
+</html>

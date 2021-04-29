@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Admin</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'main.css') }}" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body> 
+
+
+        <header class="col-12"> UWE Taxi Travel </header>
+
+
+        <div class="col-1"></div>
+        <nav class="col-10">
+            <div class="nav-left">
+                <a class="active" href="{{ url_for('index') }}"><i class="fa fa-home"></i> Home</a>
+                <a href="{{ url_for('lookup') }}"><i class="fa fa-search"></i> Lookup</a>
+                <a href="{{ url_for('login') }}"><i class="fa fa-lock"></i> Login</a>
+                <a href="{{ url_for('register') }}"><i class="fa fa-lock"></i> Register</a>
+             </div>
+            <div class="nav-right">
+                <a href="#home"><i class="fa fa-bars"></i> Other Travel</a>
+            </div>
+        </nav>
+        <div class="col-1"></div>
+
+        <div class="col-12"></div>
+
+        <div class="col-1"></div>
+        <div class="col-10 info-bar"> 
+            Admin Page
+
+        </div>
+        <div class="col-1"></div>
+
+        <div class="col-12"></div>
+
+        <div class="col-1"></div>
+        <div class="col-10">
+            <form action="/insertroute" method="POST">
+                <label for="leaving"><b> Leaving: </b></label>
+                <input type="text" placeholder="" autocomplete="off" name="leaving" required value="{{request.form.leaving}}">
+            </br>
+                <label for="leavingtime"><b> Leaving time:</b></label>
+                <input type="time" placeholder="" autocomplete="off" name="leavingtime" required value="{{request.form.leavingtime}}">
+            </br>
+                <label for="arrival"><b> Arrival: </b></label>
+                <input type="text" placeholder="" autocomplete="off" name="arrival" required value="{{request.form.arrival}}">
+            </br>
+                <label for="arrivaltime"><b> Arrival time: </b></label>
+                <input type="time" placeholder="" autocomplete="off" name="arrivaltime" required value="{{request.form.arrivaltime}}">
+            </br>
+                <label for="miles"><b> Miles: </b></label>
+                <input type="number" placeholder="" autocomplete="off" name="miles" required value="{{request.form.miles}}">
+            </br>
+            </br>
+                <input type="submit" value="Insert route">
+            </br>
+            </br>
+                <p style="color: red;">{{msg}}</p>
+            </form>
+        </div>
+        <div class="col-1"></div>
+    </body>
+</html>
