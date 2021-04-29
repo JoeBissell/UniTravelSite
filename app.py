@@ -14,6 +14,9 @@ def index():
 def oscar():
     return render_template("oscar/index.html")
 
+@app.route("/suleima")
 
+def suleima():
+    return render_template("suleima/coach.html")
 
 app.run(debug = True, port = 5000)
