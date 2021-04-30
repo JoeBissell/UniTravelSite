@@ -1,13 +1,15 @@
-<form action="/login" method="POST">
-    <label for="username"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" autocomplete="off" name="username" value="{{request.form.username}}" required>
+<form action="/register" method="POST">
+    <label for="username"><b> Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" required value="{{request.form.username}}">
     </br>
-    <label for="password"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" autocomplete="off" name="password" value="{{request.form.password}}" required>
+    <label for="password"><b> Password</b></label>
+    <input type="password" placeholder="Enter Password" name="password" required value="{{request.form.password}}">
+    </br>
+    <label for="password"><b> Email</b></label>
+    <input type="email" placeholder="Enter Email" name="email" required value="{{request.form.email}}">
     </br>
     </br>
-    <input type="submit" value="Login">
+    <input type="submit" value="Register">
 </form>
-<div class="col-1"></div>
 
 <p style="color: red;">{{error}}</p>
