@@ -170,11 +170,11 @@ def admin():
    return render_template('admin.html')
 
 ## admin insert new route
-@app.route('/admininsert')
+@app.route('/oscar_admininsert')
 @admin_req
-def admininsert():
+def oscar_admininsert():
    print ('Hello')
-   return render_template('admin/admininsert.html')
+   return render_template('oscar/admin/admininsert.html')
 
 ## ADMIN FUNCTIONS ##
 ## admin show all records
@@ -219,13 +219,13 @@ def oscaradmininsert():
          conn = get_connection()
          if conn.is_connected():
             cursor = conn.cursor()
-            sql_statement = "INSERT INTO taxi.routes (leaving, leavingtime, arrival, arrivaltime, miles) VALUES (%s, %s, %s, %s, %s)"
+            sql_statement = "INSERT INTO travelsite.taxiroutes (leaving, leavingtime, arrival, arrivaltime, miles) VALUES (%s, %s, %s, %s, %s)"
             print(cursor)
             args = (leaving, leavingtime, arrival, arrivaltime, miles)
             cursor.execute(sql_statement, args)
             conn.commit()
             cursor.close()
-            msg += "record added"
+            msg = "Record added"
          print(msg)
       except:
          print('except')
@@ -234,7 +234,7 @@ def oscaradmininsert():
          print(msg)
       finally:
          print('finally')
-         return render_template('admin.html', msg= msg)
+         return render_template('oscar/admin/admin.html', msg= msg)
    else:
       print('not post')
       return 'not post'
