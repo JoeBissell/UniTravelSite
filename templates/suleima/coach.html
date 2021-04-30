@@ -17,7 +17,7 @@
                 <!--this is the menu on the left in desktop mode-->
                 <div class="col-3 menu"> 
                     <ul>
-                        <a href="airTravel.html"><li>Air travel</li></a>
+                        <li>Air travel</li>
                         <li>Train travel</li>
                         <li>Coach travel</li>
                         <li>Taxi travel</li>
@@ -31,23 +31,26 @@
                 <div class="col-6">
                     <form class="fdesign">
                         <h1>Welcome to Coach travel</h1>
-                        <h3>working days Sunday to Friday</h3>
-                        <h3>7:00am to 10:30pm</h3>
+                        <label for="From">From: </label>
                         <input type="text" id="date" name="start" placeholder="From">
+                        <label for="to">To: </label>
                         <input type="text" id="date" name="end" placeholder="To">
                         <br>
+                        <label for="Departure Time">start date: </label>
                         <input type="date" id="date" name="date">
+                        <label for="Arrival Time">end date: </label>
                         <input type="date" id="date" name="date">
-                        <h3>Departure Information</h3>
-                        <input type="checkbox" id="date" name="formDesign">
-                        <label for="formDesign">One-Way</label>
-                        <input type="checkbox" id="date" name="formDesign">
-                        <label for="formDesign">Return</label>
+                        <h3>Journey</h3>
+                        <input type="radio" id="journey" name="journey" value="oneway">
+                        <label for="journey">One-way ticket</label>
+                        <input type="radio" id="journey" name="journey" value="returnticket">
+                        <label for="journey">Return Ticket</label>
                         <br>
+                        <h3>Passengers</h3>
                         <label for="quantity">Adults:</label>
-                        <input type="number" id="date" name="quantity" min="1" max="100">
+                        <input type="number" id="date" name="quantity" min="1" max="45">
                         <label for="quantity">Children (Under 10):</label>
-                        <input type="number" id="date" name="quantity" min="1" max="100"><br>
+                        <input type="number" id="date" name="quantity" min="0" max="44"><br>
                         <input type="submit" id="sub" value="submit">
 
 
