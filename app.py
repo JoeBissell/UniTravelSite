@@ -8,12 +8,15 @@ from functools import wraps
 import taxi
 
 app = Flask(__name__)
+app.secret_key = 'verysecretkey'
 
 ## oscar routes to taxi app ##
 app.add_url_rule('/oscarindex', view_func=taxi.oscarindex)
 app.add_url_rule('/oscarlookup', view_func=taxi.oscarlookup)
+app.add_url_rule('/oscar_show_route', view_func=taxi.oscar_show_route, methods=['POST','GET'])
 app.add_url_rule('/oscarregister', view_func=taxi.oscarregister,  methods=['POST', 'GET'])
-app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin)
+app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin, methods=['POST', 'GET'])
+app.add_url_rule('/oscarlogout', view_func=taxi.oscarlogout)
 
 @app.route("/")
 def index():

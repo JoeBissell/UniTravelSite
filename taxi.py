@@ -55,7 +55,7 @@ def oscarlogin():
                if conn.is_connected():
                   print('SQL connection established')
                   dbcursor = conn.cursor()
-                  dbcursor.execute("SELECT password_hash, usertype FROM users where username = %s;", (username,))
+                  dbcursor.execute("SELECT password_hash, usertype FROM taxiusers where username = %s;", (username,))
                   data = dbcursor.fetchone()
                   if dbcursor.rowcount < 1:
                      error = "username/password incorrect"
@@ -81,12 +81,12 @@ def oscarlogin():
    return render_template("oscar/login.html", form=form, error=error)
 
 ## logout route
-@app.route('/logout')
-def logout():
+@app.route('/oscarlogout')
+def oscarlogout():
    session.clear()
    print("logged out")
    gc.collect()
-   return render_template('index.html')
+   return render_template('oscar/index.html')
 
 ## login required
 def login_req(f):
@@ -119,7 +119,7 @@ def oscarlookup():
       if conn.is_connected():
          print('SQL connection established')
          dbcursor = conn.cursor()
-         SQL_statement = 'SELECT DISTINCT leaving FROM routes;'
+         SQL_statement = 'SELECT DISTINCT leaving FROM taxiroutes;'
          dbcursor.execute(SQL_statement)
          print('SELECT statement executed.')
          rows = dbcursor.fetchall()
@@ -134,8 +134,8 @@ def oscarlookup():
       return ('db connect error')
 
 ## get results from taxi lookup page
-@app.route('/lookup-results', methods=['POST','GET'])
-def show_route():
+@app.route('/oscar_show_route', methods=['POST','GET'])
+def oscar_show_route():
    if request.method =='GET':
       leaving = request.args.get('leaving')
       if leaving != None:
@@ -144,14 +144,14 @@ def show_route():
             if conn.is_connected():
                print ('sql connection established')
                dbcursor = conn.cursor()
-               SQL_statement = 'SELECT * FROM routes WHERE leaving = %s'
+               SQL_statement = 'SELECT * FROM taxiroutes WHERE leaving = %s'
                args = (leaving,)
                dbcursor.execute(SQL_statement, args)
                print('SELECT statement executed')
                rows = dbcursor.fetchall()
                dbcursor.close()
                conn.close()
-               return render_template('lookup-results.html', resultset=rows)
+               return render_template('oscar/lookup-results.html', resultset=rows)
             else:
                print('db connect error')
                return 'db connect error'
@@ -160,7 +160,7 @@ def show_route():
             return 'db connect error'
       else: 
          print('invalid route')
-         return render_template('lookup.html')
+         return render_template('oscar/index.html')
 
 ## admin page
 @app.route('/admin')
