@@ -30,23 +30,11 @@
                 <!--this is the main content part in desktop mode-->
                 <div class="col-6">
 
-                    <table class="col-10">
-                        <tr>
-                            <th>Leaving</th>
-                            <th>Leaving time</th>
-                            <th>Arrival </th>
-                            <th>Arrival time</th>
-                        </tr>
-                        {% for row in resultset %}
-                        <tr>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                            <td>{{row[3]}}</td>
-                            <td>{{row[4]}}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-
+                    <h1> <b>Welcome to Coach travel</b> </h1>
+                    <h3>Maximum number of bookable seats for Coach Travel is 45 per trip</h3>
+                    <h3>there are no trips to Dundee and Aberdeen</h3>
+                    <h3>Coach trips operate Sunday to Friday </h3>
+                    <a href="{{ url_for('coach') }}"><button>Start looking for Coach trips!</button></a>
 
                 </div>
                 <!-- thi is the left side part in desktop mode-->

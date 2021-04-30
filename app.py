@@ -5,7 +5,7 @@ import hashlib
 import gc
 from functools import wraps
 
-import taxi
+import taxi, coach
 
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
@@ -134,8 +134,10 @@ def hollie():
 def bradley():
     return render_template("bradley/index.html")
 
-@app.route("/suleima")
-def suleima():
-    return render_template("suleima/coach.html")
+
+app.add_url_rule('/coachhome', view_func=coach.coachhome)
+app.add_url_rule('/coach', view_func=coach.coach)
+
+
 
 app.run(debug = True, port = 5000)

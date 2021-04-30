@@ -10,7 +10,6 @@
         <div id="suleima-wrapper">
             <div class="header">
                 <h1>Tosjosumbalie Travel</h1>
-                <a href="{{ url_for('login') }}"><button class="signin">Log In</button></a>
             </div>
 
             <div class="row">
@@ -29,24 +28,16 @@
 
                 <!--this is the main content part in desktop mode-->
                 <div class="col-6">
+                    <form method="POST"  class="fdesign">
+                        <h1>Welcome to Coach travel</h1>
+                        <label for="username">Username: </label>
+                        <input type="text" id="date" name="username" placeholder="username">
+                        <label for="password">Password: </label>
+                        <input type="password" id="date" name="password" placeholder="password">
+                        <br>
+                        <input type="submit" id="sub" value="submit">
 
-                    <table class="col-10">
-                        <tr>
-                            <th>Leaving</th>
-                            <th>Leaving time</th>
-                            <th>Arrival </th>
-                            <th>Arrival time</th>
-                        </tr>
-                        {% for row in resultset %}
-                        <tr>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                            <td>{{row[3]}}</td>
-                            <td>{{row[4]}}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
-
+                    </form>
 
                 </div>
                 <!-- thi is the left side part in desktop mode-->
