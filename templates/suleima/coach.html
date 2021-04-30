@@ -10,7 +10,7 @@
         <div id="suleima-wrapper">
             <div class="header">
                 <h1>Tosjosumbalie Travel</h1>
-                <button class="signin">Sign in</button>
+                <a href="{{ url_for('login') }}"><button class="signin">Log In</button></a>
             </div>
 
             <div class="row">
@@ -20,16 +20,16 @@
                         <li>Air travel</li>
                         <li>Train travel</li>
                         <li>Coach travel</li>
-                        <li>Taxi travel</li>
+                        <a href="{{ url_for('oscarindex') }}"><li>Taxi travel</li></a>
                         <li>Car hire</li>
                         <li>All travel options</li>
                     </ul>
-                    <img class="coachpic" src="" alt="coach">
+
                 </div>
 
                 <!--this is the main content part in desktop mode-->
                 <div class="col-6">
-                    <form class="fdesign">
+                    <form method="POST"  class="fdesign">
                         <h1>Welcome to Coach travel</h1>
                         <label for="From">From: </label>
                         <input type="text" id="date" name="start" placeholder="From">
@@ -62,25 +62,17 @@
                 <!-- thi is the left side part in desktop mode-->
                 <div class="col-3 right">
                     <div class="aside">
-                        <form class="signup">
-                            <h4>Don't have an account? Sign up here!</h4>
-                            <h1>Register now!</h1>
-                            <label>Personal Details:</label>
-                            <input type="text" class="signup" name="Fname" placeholder="First Name">
-                            <input type="text" class="signup" name="Sname" placeholder="Surname"><br><br>
-                            <label>Date of Birth:</label>
-                            <input type="date" class="signup" name="DOB"><br><br>
-                            <label>Account Setup:</label>
-                            <input type="text" class="signup" name="Username" placeholder="Username"><br>
-                            <input type="password" class="signup" name="Password" placeholder="Password"><br><br>
-                            <button>Register</button>
-                        </form>
+
+                        <h4>Don't have an account? Sign up here!</h4>
+                        <h1>Register now!</h1>
+                        <a href="{{ url_for('register') }}"><button>Register</button></a>
+
                     </div>
                 </div>
 
             </div>
             <div class="footer">
-                <p></p>
+                <p>this travel method is covered by Suleima Abbara - 19020111</p>
             
             </div>
         </div>
