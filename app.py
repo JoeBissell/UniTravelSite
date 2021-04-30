@@ -20,7 +20,9 @@ app.add_url_rule('/oscarlogout', view_func=taxi.oscarlogout)
 ## oscar admin route
 app.add_url_rule('/oscar_admininsert', view_func=taxi.oscar_admininsert, methods=['POST', 'GET'])
 app.add_url_rule('/oscaradmininsert', view_func=taxi.oscaradmininsert, methods=['POST', 'GET'])
-app.add_url_rule('/oscaradminroutes', view_func=taxi.oscaradminroutes, methods=['POST', 'GET'])
+app.add_url_rule('/oscar_adminroutes', view_func=taxi.oscar_adminroutes, methods=['POST', 'GET'])
+app.add_url_rule('/oscaradminremoveroute', view_func=taxi.oscaradminremoveroute, methods=['POST', 'GET'])
+
 
 @app.route("/")
 def index():

@@ -178,21 +178,21 @@ def oscar_admininsert():
 
 ## ADMIN FUNCTIONS ##
 ## admin show all records
-@app.route('/oscaradminroutes')
+@app.route('/oscar_adminroutes')
 @admin_req
-def oscaradminroutes():
+def oscar_adminroutes():
    print ('Hello')
    conn = get_connection()
    if conn != None:
       if conn.is_connected():
          print('conn established')
          dbcursor = conn.cursor()
-         dbcursor.execute('SELECT * FROM routes;')
+         dbcursor.execute('SELECT * FROM taxiroutes;')
          print('select executed')
          rows = dbcursor.fetchall()
          dbcursor.close()
          conn.close()
-         return render_template('admin/adminroutes.html', resultset=rows)
+         return render_template('oscar/admin/adminroutes.html', resultset=rows)
       else:
          print('connect error')
          return('connect error')
@@ -240,42 +240,34 @@ def oscaradmininsert():
       return 'not post'
 
 ##remove route
-@app.route('/adminremoveroute', methods=['POST', 'GET'])
+@app.route('/oscaradminremoveroute', methods=['POST', 'GET'])
 @admin_req
-def removeroute():
-   msg=""
-   print('removing route')
+def oscaradminremoveroute():
    if request.method == 'GET':
-      try:
-         leaving = request.form['leaving']
-         leavingtime = request.form['leavingtime']
-         arrival = request.form['arrival']
-         arrivaltime = request.form['arrivaltime']
-         print('try')
-         msg = leaving + leavingtime + arrival + arrivaltime + miles
-         print('msg')
-         conn = get_connection()
-         if conn.is_connected():
-            cursor = conn.cursor()
-            sql_statement = "INSERT INTO taxi.routes (leaving, leavingtime, arrival, arrivaltime) VALUES (%s, %s, %s, %s)"
-            print(cursor)
-            args = (leaving, leavingtime, arrival, arrivaltime, miles)
-            cursor.execute(sql_statement, args)
-            conn.commit()
-            cursor.close()
-            msg += "record added"
-         print(msg)
-      except:
-         print('except')
-         conn.rollback()
-         msg += "error in insert op"
-         print(msg)
-      finally:
-         print('finally')
-         return render_template('admin.html', msg= msg)
-   else:
-      print('not get')
-      return 'not get'
+      routeid = request.args.get('removeroute')
+      print('route id= =', routeid)
+      if routeid != None:
+         conn=get_connection()
+         if conn != None:
+            if conn.is_connected():
+               print('connected')
+               dbcursor = conn.cursor()
+               sql_statement = 'DELETE FROM taxiroutes WHERE id = %s'
+               args = (routeid,)
+               dbcursor.execute(sql_statement, args)
+               print('command executed')
+               conn.commit()
+               dbcursor.close()
+               conn.close()
+               return render_template('oscar/admin/admin.html')
+            else:
+               print('connect error')
+         else:
+            print('db connect error')
+            return 'db connect error'
+      else:
+         print('invalid tutor id')
+         return render_template('oscar/admin/admin.html')
 
 ##change time of route
 ##add booking
