@@ -12,7 +12,7 @@ app = Flask(__name__)
 ## oscar routes to taxi app ##
 app.add_url_rule('/oscarindex', view_func=taxi.oscarindex)
 app.add_url_rule('/oscarlookup', view_func=taxi.oscarlookup)
-app.add_url_rule('/oscarregister', view_func=taxi.oscarregister)
+app.add_url_rule('/oscarregister', view_func=taxi.oscarregister,  methods=['POST', 'GET'])
 app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin)
 
 @app.route("/")

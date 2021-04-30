@@ -13,7 +13,7 @@ def get_connection():
    conn = mysql.connector.connect(host='localhost',
                                   user='root',
                                   password='password',
-                                  database='taxi')
+                                  database='travelsite')
    return conn
 
 ## route to index page
@@ -298,7 +298,7 @@ def oscarregister():
                   print ('MySQL connection established')
                   dbcursor = conn.cursor()
                   password = sha256_crypt.hash((str(password)))
-                  Verify_Query = "SELECT * FROM users WHERE username = %s;"
+                  Verify_Query = "SELECT * FROM taxiusers WHERE username = %s;"
                   dbcursor.execute(Verify_Query,(username,))
                   rows = dbcursor.fetchall()
                   if dbcursor.rowcount > 0:
@@ -306,13 +306,13 @@ def oscarregister():
                      error = "username already taken"
                      return render_template("oscar/register.html", error=error)
                   else:
-                     dbcursor.execute("INSERT INTO users (username, password_hash,  email) VALUES (%s, %s, %s)", (username, password, email))
+                     dbcursor.execute("INSERT INTO taxiusers (username, password_hash,  email) VALUES (%s, %s, %s)", (username, password, email))
                      conn.commit()
                   print("Thanks for registering")
                   dbcursor.close()
                   conn.close()
                   gc.collect()
-                  return render_template("success.html")
+                  return render_template("oscar/success.html")
             else:
                print('Connection error')
                return ' DB connection error '
