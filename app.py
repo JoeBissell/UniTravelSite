@@ -18,6 +18,7 @@ def get_connection():
                                   database='travelsite')
    return conn
 
+## LOG IN
 @app.route('/login', methods=["GET", "POST"])
 def login():
    form={}
@@ -55,6 +56,51 @@ def login():
       error = str(e) + "Invalid login 2"
       render_template("login.html", form=form, error=error)
    return render_template("login.html", form=form, error=error)
+
+## REGISTRATION 
+@app.route('/register', methods=['POST', 'GET'])
+def register():
+   error = ''
+   print('Register start')
+   try:
+      if request.method == "POST":
+         username = request.form['username']
+         password = request.form['password']
+         email = request.form['email']
+         if username != None and password != None and email != None:
+            conn = get_connection()
+            if conn != None: 
+               if conn.is_connected(): 
+                  print ('MySQL connection established')
+                  dbcursor = conn.cursor()
+                  password = sha256_crypt.hash((str(password)))
+                  Verify_Query = "SELECT * FROM users WHERE username = %s;"
+                  dbcursor.execute(Verify_Query,(username,))
+                  rows = dbcursor.fetchall()
+                  if dbcursor.rowcount > 0:
+                     print ('username already taken')
+                     error = "Username already taken"
+                     return render_template("register.html", error=error)
+                  else:
+                     dbcursor.execute("INSERT INTO users (username, password_hash,  email) VALUES (%s, %s, %s)", (username, password, email))
+                     conn.commit()
+                  print("registered")
+                  dbcursor.close()
+                  conn.close()
+                  gc.collect()
+                  return render_template("registersuccess.html")
+            else:
+               print('Connection error')
+               return 'DB connection error'
+         else: 
+            print ('Connection error')
+            return 'DB connection error'
+      else:
+         print('empty parameters')
+         return render_template("register.html", error=error)
+   except Exception as e:
+      return render_template("register.html", error=e)
+   return render_template("register.html", error=error)
 
 ## oscar routes to taxi app ##
 app.add_url_rule('/oscarindex', view_func=taxi.oscarindex)
