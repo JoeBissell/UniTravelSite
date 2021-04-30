@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
+        <title>Coach Travel</title>
+    </head>
+
+    <body>
+        <div id="suleima-wrapper">
+            <div class="header">
+                <h1>Tosjosumbalie Travel</h1>
+                <button class="signin">Sign in</button>
+            </div>
+
+            <div class="row">
+                <!--this is the menu on the left in desktop mode-->
+                <div class="col-3 menu"> 
+                    <ul>
+                        <a href="airTravel.html"><li>Air travel</li></a>
+                        <li>Train travel</li>
+                        <li>Coach travel</li>
+                        <li>Taxi travel</li>
+                        <li>Car hire</li>
+                        <li>All travel options</li>
+                    </ul>
+                    <img class="coachpic" src="" alt="coach">
+                </div>
+
+                <!--this is the main content part in desktop mode-->
+                <div class="col-6">
+                    <form class="fdesign">
+                        <h1>Welcome to Coach travel</h1>
+                        <h3>working days Sunday to Friday</h3>
+                        <h3>7:00am to 10:30pm</h3>
+                        <input type="text" id="date" name="start" placeholder="From">
+                        <input type="text" id="date" name="end" placeholder="To">
+                        <br>
+                        <input type="date" id="date" name="date">
+                        <input type="date" id="date" name="date">
+                        <h3>Departure Information</h3>
+                        <input type="checkbox" id="date" name="formDesign">
+                        <label for="formDesign">One-Way</label>
+                        <input type="checkbox" id="date" name="formDesign">
+                        <label for="formDesign">Return</label>
+                        <br>
+                        <label for="quantity">Adults:</label>
+                        <input type="number" id="date" name="quantity" min="1" max="100">
+                        <label for="quantity">Children (Under 10):</label>
+                        <input type="number" id="date" name="quantity" min="1" max="100"><br>
+                        <input type="submit" id="sub" value="submit">
+
+
+
+
+                    </form>
+
+                </div>
+                <!-- thi is the left side part in desktop mode-->
+                <div class="col-3 right">
+                    <div class="aside">
+                        <form class="signup">
+                            <h4>Don't have an account? Sign up here!</h4>
+                            <h1>Register now!</h1>
+                            <label>Personal Details:</label>
+                            <input type="text" class="signup" name="Fname" placeholder="First Name">
+                            <input type="text" class="signup" name="Sname" placeholder="Surname"><br><br>
+                            <label>Date of Birth:</label>
+                            <input type="date" class="signup" name="DOB"><br><br>
+                            <label>Account Setup:</label>
+                            <input type="text" class="signup" name="Username" placeholder="Username"><br>
+                            <input type="password" class="signup" name="Password" placeholder="Password"><br><br>
+                            <button>Register</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer">
+                <p></p>
+            
+            </div>
+        </div>
+    </body>
+</html>

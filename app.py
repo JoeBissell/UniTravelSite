@@ -18,6 +18,7 @@ def joe():
 def oscar():
     return render_template("oscar/index.html")
 
+<<<<<<< HEAD
 @app.route("/hollie")
 def hollie():
     return render_template("hollie/index.html")
@@ -32,6 +33,11 @@ def suleima():
 
 
 
+=======
+@app.route("/suleima")
+>>>>>>> cac56b4742c7536cad52b6a56b1a17ab96198ce3
 
+def suleima():
+    return render_template("suleima/coach.html")
 
 app.run(debug = True, port = 5000)
