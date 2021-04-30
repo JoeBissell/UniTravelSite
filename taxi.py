@@ -125,7 +125,7 @@ def oscarlookup():
          rows = dbcursor.fetchall()
          dbcursor.close()
          conn.close()
-         return render_template('oscar/lookup.html', resultset=rows)
+         return render_template('/oscar/lookup.html', resultset=rows)
       else:
          print('db connect error')
          return ('db connect error')
@@ -304,7 +304,7 @@ def oscarregister():
                   if dbcursor.rowcount > 0:
                      print ('username already taken')
                      error = "username already taken"
-                     return render_template("register.html", error=error)
+                     return render_template("oscar/register.html", error=error)
                   else:
                      dbcursor.execute("INSERT INTO users (username, password_hash,  email) VALUES (%s, %s, %s)", (username, password, email))
                      conn.commit()
@@ -321,9 +321,9 @@ def oscarregister():
             return ' DB connection error '
       else:
          print('empty parameters')
-         return render_template("register.html", error=error)
+         return render_template("oscar/register.html", error=error)
    except Exception as e:
-      return render_template("register.html", error=e)
-   return render_template("register.html", error=error)
+      return render_template("oscar/register.html", error=e)
+   return render_template("oscar/register.html", error=error)
    
 

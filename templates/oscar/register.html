@@ -6,7 +6,7 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename= 'main.css') }}" type="text/css">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'stylesheets/oscar.css') }}" type="text/css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <body> 
@@ -18,10 +18,10 @@
         <div class="col-1"></div>
         <nav class="col-10">
             <div class="nav-left">
-                <a href="{{ url_for('index') }}"><i class="fa fa-home"></i> Home</a>
-                <a href="{{ url_for('lookup') }}"><i class="fa fa-search"></i> Lookup</a>
-                <a href="{{ url_for('login') }}"><i class="fa fa-lock"></i> Login</a>
-                <a class="active" href="{{ url_for('register') }}"><i class="fa fa-lock"></i> Register</a>
+                <a class="active" href="{{ url_for('oscarindex') }}"><i class="fa fa-home"></i> Home</a>
+                <a href="{{ url_for('oscarlookup') }}"><i class="fa fa-search"></i> Lookup</a>
+                <a href="{{ url_for('oscarlogin') }}"><i class="fa fa-lock"></i> Login</a>
+                <a class="active" href="{{ url_for('oscarregister') }}"><i class="fa fa-lock"></i> Register</a>
              </div>
             <div class="nav-right">
                 <a href="#home"><i class="fa fa-bars"></i> Other Travel</a>
