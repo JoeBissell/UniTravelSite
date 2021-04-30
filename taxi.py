@@ -25,6 +25,7 @@ def oscarindex():
    print ('Hello')      
    return render_template('/oscar/index.html')
 
+
 ## LOGIN/LOGOUT FUNCTIONS ##
 ## already logged in
 def check_login(f):
@@ -259,7 +260,8 @@ def oscaradminremoveroute():
                conn.commit()
                dbcursor.close()
                conn.close()
-               return render_template('oscar/admin/admin.html')
+               msg = 'Record removed'
+               return render_template('oscar/admin/admin.html', msg=msg)
             else:
                print('connect error')
          else:
@@ -300,7 +302,7 @@ def oscarregister():
                   else:
                      dbcursor.execute("INSERT INTO taxiusers (username, password_hash,  email) VALUES (%s, %s, %s)", (username, password, email))
                      conn.commit()
-                  print("Thanks for registering")
+                  print("registered")
                   dbcursor.close()
                   conn.close()
                   gc.collect()
@@ -317,5 +319,14 @@ def oscarregister():
    except Exception as e:
       return render_template("oscar/register.html", error=e)
    return render_template("oscar/register.html", error=error)
+
+## route to bookings
+@app.route('/oscarbookings')    
+def oscarbookings():  
+   if 'username' in session:
+      username = session['username']
+      return render_template('/oscar/bookings/bookings.html', username=username)          
+   print ('Hello')      
+   return render_template('/oscar/login.html')
    
 
