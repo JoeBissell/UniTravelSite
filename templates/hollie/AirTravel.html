@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'static/stylesheets/main.css') }}"/>
+        <title>Air Travel</title>
+    </head>
+
+    <body>
+        <div id="hollie-wrapper">
+            <div class="header">
+                <h1>Tosjosumbalie Travel </h1>
+                <button class="signin">Sign in</button>
+            </div>
+
+            <div class="row">
+                <!--this is the menu on the left in desktop mode-->
+                <div class="col-3 menu"> 
+                    <ul>
+                        <li>Air Travel</li>
+                        <li>Train Travel</li>
+                        <li>Coach Travel</li>
+                        <li>Taxi Travel</li>
+                        <li>Car Hire</li>
+                        <li>All Travel Options</li>
+                    </ul>
+                    <img class="airimage" alt="Inside of the plane" src="/static/styles/airTravel.jpeg">
+                </div>
+
+                <!--this is the main content part in desktop mode-->
+                <div class="col-6">
+                    <form class="fdesign">
+                        <h1>Welcome to Air Travel</h1>
+                        <h3>Working Days Monday - Saturday</h3>
+                        <h3>7:00am to 10:30pm</h3>
+                        <input type="text" id="date" name="start" placeholder="From">
+                        <input type="text" id="date" name="end" placeholder="To"><br>
+                        <input type="date" id="date" name="date">
+                        <input type="date" id="date" name="date">
+                        <h3>Departure Information</h3>
+                        <input type="checkbox" id="date" name="formDesign">
+                        <label for="formDesign">One-Way</label>
+                        <input type="checkbox" id="date" name="formDesign">
+                        <label for="formDesign">Return</label><br>
+                        <label for="quantity">Adults:</label>
+                        <input type="number" id="date" name="quantity" min="1" max="100">
+                        <label for="quantity">Children (Under 10):</label>
+                        <input type="number" id="date" name="quantity" min="1" max="100"><br>
+                        <input type="submit" id="sub" value="submit">
+                    </form>
+
+                </div>
+                <!-- thi is the left side part in desktop mode-->
+                <div class="col-3 right">
+                    <div class="aside">
+                        <form class="signup">
+                            <h4>Not got an account? Sign up here!</h4>
+                            <h1>Register Account</h1>
+                            <label>Personal Details:</label>
+                            <input type="text" class="signup" name="Fname" placeholder="First Name">
+                            <input type="text" class="signup" name="Sname" placeholder="Surname"><br><br>
+                            <label>Date of Birth:</label>
+                            <input type="date" class="signup" name="DOB"><br><br>
+                            <label>Account Setup:</label>
+                            <input type="text" class="signup" name="Username" placeholder="Username"><br>
+                            <input type="password" class="signup" name="Password" placeholder="Password"><br><br>
+                            <button>Register</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+            <div class="footer">
+                <p>COPYRIGHT AND CONTACT US DETAILS</p>
+            </div>
+        </div>
+    </body>
+</html>
