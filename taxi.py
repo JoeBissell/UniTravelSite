@@ -178,9 +178,9 @@ def admininsert():
 
 ## ADMIN FUNCTIONS ##
 ## admin show all records
-@app.route('/adminroutes')
+@app.route('/oscaradminroutes')
 @admin_req
-def adminroutes():
+def oscaradminroutes():
    print ('Hello')
    conn = get_connection()
    if conn != None:
@@ -201,9 +201,9 @@ def adminroutes():
       return 'connect error'
 
 ##insert route
-@app.route('/admininsert', methods=['POST', 'GET'])
+@app.route('/oscaradmininsert', methods=['POST', 'GET'])
 @admin_req
-def insertroute():
+def oscaradmininsert():
    msg=""
    print('adding route')
    if request.method == 'POST':
