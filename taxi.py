@@ -17,13 +17,13 @@ def get_connection():
    return conn
 
 ## route to index page
-@app.route('/')         
-def index():  
+@app.route('/oscarindex')         
+def oscarindex():  
    if 'username' in session:
       username = session['username']
-      return render_template('oscar/index.html', username=username)          
+      return render_template('/oscar/index.html', username=username)          
    print ('Hello')      
-   return render_template('index.html')
+   return render_template('/oscar/index.html')
 
 ## LOGIN/LOGOUT FUNCTIONS ##
 ## already logged in
@@ -38,9 +38,9 @@ def check_login(f):
    return wrap
 
 ## login route
-@app.route('/login', methods=["GET", "POST"])
+@app.route('/oscarlogin', methods=["GET", "POST"])
 @check_login
-def login():
+def oscarlogin():
    form={}
    error = ''
    try:
@@ -59,7 +59,7 @@ def login():
                   data = dbcursor.fetchone()
                   if dbcursor.rowcount < 1:
                      error = "username/password incorrect"
-                     return render_template("login.html", error=error)
+                     return render_template("oscar/login.html", error=error)
                   else:
                      if sha256_crypt.verify(request.form['password'], str(data[0])):
                         session['logged_in'] = True
@@ -67,18 +67,18 @@ def login():
                         session['usertype'] = str(data[1])
                         print("you are logged in")
                         if session['usertype'] == 'admin':
-                           return render_template("admin/admin.html", username=username, data='user specific data', usertype=session['usertype'])
+                           return render_template("oscar/admin/admin.html", username=username, data='user specific data', usertype=session['usertype'])
                         else: 
-                           return render_template("login-success.html", username=username, data='user specific data', usertype=session['usertype'])
+                           return render_template("oscar/login-success.html", username=username, data='user specific data', usertype=session['usertype'])
                      else:
                         error = "invalid credentials1"
                gc.collect()
                print('login start 1.10')
-               return render_template("login.html", form=form, error=error)
+               return render_template("oscar/login.html", form=form, error=error)
    except Exception as e:
       error = str(e) + "invalid credentials2"
-      render_template("login.html", form=form, error=error)
-   return render_template("login.html", form=form, error=error)
+      render_template("oscar/login.html", form=form, error=error)
+   return render_template("oscar/login.html", form=form, error=error)
 
 ## logout route
 @app.route('/logout')
@@ -112,8 +112,8 @@ def admin_req(f):
 ## END OF LOGIN/LOGOUT FUNCTIONS ##
 
 ## basic lookup of taxi service routes
-@app.route('/lookup')
-def lookup():
+@app.route('/oscarlookup')
+def oscarlookup():
    conn = get_connection()
    if conn != None:
       if conn.is_connected():
@@ -282,8 +282,8 @@ def removeroute():
 ##remove booking
 
 ## registration page
-@app.route('/register', methods=['POST', 'GET'])
-def register():
+@app.route('/oscarregister', methods=['POST', 'GET'])
+def oscarregister():
    error = ''
    print('Register start')
    try:
@@ -326,9 +326,4 @@ def register():
       return render_template("register.html", error=e)
    return render_template("register.html", error=error)
    
-
-if __name__ == '__main__':    
-   app.run(debug = True, port = 5000)
-
-
 

@@ -1,10 +1,19 @@
-from flask import Flask
-from flask import render_template
-import taxi
+import mysql.connector
+from flask import Flask, render_template, request, session, redirect, url_for, escape, abort
+from passlib.hash import sha256_crypt
+import hashlib
+import gc
+from functools import wraps
 
+import taxi
 
 app = Flask(__name__)
 
+## oscar routes to taxi app ##
+app.add_url_rule('/oscarindex', view_func=taxi.oscarindex)
+app.add_url_rule('/oscarlookup', view_func=taxi.oscarlookup)
+app.add_url_rule('/oscarregister', view_func=taxi.oscarregister)
+app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin)
 
 @app.route("/")
 def index():
@@ -18,7 +27,6 @@ def joe():
 def oscar():
     return render_template("oscar/index.html")
 
-<<<<<<< HEAD
 @app.route("/hollie")
 def hollie():
     return render_template("hollie/index.html")
@@ -27,15 +35,8 @@ def hollie():
 def bradley():
     return render_template("bradley/index.html")
 
+
 @app.route("/suleima")
-def suleima():
-    return render_template("suleima/index.html")
-
-
-
-=======
-@app.route("/suleima")
->>>>>>> cac56b4742c7536cad52b6a56b1a17ab96198ce3
 
 def suleima():
     return render_template("suleima/coach.html")
