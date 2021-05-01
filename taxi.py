@@ -1,9 +1,10 @@
 import mysql.connector
-from flask import Flask, render_template, request, session, redirect, url_for, escape, abort
+from flask import Flask, render_template, request, session, redirect, url_for, escape, abort, jsonify, redirect
 from passlib.hash import sha256_crypt
 import hashlib
 import gc
 from functools import wraps
+from datetime import datetime
 
 app = Flask(__name__)   
 app.secret_key = 'verysecretkey'
@@ -320,13 +321,47 @@ def oscarregister():
       return render_template("oscar/register.html", error=e)
    return render_template("oscar/register.html", error=error)
 
-## route to bookings
-@app.route('/oscarbookings')    
-def oscarbookings():  
-   if 'username' in session:
-      username = session['username']
-      return render_template('/oscar/bookings/bookings.html', username=username)          
-   print ('Hello')      
-   return render_template('/oscar/login.html')
-   
+##BOOKINGS
+@app.route('/oscarbookings')
+def oscarbookings():
+	conn = get_connection()
+	if conn != None:    #Checking if connection is None         
+		print('MySQL Connection is established')                          
+		dbcursor = conn.cursor()    #Creating cursor object            
+		dbcursor.execute('SELECT DISTINCT leaving FROM taxiroutes;')   
+		#print('SELECT statement executed successfully.')             
+		rows = dbcursor.fetchall()                                    
+		dbcursor.close()              
+		conn.close() #Connection must be 
+		leavingcity = []
+		for leaving in rows:
+			leaving = str(leaving).strip("(")
+			leaving = str(leaving).strip(")")
+			leaving = str(leaving).strip(",")
+			leaving = str(leaving).strip("'")
+			leavingcity.append(leaving)
+		return render_template('oscar/bookings/bookings.html', leavinglist=leavingcity)
+	else:
+		print('DB connection Error')
+		return 'DB Connection Error'
+	
+@app.route ('/oscarreturnarrival/', methods = ['POST', 'GET'])
+def ajax_returnarrival():   
+	print('/oscarreturnarrival') 
 
+	if request.method == 'GET':
+		arrival = request.args.get('q')
+		conn = get_connection()
+		if conn != None:    #Checking if connection is None         
+			print('MySQL Connection is established')                          
+			dbcursor = conn.cursor()    #Creating cursor object            
+			dbcursor.execute('SELECT DISTINCT arrival FROM taxiroutes WHERE leaving = %s;', (arrival,))   
+			#print('SELECT statement executed successfully.')             
+			rows = dbcursor.fetchall()
+			total = dbcursor.rowcount                                    
+			dbcursor.close()              
+			conn.close() #Connection must be closed			
+			return jsonify(returncities=rows, size=total)
+		else:
+			print('DB connection Error')
+			return jsonify(returncities='DB Connection Error')

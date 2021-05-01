@@ -1,9 +1,10 @@
 import mysql.connector
-from flask import Flask, render_template, request, session, redirect, url_for, escape, abort
+from flask import Flask, render_template, request, session, redirect, url_for, escape, abort, jsonify, redirect
 from passlib.hash import sha256_crypt
 import hashlib
 import gc
 from functools import wraps
+from datetime import datetime
 
 import taxi, coach
 
@@ -110,8 +111,9 @@ app.add_url_rule('/oscarregister', view_func=taxi.oscarregister,  methods=['POST
 app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin, methods=['POST', 'GET'])
 app.add_url_rule('/oscarlogout', view_func=taxi.oscarlogout)
 ## oscar bookings
-app.add_url_rule('/oscarbookings', view_func=taxi.oscarbookings)
-## oscar admin route
+app.add_url_rule('/oscarbookings', view_func=taxi.oscarbookings, methods=['POST', 'GET'])
+app.add_url_rule('/oscarreturnarrival/', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
+## oscar admin
 app.add_url_rule('/oscar_admininsert', view_func=taxi.oscar_admininsert)
 app.add_url_rule('/oscaradmininsert', view_func=taxi.oscaradmininsert, methods=['POST', 'GET'])
 app.add_url_rule('/oscar_adminroutes', view_func=taxi.oscar_adminroutes)
