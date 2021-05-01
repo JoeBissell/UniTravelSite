@@ -29,28 +29,17 @@
 
                 <!--this is the main content part in desktop mode-->
                 <div class="col-6">
-                    <form method="POST"  class="fdesign">
-                        <h1>Welcome to Coach travel</h1>
-                        <label for="From">name: </label>
-                        <input type="text" id="date" name="name" placeholder="name">
-                        <label for="to">email: </label>
-                        <input type="email" id="date" name="email" placeholder="email">
 
-                        <label for="From">username: </label>
-                        <input type="text" id="date" name="username" placeholder="username">
-                        <label for="From">password: </label>
-                        <input type="password" id="date" name="password" placeholder="password">
-                        <input type="submit" id="sub" value="submit">
-
-
-
-
-                    </form>
-
+                    {% block content %}
+                    {% endblock %}
                 </div>
                 <!-- thi is the left side part in desktop mode-->
                 <div class="col-3 right">
                     <div class="aside">
+
+                        <h4>Don't have an account? Sign up here!</h4>
+                        <h1>Register now!</h1>
+                        <a href="{{ url_for('register') }}"><button>Register</button></a>
 
                     </div>
                 </div>

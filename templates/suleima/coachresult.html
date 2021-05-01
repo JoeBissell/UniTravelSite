@@ -1,70 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
-        <title>Coach Travel</title>
-    </head>
-
-    <body>
-        <div id="suleima-wrapper">
-            <div class="header">
-                <h1>Tosjosumbalie Travel</h1>
-                <a href="{{ url_for('login') }}"><button class="signin">Log In</button></a>
-            </div>
-
-            <div class="row">
-                <!--this is the menu on the left in desktop mode-->
-                <div class="col-3 menu"> 
-                    <ul>
-                        <li>Air travel</li>
-                        <li>Train travel</li>
-                        <li>Coach travel</li>
-                        <a href="{{ url_for('oscarindex') }}"><li>Taxi travel</li></a>
-                        <li>Car hire</li>
-                        <li>All travel options</li>
-                    </ul>
-
-                </div>
-
-                <!--this is the main content part in desktop mode-->
-                <div class="col-6">
-
-                    <table class="col-10">
-                        <tr>
-                            <th>Leaving</th>
-                            <th>Leaving time</th>
-                            <th>Arrival </th>
-                            <th>Arrival time</th>
-                        </tr>
-                        {% for row in resultset %}
-                        <tr>
-                            <td>{{row[1]}}</td>
-                            <td>{{row[2]}}</td>
-                            <td>{{row[3]}}</td>
-                            <td>{{row[4]}}</td>
-                        </tr>
-                        {% endfor %}
-                    </table>
+{% extends "suleima/coachlayout.html" %}
 
 
-                </div>
-                <!-- thi is the left side part in desktop mode-->
-                <div class="col-3 right">
-                    <div class="aside">
-
-                        <h4>Don't have an account? Sign up here!</h4>
-                        <h1>Register now!</h1>
-                        <a href="{{ url_for('register') }}"><button>Register</button></a>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="footer">
-                <p>this travel method is covered by Suleima Abbara - 19020111</p>
-            
-            </div>
-        </div>
-    </body>
-</html>
+{% block content %}
+    {% for coachres in coachresset %}
+        <h2>from {{ coachres.departure }} to {{ coachres.arrivel }} </h2>
+        <h3>departure time {{ coachres.deptime }} arrival time(possibly the next day) {{ coachres.arrivaltime }} </h3>
+        <h3>available seats: {{ coachres.availability }} </h3>
+    {% endfor %}
+{% endblock %}

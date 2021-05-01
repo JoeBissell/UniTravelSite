@@ -1,35 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
-        <title>Coach Travel</title>
-    </head>
+{% extends "suleima/coachlayout.html" %}
+{% block content %}
 
-    <body>
-        <div id="suleima-wrapper">
-            <div class="header">
-                <h1>Tosjosumbalie Travel</h1>
-                <a href="{{ url_for('login') }}"><button class="signin">Log In</button></a>
-            </div>
-
-            <div class="row">
-                <!--this is the menu on the left in desktop mode-->
-                <div class="col-3 menu"> 
-                    <ul>
-                        <li>Air travel</li>
-                        <li>Train travel</li>
-                        <li>Coach travel</li>
-                        <a href="{{ url_for('oscarindex') }}"><li>Taxi travel</li></a>
-                        <li>Car hire</li>
-                        <li>All travel options</li>
-                    </ul>
-
-                </div>
-
-                <!--this is the main content part in desktop mode-->
-                <div class="col-6">
-                    <form method="POST"  class="fdesign">
+                    <form method="POST" action="/coachresult"  class="fdesign">
                         <h1>Welcome to Coach travel</h1>
                         <label for="From">From: </label>
                         <input type="text" id="date" name="start" placeholder="From">
@@ -53,28 +25,5 @@
                         <input type="number" id="date" name="quantity" min="0" max="44"><br>
                         <input type="submit" id="sub" value="submit">
 
-
-
-
                     </form>
-
-                </div>
-                <!-- thi is the left side part in desktop mode-->
-                <div class="col-3 right">
-                    <div class="aside">
-
-                        <h4>Don't have an account? Sign up here!</h4>
-                        <h1>Register now!</h1>
-                        <a href="{{ url_for('register') }}"><button>Register</button></a>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="footer">
-                <p>this travel method is covered by Suleima Abbara - 19020111</p>
-            
-            </div>
-        </div>
-    </body>
-</html>
+{% endblock %}
