@@ -9,7 +9,7 @@ from datetime import datetime
 app = Flask(__name__)   
 app.secret_key = 'verysecretkey'
 
-## create connection to DB
+## DB CONNECT
 def get_connection():
    conn = mysql.connector.connect(host='localhost',
                                   user='root',
@@ -17,29 +17,26 @@ def get_connection():
                                   database='travelsite')
    return conn
 
-## route to index page
+## INDEX
 @app.route('/oscarindex')         
 def oscarindex():  
    if 'username' in session:
       username = session['username']
-      return render_template('/oscar/index.html', username=username)          
-   print ('Hello')      
+      return render_template('/oscar/index.html', username=username)              
    return render_template('/oscar/index.html')
 
 
-## LOGIN/LOGOUT FUNCTIONS ##
-## already logged in
+## ALREADY LOGGED IN
 def check_login(f):
    @wraps(f)
    def wrap(*args, **kwargs):
       if ('logged_in' not in session):
          return f(*args, **kwargs)
       else: 
-         print('already logged in')
-         return render_template('oscar/index.html', error= 'already logged in')
+         return render_template('oscar/index.html', error= 'Already logged in')
    return wrap
 
-## login route
+## LOG IN
 @app.route('/oscarlogin', methods=["GET", "POST"])
 @check_login
 def oscarlogin():
@@ -49,77 +46,74 @@ def oscarlogin():
       if request.method == "POST":
          username = request.form['username']
          password = request.form['password']
-         print('login start 1.1')
-
+         print('Attempting login.')
          if username !=None and password != None:
             conn = get_connection()
             if conn != None:
                if conn.is_connected():
-                  print('SQL connection established')
+                  print('Connected to DB.')
                   dbcursor = conn.cursor()
                   dbcursor.execute("SELECT password_hash, usertype FROM taxiusers where username = %s;", (username,))
                   data = dbcursor.fetchone()
                   if dbcursor.rowcount < 1:
-                     error = "username/password incorrect"
+                     error = "Username or password incorrect"
                      return render_template("oscar/login.html", error=error)
                   else:
                      if sha256_crypt.verify(request.form['password'], str(data[0])):
                         session['logged_in'] = True
                         session['username'] = request.form['username']
                         session['usertype'] = str(data[1])
-                        print("you are logged in")
+                        print("Already logged in.")
                         if session['usertype'] == 'admin':
                            return render_template("oscar/admin/admin.html", username=username, data='user specific data', usertype=session['usertype'])
                         else: 
                            return render_template("oscar/login-success.html", username=username, data='user specific data', usertype=session['usertype'])
                      else:
-                        error = "invalid credentials1"
+                        error = "Invalid login 1."
                gc.collect()
-               print('login start 1.10')
                return render_template("oscar/login.html", form=form, error=error)
    except Exception as e:
-      error = str(e) + "invalid credentials2"
+      error = str(e) + "Invalid login 2."
       render_template("oscar/login.html", form=form, error=error)
    return render_template("oscar/login.html", form=form, error=error)
 
-## logout route
+## LOG OUT
 @app.route('/oscarlogout')
 def oscarlogout():
    session.clear()
-   print("logged out")
+   print("Logged out.")
    gc.collect()
    return render_template('oscar/index.html')
 
-## login required
+## LOG IN REQUIRED
 def login_req(f):
    @wraps(f)
    def wrap(*args, **kwargs):
       if 'logged_in' in session:
          return f(*args, **kwargs)
       else:
-         print("you must login")
+         print("Login required.")
       return render_template("login.html", error="Please login first")
    return wrap
 
-## admin login required
+## ADMIN LOG IN REQUIRED
 def admin_req(f):
    @wraps(f)
    def wrap(*args, **kwargs):
       if ('logged_in' in session) and (session['usertype'] == 'admin'):
          return f(*args, **kwargs)
       else:
-         print("log in as admin")
+         print("Admin login required.")
          abort(401)
    return wrap
-## END OF LOGIN/LOGOUT FUNCTIONS ##
 
-## basic lookup of taxi service routes
+## LOOKUP ROUTES
 @app.route('/oscarlookup')
 def oscarlookup():
    conn = get_connection()
    if conn != None:
       if conn.is_connected():
-         print('SQL connection established')
+         print('Connected to DB.')
          dbcursor = conn.cursor()
          SQL_statement = 'SELECT DISTINCT leaving FROM taxiroutes;'
          dbcursor.execute(SQL_statement)
@@ -129,13 +123,14 @@ def oscarlookup():
          conn.close()
          return render_template('/oscar/lookup.html', resultset=rows)
       else:
-         print('db connect error')
-         return ('db connect error')
+         print('Connection error.')
+         error = "Connection error."
+         return render_template("oscar/index.html", error=error)
    else: 
-      print('db connect error')
-      return ('db connect error')
+      error = "Connection error."
+      return render_template("oscar/index.html", error=error)
 
-## get results from taxi lookup page
+## LOOKUP RESULTS
 @app.route('/oscar_show_route', methods=['POST','GET'])
 def oscar_show_route():
    if request.method =='GET':
@@ -144,70 +139,66 @@ def oscar_show_route():
          conn = get_connection()
          if conn != None:
             if conn.is_connected():
-               print ('sql connection established')
+               print ('Connected to DB.')
                dbcursor = conn.cursor()
                SQL_statement = 'SELECT * FROM taxiroutes WHERE leaving = %s'
                args = (leaving,)
                dbcursor.execute(SQL_statement, args)
-               print('SELECT statement executed')
+               print('SELECT executed.')
                rows = dbcursor.fetchall()
                dbcursor.close()
                conn.close()
                return render_template('oscar/lookup-results.html', resultset=rows)
             else:
-               print('db connect error')
-               return 'db connect error'
+               error = "Connection error."
+               return render_template("oscar/index.html", error=error)
          else:
-            print('db connect error')
-            return 'db connect error'
+            error = "Connection error."
+            return render_template("oscar/index.html", error=error)
       else: 
-         print('invalid route')
+         print('Invalid route.')
          return render_template('oscar/index.html')
 
-## admin page
+## ADMIN 
 @app.route('/admin')
 @admin_req
 def admin():
-   print ('Hello')
    return render_template('admin.html')
 
-## admin insert new route
+## ADMIN ADD ROUTE TO DB
 @app.route('/oscar_admininsert')
 @admin_req
 def oscar_admininsert():
-   print ('Hello')
    return render_template('oscar/admin/admininsert.html')
 
-## ADMIN FUNCTIONS ##
-## admin show all records
+## ADMIN DISPLAY ALL ROUTES
 @app.route('/oscar_adminroutes')
 @admin_req
 def oscar_adminroutes():
-   print ('Hello')
    conn = get_connection()
    if conn != None:
       if conn.is_connected():
-         print('conn established')
+         print('Connected to DB.')
          dbcursor = conn.cursor()
          dbcursor.execute('SELECT * FROM taxiroutes;')
-         print('select executed')
+         print('SELECT executed.')
          rows = dbcursor.fetchall()
          dbcursor.close()
          conn.close()
          return render_template('oscar/admin/adminroutes.html', resultset=rows)
       else:
-         print('connect error')
-         return('connect error')
+         error = "Connection error."
+         return render_template("oscar/index.html", error=error)
    else:
-      print ('connect error')
-      return 'connect error'
+         error = "Connection error."
+         return render_template("oscar/index.html", error=error)
 
-##insert route
+## ADMIN ADD ROUTE TO DB
 @app.route('/oscaradmininsert', methods=['POST', 'GET'])
 @admin_req
 def oscaradmininsert():
    msg=""
-   print('adding route')
+   print('Adding route to DB.')
    if request.method == 'POST':
       try:
          leaving = request.form['leaving']
@@ -215,68 +206,59 @@ def oscaradmininsert():
          arrival = request.form['arrival']
          arrivaltime = request.form['arrivaltime']
          miles = request.form['miles']
-         print('try')
-         msg = leaving + leavingtime + arrival + arrivaltime + miles
-         print('msg')
          conn = get_connection()
          if conn.is_connected():
             cursor = conn.cursor()
             sql_statement = "INSERT INTO travelsite.taxiroutes (leaving, leavingtime, arrival, arrivaltime, miles) VALUES (%s, %s, %s, %s, %s)"
-            print(cursor)
             args = (leaving, leavingtime, arrival, arrivaltime, miles)
             cursor.execute(sql_statement, args)
+            print("INSERT executed.")
             conn.commit()
             cursor.close()
             msg = "Record added"
          print(msg)
       except:
-         print('except')
          conn.rollback()
-         msg += "error in insert op"
+         msg += "Error while inserting"
          print(msg)
       finally:
-         print('finally')
          return render_template('oscar/admin/admin.html', msg= msg)
    else:
-      print('not post')
-      return 'not post'
+      print('Not POST')
+      return 'Not POST'
 
-##remove route
+## ADMIN DELETE ROUTE
 @app.route('/oscaradminremoveroute', methods=['POST', 'GET'])
 @admin_req
 def oscaradminremoveroute():
    if request.method == 'GET':
       routeid = request.args.get('removeroute')
-      print('route id= =', routeid)
       if routeid != None:
          conn=get_connection()
          if conn != None:
             if conn.is_connected():
-               print('connected')
+               print('Connected to DB.')
                dbcursor = conn.cursor()
-               sql_statement = 'DELETE FROM taxiroutes WHERE id = %s'
+               sql_statement = 'DELETE FROM taxiroutes WHERE routeid = %s'
                args = (routeid,)
                dbcursor.execute(sql_statement, args)
-               print('command executed')
+               print('DELETE executed.')
                conn.commit()
                dbcursor.close()
                conn.close()
                msg = 'Record removed'
                return render_template('oscar/admin/admin.html', msg=msg)
             else:
-               print('connect error')
+               print('Connection error.')
          else:
-            print('db connect error')
-            return 'db connect error'
+            error = "Connection error."
+            return render_template("oscar/index.html", error=error)
       else:
-         print('invalid tutor id')
          return render_template('oscar/admin/admin.html')
 
-##change time of route
-##add booking
-##remove booking
 
-## registration page
+
+## REGISTRATION
 @app.route('/oscarregister', methods=['POST', 'GET'])
 def oscarregister():
    error = ''
@@ -290,49 +272,51 @@ def oscarregister():
             conn = get_connection()
             if conn != None: 
                if conn.is_connected(): 
-                  print ('MySQL connection established')
+                  print ('Connected to DB.')
                   dbcursor = conn.cursor()
                   password = sha256_crypt.hash((str(password)))
                   Verify_Query = "SELECT * FROM taxiusers WHERE username = %s;"
                   dbcursor.execute(Verify_Query,(username,))
+                  print ("SELECT executed.")
                   rows = dbcursor.fetchall()
                   if dbcursor.rowcount > 0:
-                     print ('username already taken')
-                     error = "username already taken"
+                     print ('Username taken.')
+                     error = "Username already taken."
                      return render_template("oscar/register.html", error=error)
                   else:
                      dbcursor.execute("INSERT INTO taxiusers (username, password_hash,  email) VALUES (%s, %s, %s)", (username, password, email))
                      conn.commit()
-                  print("registered")
-                  dbcursor.close()
-                  conn.close()
-                  gc.collect()
-                  return render_template("oscar/success.html")
-            else:
-               print('Connection error')
-               return ' DB connection error '
-         else: 
-            print ('Connection error')
-            return ' DB connection error '
-      else:
-         print('empty parameters')
-         return render_template("oscar/register.html", error=error)
+                     print("INSERT executed. Registration complete.")
+                     dbcursor.close()
+                     conn.close()
+                     gc.collect()
+                     return render_template("oscar/success.html")
+               else:
+                  error = "Connection error."
+                  return render_template("oscar/index.html", error=error)
+            else: 
+               error = "Connection error."
+               return render_template("oscar/index.html", error=error)
+         else:
+            print('Empty parameters.')
+            return render_template("oscar/register.html", error=error)
    except Exception as e:
       return render_template("oscar/register.html", error=e)
    return render_template("oscar/register.html", error=error)
 
-##BOOKINGS
+
+## BOOKINGS
 @app.route('/oscarbookings')
 def oscarbookings():
 	conn = get_connection()
-	if conn != None:    #Checking if connection is None         
-		print('MySQL Connection is established')                          
-		dbcursor = conn.cursor()    #Creating cursor object            
+	if conn != None:           
+		print('Connected to DB.')                          
+		dbcursor = conn.cursor()             
 		dbcursor.execute('SELECT DISTINCT leaving FROM taxiroutes;')   
-		#print('SELECT statement executed successfully.')             
+		print('SELECT executed.')             
 		rows = dbcursor.fetchall()                                    
 		dbcursor.close()              
-		conn.close() #Connection must be 
+		conn.close() 
 		leavingcity = []
 		for leaving in rows:
 			leaving = str(leaving).strip("(")
@@ -342,26 +326,64 @@ def oscarbookings():
 			leavingcity.append(leaving)
 		return render_template('oscar/bookings/bookings.html', leavinglist=leavingcity)
 	else:
-		print('DB connection Error')
-		return 'DB Connection Error'
-	
+		print('Connection error.')
+		return 'Connection error.'
+
+## BOOKINGS FETCH ARRIVALS
 @app.route ('/oscarreturnarrival/', methods = ['POST', 'GET'])
 def ajax_returnarrival():   
-	print('/oscarreturnarrival') 
-
+	print('Fetching arrivals.') 
 	if request.method == 'GET':
 		arrival = request.args.get('q')
 		conn = get_connection()
-		if conn != None:    #Checking if connection is None         
-			print('MySQL Connection is established')                          
-			dbcursor = conn.cursor()    #Creating cursor object            
+		if conn != None:          
+			print('Connected to DB.')                          
+			dbcursor = conn.cursor()             
 			dbcursor.execute('SELECT DISTINCT arrival FROM taxiroutes WHERE leaving = %s;', (arrival,))   
-			#print('SELECT statement executed successfully.')             
+			print('SELECT executed.')          
 			rows = dbcursor.fetchall()
 			total = dbcursor.rowcount                                    
 			dbcursor.close()              
-			conn.close() #Connection must be closed			
+			conn.close() 		
 			return jsonify(returncities=rows, size=total)
 		else:
+			print('Connection error.')
+			return jsonify(returncities='Connection error.')
+
+## PROCEED WITH BOOKING
+@app.route ('/oscarselectbooking/', methods = ['POST', 'GET'])
+def oscarselectbooking():
+	if request.method == 'POST':
+		print('Select booking initiated')
+		departcity = request.form['departureslist']
+		arrivalcity = request.form['arrivalslist']
+		outdate = request.form['outdate']
+		returndate = request.form['returndate']
+		adultseats = request.form['adultseats']
+		childseats = request.form['childseats']
+		lookupdata = [departcity, arrivalcity, outdate, returndate, adultseats, childseats]
+		print(lookupdata)
+		conn = dbfunc.getConnection()
+		if conn != None:    #Checking if connection is None         
+			print('MySQL Connection is established')                          
+			dbcursor = conn.cursor()    #Creating cursor object            
+			dbcursor.execute('SELECT * FROM routes WHERE deptCity = %s AND arrivCity = %s;', (departcity, arrivalcity))   
+		#	print('SELECT statement executed successfully.')             
+			rows = dbcursor.fetchall()
+			datarows=[]			
+			for row in rows:
+				data = list(row)                    
+				fare = (float(row[5]) * float(adultseats)) + (float(row[5]) * 0.5 * float(childseats))
+				#print(fare)
+				data.append(fare)
+				#print(data)
+				datarows.append(data)			
+			dbcursor.close()              
+			conn.close() #Connection must be closed
+			#print(datarows)
+			#print(len(datarows))			
+			return render_template('booking_start.html', resultset=datarows, lookupdata=lookupdata)
+		else:
 			print('DB connection Error')
-			return jsonify(returncities='DB Connection Error')
+			return redirect(url_for('index'))
+
