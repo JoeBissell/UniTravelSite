@@ -2,7 +2,8 @@
   <h1>This is the end of the basic booking process</h1> 
   <h2> booking details </h2>
 
-
+    {{ username }}
+    {{ userid }}
     <form action="/oscarbookingconfirm/" method="POST">   
         Leaving City : {{lookupdata[0]}} <br/>
         <input type="hidden" name="leavecity" id="leavecity" value="{{lookupdata[0]}}"/>

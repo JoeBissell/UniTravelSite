@@ -53,7 +53,7 @@ def oscarlogin():
                if conn.is_connected():
                   print('Connected to DB.')
                   dbcursor = conn.cursor()
-                  dbcursor.execute("SELECT password_hash, usertype FROM taxiusers where username = %s;", (username,))
+                  dbcursor.execute("SELECT password_hash, usertype, userid FROM taxiusers where username = %s;", (username,))
                   data = dbcursor.fetchone()
                   if dbcursor.rowcount < 1:
                      error = "Username or password incorrect"
@@ -63,11 +63,12 @@ def oscarlogin():
                         session['logged_in'] = True
                         session['username'] = request.form['username']
                         session['usertype'] = str(data[1])
+                        session['userid'] = str(data[2])
                         print("Already logged in.")
                         if session['usertype'] == 'admin':
-                           return render_template("oscar/admin/admin.html", username=username, data='user specific data', usertype=session['usertype'])
+                           return render_template("oscar/admin/admin.html", username=username, data='user specific data', usertype=session['usertype'], userid=session['userid'])
                         else: 
-                           return render_template("oscar/login-success.html", username=username, data='user specific data', usertype=session['usertype'])
+                           return render_template("oscar/login-success.html", username=username, data='user specific data', usertype=session['usertype'], userid=session['userid'])
                      else:
                         error = "Invalid login 1."
                gc.collect()
@@ -256,8 +257,6 @@ def oscaradminremoveroute():
       else:
          return render_template('oscar/admin/admin.html')
 
-
-
 ## REGISTRATION
 @app.route('/oscarregister', methods=['POST', 'GET'])
 def oscarregister():
@@ -303,7 +302,6 @@ def oscarregister():
    except Exception as e:
       return render_template("oscar/register.html", error=e)
    return render_template("oscar/register.html", error=error)
-
 
 ## BOOKINGS
 @app.route('/oscarbookings')
@@ -353,12 +351,14 @@ def ajax_returnarrival():
 ## PROCEED WITH BOOKING
 @app.route ('/oscarselectbooking/', methods = ['POST', 'GET'])
 def oscarselectbooking():
+   username = session['username']
    if request.method == 'POST':
       print('Booking initiated.')
       leavingcity = request.form['departureslist']
       arrivalcity = request.form['arrivalslist']
       leavedate = request.form['leavedate']
       numseats = request.form['numseats']
+      username = session['username']
       lookupdata = [leavingcity, arrivalcity, leavedate, numseats]
       conn = get_connection()
       if conn != None:
@@ -381,7 +381,7 @@ def oscarselectbooking():
             datarows.append(data)
          dbcursor.close()
          conn.close()
-         return render_template('oscar/bookings/booking_start.html', resultset=datarows, lookupdata=lookupdata)
+         return render_template('oscar/bookings/booking_start.html', username=username, resultset=datarows, lookupdata=lookupdata)
       else:
          print('Connection error.')
          return redirect(url_for('index'))
@@ -399,14 +399,16 @@ def oscarbookingconfirm():
       numseats = request.form['numseats']
       totalfare = request.form['totalfare']
       cardnumber = request.form['cardnumber']
-      bookingdata = [routeid, bookingid, departcity, arrivalcity, leavedate, numseats, totalfare]
+      userid = session['userid']
+      username = session['username']
+      bookingdata = [routeid, bookingid, departcity, arrivalcity, leavedate, numseats, totalfare, userid]
       print(bookingdata)
       conn = get_connection()
       if conn != None:
          print ('Connected to DB.')
          dbcursor = conn.cursor()
-         dbcursor.execute('INSERT INTO taxibookings (leavingdate, routeid, numseats, totalfare) VALUES \
-            (%s, %s, %s, %s);', (leavedate, routeid, numseats, totalfare))
+         dbcursor.execute('INSERT INTO taxibookings (leavingdate, routeid, numseats, totalfare, userid) VALUES \
+            (%s, %s, %s, %s, %s);', (leavedate, routeid, numseats, totalfare, userid))
          print('INSERT executed.')
          conn.commit()
          dbcursor.execute('SELECT LAST_INSERT_ID();')
@@ -424,10 +426,8 @@ def oscarbookingconfirm():
          dbcursor.execute
          dbcursor.close()
          conn.close()
-         return render_template('oscar/bookings/booking_confirm.html', resultset=bookingdata, cardnumber=cardnumber)
-      else:
-         print('Connection error.')
-         error = 'Connection error.'
-         return render_template('oscarindex.html', error=error)
-
-
+         return render_template('oscar/bookings/booking_confirm.html', username=username, resultset=bookingdata, cardnumber=cardnumber, userid=userid)
+   else:
+      print('Connection error.')
+      error = 'Connection error.'
+      return render_template('oscarindex.html', error=error)

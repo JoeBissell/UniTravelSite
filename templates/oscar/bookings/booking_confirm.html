@@ -2,7 +2,9 @@
   <h1>This is start of the basic booking process</h1> 
   <!--[journeyid, departcity, arrivalcity, outdate, returndate, adultseats, childseats, totalfare, bookingid, deptTime, arrivTime]-->
   <form action="/dumpsVar/" method="POST">
-  Route ID: {{resultset[0]}} <br/>
+  Username: {{ username }} <br/>
+  User ID: {{ userid }} <br/>
+  Booking ID: {{resultset[0]}} <br/>
   Departure City : {{resultset[2]}} <br/>
   Departure Date : {{resultset[4]}} <br/>
   Departure Time : {{resultset[8]}} <br/>
