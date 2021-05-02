@@ -1,7 +1,7 @@
 Username: {{ username }} <br/>
 User ID: {{ userid }} <br/>
 
-<form method="GET">
+<form method="GET" action="/oscardeletebooking">
     <table >
     <tr>
         <th> Date</th>
@@ -14,7 +14,7 @@ User ID: {{ userid }} <br/>
         <td> {{row[1]}} </td>
         <td> {{row[6]}} </td>
         <td> {{row[7]}} </td>
-        <td> <input type="radio" name="Cancel booking" value="{{row[0]}}"></td>
+        <td> <input type="radio" name="deletebooking" value="{{row[0]}}"></td>
     </tr>
     {% endfor %}
     </table>

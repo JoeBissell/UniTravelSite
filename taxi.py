@@ -453,3 +453,32 @@ def oscarbookingcancel():
    else:
          error = "Connection error."
          return render_template("oscar/index.html", error=error)
+
+## DELETE BOOKING
+@app.route('/oscardeletebooking', methods=['POST', 'GET'])
+def oscardeletebooking():
+   if request.method == 'GET':
+      bookingid = request.args.get('deletebooking')
+      print(bookingid)
+      if bookingid != None:
+         conn=get_connection()
+         if conn != None:
+            if conn.is_connected():
+               print('Connected to DB.')
+               dbcursor = conn.cursor()
+               sql_statement = 'DELETE FROM taxibookings WHERE bookingid = %s'
+               args = (bookingid,)
+               dbcursor.execute(sql_statement, args)
+               print('DELETE executed.')
+               conn.commit()
+               dbcursor.close()
+               conn.close()
+               msg = 'Record removed'
+               return render_template('oscar/index.html', msg=msg)
+            else:
+               print('Connection error.')
+         else:
+            error = "Connection error."
+            return render_template("oscar/index.html", error=error)
+      else:
+         return render_template('oscar/admin/admin.html')
