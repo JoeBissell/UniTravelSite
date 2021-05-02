@@ -351,7 +351,6 @@ def ajax_returnarrival():
 ## PROCEED WITH BOOKING
 @app.route ('/oscarselectbooking/', methods = ['POST', 'GET'])
 def oscarselectbooking():
-   username = session['username']
    if request.method == 'POST':
       print('Booking initiated.')
       leavingcity = request.form['departureslist']
@@ -407,8 +406,8 @@ def oscarbookingconfirm():
       if conn != None:
          print ('Connected to DB.')
          dbcursor = conn.cursor()
-         dbcursor.execute('INSERT INTO taxibookings (leavingdate, routeid, numseats, totalfare, userid) VALUES \
-            (%s, %s, %s, %s, %s);', (leavedate, routeid, numseats, totalfare, userid))
+         dbcursor.execute('INSERT INTO taxibookings (leavingdate, routeid, numseats, totalfare, userid, leaving, arrival) VALUES \
+            (%s, %s, %s, %s, %s, %s, %s);', (leavedate, routeid, numseats, totalfare, userid, departcity, arrivalcity))
          print('INSERT executed.')
          conn.commit()
          dbcursor.execute('SELECT LAST_INSERT_ID();')
@@ -431,3 +430,26 @@ def oscarbookingconfirm():
       print('Connection error.')
       error = 'Connection error.'
       return render_template('oscarindex.html', error=error)
+
+## VIEW BOOKINGS
+@app.route('/oscarbookingcancel', methods=['GET', 'POST'])
+def oscarbookingcancel():
+   conn = get_connection()
+   if conn != None:
+      if conn.is_connected():
+         userid = session['userid']
+         username = session['username']
+         print('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('SELECT * FROM taxibookings WHERE userid = userid;')
+         print('SELECT bookings executed.')
+         bookingrows = dbcursor.fetchall()
+         dbcursor.close()
+         conn.close()
+         return render_template('oscar/bookings/viewbookings.html', bookingresult=bookingrows, userid=userid, username=username)
+      else:
+         error = "Connection error."
+         return render_template("oscar/index.html", error=error)
+   else:
+         error = "Connection error."
+         return render_template("oscar/index.html", error=error)
