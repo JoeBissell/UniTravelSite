@@ -38,7 +38,6 @@ def check_login(f):
 
 ## LOG IN
 @app.route('/oscarlogin', methods=["GET", "POST"])
-@check_login
 def oscarlogin():
    form={}
    error = ''
@@ -459,7 +458,6 @@ def oscarbookingcancel():
 def oscardeletebooking():
    if request.method == 'GET':
       bookingid = request.args.get('deletebooking')
-      print(bookingid)
       if bookingid != None:
          conn=get_connection()
          if conn != None:
@@ -481,4 +479,5 @@ def oscardeletebooking():
             error = "Connection error."
             return render_template("oscar/index.html", error=error)
       else:
-         return render_template('oscar/admin/admin.html')
+         error = "No bookings"
+         return render_template('oscar/index.html', error=error)
