@@ -40,7 +40,7 @@
   </head>
   <body>
   <h1> Demo Example - associated drop down lists </h1>
-    <form action="/selectBooking/" method="POST"> 
+    <form action="/oscarselectbooking/" method="POST"> 
         Select departure city: 
         <select name="departureslist" onchange="getarrivalcity(this.value)">
         {% for leaving in leavinglist %}
@@ -53,17 +53,12 @@
         
         </select>
         <br/>
-        Select outgoing date:
-        <input type="date" name="outdate" id="outdate" required />
+        Select date of leaving :
+        <input type="date" name="leavedate" id="leavedate" required />
         <br/>
-        Select return date:
-        <input type="date" name="returndate" id="returndate" required />
-        <br/>
-        Select adult seats:
-        <input type="number" name="adultseats" id="adultseats" required />
-        <br/>
-        Select child seats:
-        <input type="number" name="childseats" id="childseats" value=0 />
+        Select number of seats:
+        <input type="number" name="numseats" id="numseats" required />
+
         <br/>
         <input type="submit" value="Proceed Booking"/>
       </form>      

@@ -1,0 +1,21 @@
+
+  <h1>This is start of the basic booking process</h1> 
+  <!--[journeyid, departcity, arrivalcity, outdate, returndate, adultseats, childseats, totalfare, bookingid, deptTime, arrivTime]-->
+  <form action="/dumpsVar/" method="POST">
+  Route ID: {{resultset[0]}} <br/>
+  Departure City : {{resultset[2]}} <br/>
+  Departure Date : {{resultset[4]}} <br/>
+  Departure Time : {{resultset[8]}} <br/>
+  Arrival City : {{resultset[3]}} <br/>  
+  Number of seats : {{resultset[5]}} <br/>
+  Total Fare : {{resultset[6]}} <br/>
+  Payment: Card ending with ****** {{cardnumber}} <br/>
+  <input type="hidden" name="totalfare" value="{{resultset[7]}}" /> 
+  <input type="hidden" name="bookingid" value="{{resultset[8]}}" />   
+  <input type="submit" value="Proceed to further actions - to dumpsVar" /> 
+  </form>  
+  <a href="/">Go to Home Page</a>
+  </p>
+
+
+

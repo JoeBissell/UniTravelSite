@@ -353,37 +353,81 @@ def ajax_returnarrival():
 ## PROCEED WITH BOOKING
 @app.route ('/oscarselectbooking/', methods = ['POST', 'GET'])
 def oscarselectbooking():
-	if request.method == 'POST':
-		print('Select booking initiated')
-		departcity = request.form['departureslist']
-		arrivalcity = request.form['arrivalslist']
-		outdate = request.form['outdate']
-		returndate = request.form['returndate']
-		adultseats = request.form['adultseats']
-		childseats = request.form['childseats']
-		lookupdata = [departcity, arrivalcity, outdate, returndate, adultseats, childseats]
-		print(lookupdata)
-		conn = dbfunc.getConnection()
-		if conn != None:    #Checking if connection is None         
-			print('MySQL Connection is established')                          
-			dbcursor = conn.cursor()    #Creating cursor object            
-			dbcursor.execute('SELECT * FROM routes WHERE deptCity = %s AND arrivCity = %s;', (departcity, arrivalcity))   
-		#	print('SELECT statement executed successfully.')             
-			rows = dbcursor.fetchall()
-			datarows=[]			
-			for row in rows:
-				data = list(row)                    
-				fare = (float(row[5]) * float(adultseats)) + (float(row[5]) * 0.5 * float(childseats))
-				#print(fare)
-				data.append(fare)
-				#print(data)
-				datarows.append(data)			
-			dbcursor.close()              
-			conn.close() #Connection must be closed
-			#print(datarows)
-			#print(len(datarows))			
-			return render_template('booking_start.html', resultset=datarows, lookupdata=lookupdata)
-		else:
-			print('DB connection Error')
-			return redirect(url_for('index'))
+   if request.method == 'POST':
+      print('Booking initiated.')
+      leavingcity = request.form['departureslist']
+      arrivalcity = request.form['arrivalslist']
+      leavedate = request.form['leavedate']
+      numseats = request.form['numseats']
+      lookupdata = [leavingcity, arrivalcity, leavedate, numseats]
+      conn = get_connection()
+      if conn != None:
+         print('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('SELECT * FROM taxiroutes WHERE leaving = %s AND arrival = %s', (leavingcity, arrivalcity))
+         print('SELECT executed.')
+         rows = dbcursor.fetchall()
+         datarows=[]
+         for row in rows:
+            data = list(row)
+            fare = (float(row[5]))
+            if numseats == '2':
+               fare = fare * 2 * 1.25
+            if numseats == '3':
+               fare = fare * 3 * 1.25
+            if numseats == '4':
+               fare = fare * 4 * 1.3
+            data.append(fare)
+            datarows.append(data)
+         dbcursor.close()
+         conn.close()
+         return render_template('oscar/bookings/booking_start.html', resultset=datarows, lookupdata=lookupdata)
+      else:
+         print('Connection error.')
+         return redirect(url_for('index'))
+
+## BOOKING CONFIRM
+@app.route('/oscarbookingconfirm/', methods=['POST', 'GET'])
+def oscarbookingconfirm():
+   if request.method == 'POST':
+      print('Booking initiated.')
+      routeid = request.form['bookingchoice']
+      bookingid = request.form['bookingchoice']
+      departcity = request.form['leavecity']
+      arrivalcity = request.form['arrivalcity']
+      leavedate = request.form['leavedate']
+      numseats = request.form['numseats']
+      totalfare = request.form['totalfare']
+      cardnumber = request.form['cardnumber']
+      bookingdata = [routeid, bookingid, departcity, arrivalcity, leavedate, numseats, totalfare]
+      print(bookingdata)
+      conn = get_connection()
+      if conn != None:
+         print ('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('INSERT INTO taxibookings (leavingdate, routeid, numseats, totalfare) VALUES \
+            (%s, %s, %s, %s);', (leavedate, routeid, numseats, totalfare))
+         print('INSERT executed.')
+         conn.commit()
+         dbcursor.execute('SELECT LAST_INSERT_ID();')
+         rows = dbcursor.fetchone()
+         bookingid = rows[0]
+         bookingdata.append(bookingid)
+         dbcursor.execute('SELECT * FROM taxiroutes WHERE routeid = %s', (routeid,))
+         rows = dbcursor.fetchall()
+         deptTime = rows[0][2]
+         arrivTime = rows[0][4]
+         bookingdata.append(deptTime)
+         bookingdata.append(arrivTime)
+         cardnumber = cardnumber[-4:-1]
+         print(cardnumber)
+         dbcursor.execute
+         dbcursor.close()
+         conn.close()
+         return render_template('oscar/bookings/booking_confirm.html', resultset=bookingdata, cardnumber=cardnumber)
+      else:
+         print('Connection error.')
+         error = 'Connection error.'
+         return render_template('oscarindex.html', error=error)
+
 
