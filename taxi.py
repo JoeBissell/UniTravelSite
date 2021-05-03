@@ -93,7 +93,7 @@ def login_req(f):
          return f(*args, **kwargs)
       else:
          print("Login required.")
-      return render_template("login.html", error="Please login first")
+      return render_template("oscar/login.html", error="Please login first")
    return wrap
 
 ## ADMIN LOG IN REQUIRED
@@ -159,11 +159,6 @@ def oscar_show_route():
          print('Invalid route.')
          return render_template('oscar/index.html')
 
-## ADMIN 
-@app.route('/admin')
-@admin_req
-def admin():
-   return render_template('admin.html')
 
 ## ADMIN ADD ROUTE TO DB
 @app.route('/oscar_admininsert')
@@ -304,30 +299,32 @@ def oscarregister():
 
 ## BOOKINGS
 @app.route('/oscarbookings')
+@login_req
 def oscarbookings():
-	conn = get_connection()
-	if conn != None:           
-		print('Connected to DB.')                          
-		dbcursor = conn.cursor()             
-		dbcursor.execute('SELECT DISTINCT leaving FROM taxiroutes;')   
-		print('SELECT executed.')             
-		rows = dbcursor.fetchall()                                    
-		dbcursor.close()              
-		conn.close() 
-		leavingcity = []
-		for leaving in rows:
-			leaving = str(leaving).strip("(")
-			leaving = str(leaving).strip(")")
-			leaving = str(leaving).strip(",")
-			leaving = str(leaving).strip("'")
-			leavingcity.append(leaving)
-		return render_template('oscar/bookings/bookings.html', leavinglist=leavingcity)
-	else:
-		print('Connection error.')
-		return 'Connection error.'
+      conn = get_connection()
+      if conn != None:           
+         print('Connected to DB.')                          
+         dbcursor = conn.cursor()             
+         dbcursor.execute('SELECT DISTINCT leaving FROM taxiroutes;')   
+         print('SELECT executed.')             
+         rows = dbcursor.fetchall()                                    
+         dbcursor.close()              
+         conn.close() 
+         leavingcity = []
+         for leaving in rows:
+            leaving = str(leaving).strip("(")
+            leaving = str(leaving).strip(")")
+            leaving = str(leaving).strip(",")
+            leaving = str(leaving).strip("'")
+            leavingcity.append(leaving)
+         return render_template('oscar/bookings/bookings.html', leavinglist=leavingcity)
+      else:
+         print('Connection error.')
+         return 'Connection error.'
 
 ## BOOKINGS FETCH ARRIVALS
 @app.route ('/oscarreturnarrival/', methods = ['POST', 'GET'])
+@login_req
 def ajax_returnarrival():   
 	print('Fetching arrivals.') 
 	if request.method == 'GET':
@@ -349,6 +346,7 @@ def ajax_returnarrival():
 
 ## PROCEED WITH BOOKING
 @app.route ('/oscarselectbooking/', methods = ['POST', 'GET'])
+@login_req
 def oscarselectbooking():
    if request.method == 'POST':
       print('Booking initiated.')
@@ -386,6 +384,7 @@ def oscarselectbooking():
 
 ## BOOKING CONFIRM
 @app.route('/oscarbookingconfirm/', methods=['POST', 'GET'])
+@login_req
 def oscarbookingconfirm():
    if request.method == 'POST':
       print('Booking initiated.')
@@ -432,6 +431,7 @@ def oscarbookingconfirm():
 
 ## VIEW BOOKINGS
 @app.route('/oscarbookingcancel', methods=['GET', 'POST'])
+@login_req
 def oscarbookingcancel():
    conn = get_connection()
    if conn != None:
@@ -455,6 +455,7 @@ def oscarbookingcancel():
 
 ## DELETE BOOKING
 @app.route('/oscardeletebooking', methods=['POST', 'GET'])
+@login_req
 def oscardeletebooking():
    if request.method == 'GET':
       bookingid = request.args.get('deletebooking')
