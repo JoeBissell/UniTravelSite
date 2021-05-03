@@ -28,11 +28,14 @@ def get_connection():
 def coachhome():       
    return render_template('/suleima/coachhome.html')
 
-@app.route("/coach") 
+@app.route("/coach", methods=['POST', 'GET']) 
 def coach():
-    return render_template('/suleima/coach.html')
+    if request.method == 'POST':
+        return render_template('/suleima/coachresult.html')
+    else:
+        return "error"
 
-@app.route('/coachresult')
+@app.route('/coachresult', methods=['POST', 'GET'])
 def coachresult():
     return render_template ('/suleima/coachresult.html')
 
