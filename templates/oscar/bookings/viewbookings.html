@@ -1,0 +1,39 @@
+{% extends "oscar/main.html" %}
+{% block title %}Bookings{{ super() }}{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block pagecontent %}
+    <div class="col-12"></div>
+
+    <div class="col-1"></div>
+    <div class="col-10 info-bar">Logged in as {{ username }}</div>
+    <div class="col-1"></div>
+
+    <div class="col-12"></div>
+
+
+    <div class="col-1"></div>
+    <div class="col-12"></div>
+        <form method="GET" action="/oscardeletebooking">
+            <table>
+                <tr>
+                    <th> Date</th>
+                    <th> Leaving </th>
+                    <th> Arrival </th>
+                    <th> Cancel booking? </th>
+                </tr>
+                {% for row in bookingresult %}
+                <tr>
+                    <td> {{row[1]}} </td>
+                    <td> {{row[6]}} </td>
+                    <td> {{row[7]}} </td>
+                    <td> <input type="radio" name="deletebooking" value="{{row[0]}}"></td>
+                </tr>
+                {% endfor %}
+            </table>
+            <input type="submit" value="Cancel booking">
+        </form>       
+{% endblock %}
+
+

@@ -1,67 +1,33 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename= 'stylesheets/oscar.css') }}" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body> 
-        <div id="oscar-wrapper">
+{% extends "oscar/main.html" %}
+{% block title %}Lookup{{ super() }}{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block pagecontent %}
+    <div class="col-12"></div>
 
+    <div class="col-1"></div>
+    <div class="col-10 info-bar">  <a class="back-button" href="{{ url_for('oscarlookup') }}"> Try another search</a> </div>
+    <div class="col-1"></div>
 
-        <header class="col-12"> UWE Taxi Travel </header>
+    <div class="col-12"></div>
 
-
-        <div class="col-1"></div>
-        <nav class="col-10">
-            <div class="nav-left">
-                <a class="active" href="{{ url_for('oscarindex') }}"><i class="fa fa-home"></i> Home</a>
-                <a href="{{ url_for('oscarlookup') }}"><i class="fa fa-search"></i> Lookup</a>
-                <a href="{{ url_for('oscarlogin') }}"><i class="fa fa-lock"></i> Login</a>
-                <a href="{{ url_for('oscarregister') }}"><i class="fa fa-lock"></i> Register</a>
-             </div>
-            <div class="nav-right">
-                <a href="#home"><i class="fa fa-bars"></i> Other Travel</a>
-            </div>
-        </nav>
-        <div class="col-1"></div>
-
-        <div class="col-12"></div>
-
-        <div class="col-1"></div>
-        <div class="col-10 info-bar">  <a class="back-button" href="{{ url_for('oscarlookup') }}"> Try another search</a> </div>
-        <div class="col-1"></div>
-
-        <div class="col-12"></div>
-
-        
-        <div class="col-1"></div>
-            <table class="col-10">
-                <tr>
-                    <th>Leaving</th>
-                    <th>Leaving time</th>
-                    <th>Arrival </th>
-                    <th>Arrival time</th>
-                </tr>
-                {% for row in resultset %}
-                <tr>
-                    <td>{{row[1]}}</td>
-                    <td>{{row[2]}}</td>
-                    <td>{{row[3]}}</td>
-                    <td>{{row[4]}}</td>
-                </tr>
-                {% endfor %}
-            </table>
-        <div class="col-1"></div> 
-        
-
-
-        <footer></br>&copy Oscar Averill</footer>
-        
-    </body>
-</html>
-
+    <div class="col-1"></div>
+        <table class="col-10">
+            <tr>
+                <th>Leaving</th>
+                <th>Leaving time</th>
+                <th>Arrival </th>
+                <th>Arrival time</th>
+            </tr>
+            {% for row in resultset %}
+            <tr>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[4]}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    <div class="col-1"></div> 
+{% endblock %}

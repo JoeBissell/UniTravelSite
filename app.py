@@ -1,9 +1,10 @@
 import mysql.connector
-from flask import Flask, render_template, request, session, redirect, url_for, escape, abort
+from flask import Flask, render_template, request, session, redirect, url_for, escape, abort, jsonify, redirect
 from passlib.hash import sha256_crypt
 import hashlib
 import gc
 from functools import wraps
+from datetime import datetime
 
 import taxi, coach
 
@@ -102,16 +103,21 @@ def register():
       return render_template("register.html", error=e)
    return render_template("register.html", error=error)
 
-## oscar routes to taxi app ##
+## OSCAR TAXI APP
 app.add_url_rule('/oscarindex', view_func=taxi.oscarindex)
 app.add_url_rule('/oscarlookup', view_func=taxi.oscarlookup)
 app.add_url_rule('/oscar_show_route', view_func=taxi.oscar_show_route, methods=['POST','GET'])
 app.add_url_rule('/oscarregister', view_func=taxi.oscarregister,  methods=['POST', 'GET'])
 app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin, methods=['POST', 'GET'])
 app.add_url_rule('/oscarlogout', view_func=taxi.oscarlogout)
-## oscar bookings
-app.add_url_rule('/oscarbookings', view_func=taxi.oscarbookings)
-## oscar admin route
+## TAXI BOOKINGS
+app.add_url_rule('/oscarbookings', view_func=taxi.oscarbookings, methods=['POST', 'GET'])
+app.add_url_rule('/oscarreturnarrival/', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
+app.add_url_rule('/oscarselectbooking/', view_func=taxi.oscarselectbooking, methods=['POST', 'GET'])
+app.add_url_rule('/oscarbookingconfirm/', view_func=taxi.oscarbookingconfirm, methods=['POST', 'GET'])
+app.add_url_rule('/oscarbookingcancel/', view_func=taxi.oscarbookingcancel, methods=['POST', 'GET']) 
+app.add_url_rule('/oscardeletebooking/', view_func=taxi.oscardeletebooking, methods=['POST', 'GET'])
+## TAXI ADMIN
 app.add_url_rule('/oscar_admininsert', view_func=taxi.oscar_admininsert)
 app.add_url_rule('/oscaradmininsert', view_func=taxi.oscaradmininsert, methods=['POST', 'GET'])
 app.add_url_rule('/oscar_adminroutes', view_func=taxi.oscar_adminroutes)

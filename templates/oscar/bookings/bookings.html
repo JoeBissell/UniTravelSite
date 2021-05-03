@@ -1,68 +1,79 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title></title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="{{ url_for('static', filename= 'stylesheets/oscar.css') }}" type="text/css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body> 
+{% extends "oscar/main.html" %}
+{% block title %}Bookings{{ super() }}{% endblock %}
+{% block head %}
+    {{ super() }}
+    <script>
+        function getarrivalcity(deptcity)    
+        {
+              var req = new XMLHttpRequest();        
+              arrivalslist = document.getElementById('arrivalslist');        
+              
+              req.onreadystatechange = function(){
+                  if (req.readyState == 4){
+                      if (req.status != 200){
+                          //error handling code here
+                      }
+                      else{
+                          var response = JSON.parse(req.responseText);                   
+                          //document.getElementById('myDiv').innerHTML = response.username
+                          var size = response.size;                   
+                          //alert(response.returncities[0]);
+                          for (var x=0; x < arrivalslist.length; x++){
+                              arrivalslist.remove(x);                        
+                          }
+                          
+                          for (var i=0; i < size; i++){  
+      
+                                  arrivalslist.add(new Option(response.returncities[i], response.returncities[i]));    
+                          }
+                             // var option = document.createElement("Option");
+                              //option.text = response.returncities;
+                              //arrivalslist.add(option);
+                      }
+                  }
+              }
+              req.open('GET', '/oscarreturnarrival/?q='+deptcity);
+              req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");   
+              req.send(); 
+              return false;
+          }
+        </script>
+{% endblock %}
+{% block pagecontent %}
+    <div class="col-12"></div>
 
+    <div class="col-1"></div>
+    <div class="col-10 info-bar">Bookings</div>
+    <div class="col-1"></div>
 
-        <header class="col-12"> UWE Taxi Travel </header>
+    <div class="col-12"></div>
+    
+    <div class="col-1"></div>
+    <div class="col-10">
+        <form action="/oscarselectbooking/" method="POST"> 
+            Select departure city: 
+            <select name="departureslist" onchange="getarrivalcity(this.value)">
+            {% for leaving in leavinglist %}
+                <option value="{{leaving}}"> {{leaving}} </option>	    
+            {% endfor %} 
+            </select>       
+            <br/>
 
-
-        <div class="col-1"></div>
-        <nav class="col-10">
-            <div class="nav-left">
-                <a href="{{ url_for('oscarindex') }}"><i class="fa fa-home"></i> Home</a>
-                <a class="active" href="{{ url_for('oscarlookup') }}"><i class="fa fa-search"></i> Lookup</a>
-                <a href="{{ url_for('oscarlogin') }}"><i class="fa fa-lock"></i> Login</a>
-                <a href="{{ url_for('oscarregister') }}"><i class="fa fa-lock"></i> Register</a>
-             </div>
-            <div class="nav-right">
-                <a href="#home"><i class="fa fa-bars"></i> Other Travel</a>
-            </div>
-        </nav>
-        <div class="col-1"></div>
-
-        <div class="col-12"></div>
-
-        <div class="col-1"></div>
-        <div class="col-10 info-bar">Find any route you are looking for. <br>
-                                     Rates are £1 per mile and vary depending on number of passengers.  </div>
-        <div class="col-1"></div>
-
-        <div class="col-12"></div>
-
-        
-        <div class="col-1"></div>
-        <form class ="col-10" action="/oscar_show_route" method="GET">
-            <label for="leaving"><b> Leaving from: </b></label>
-            <select name="leaving">
-                {% for row in resultset %}
-                <option value="{{row[0]}}"> {{row[0]}} </option>
-                {% endfor %}    
+            Select arrival city:
+            <select id="arrivalslist" name="arrivalslist">            
             </select>
-            </br>
-            </br>
-            <label for=""><b> Leaving from: </b></label>
-            <select name="leaving">
-                {% for row in resultset %}
-                <option value="{{row[0]}}"> {{row[0]}} </option>
-                {% endfor %}    
-            </select>
+            <br/>
 
+            Select date of leaving :
+            <input type="date" name="leavedate" id="leavedate" required />
+            <br/>
 
-            <input type="submit" value="Make booking">
-        </form> 
-        <div class="col-1"></div>
+            Select number of seats:
+            <input type="number" name="numseats" id="numseats" required />
+            <br/>
 
-        <footer></br>&copy Oscar Averill</footer>
-        
-    </body>
-</html>
-
+            <input type="submit" value="Proceed Booking"/>
+        </form>      
+    </div>
+    <div class="col-1"></div>
+{% endblock %}

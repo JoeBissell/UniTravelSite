@@ -2,7 +2,7 @@ CREATE database travelsite;
 USE travelsite;
 
 CREATE TABLE taxiusers (
-	id INTEGER NOT NULL auto_increment,
+	userid INTEGER NOT NULL auto_increment,
     username VARCHAR(64) NOT NULL UNIQUE,
     email VARCHAR(120) NOT NULL UNIQUE,
     password_hash VARCHAR(128),
@@ -10,9 +10,8 @@ CREATE TABLE taxiusers (
     primary key(id)
     );
 
-
 CREATE TABLE taxiroutes (
-	id INTEGER NOT NULL auto_increment,
+	routeid INTEGER NOT NULL auto_increment,
     leaving VARCHAR(64) NOT NULL,
     leavingtime TIME(0) NOT NULL,
     arrival VARCHAR(64) NOT NULL,
@@ -20,7 +19,6 @@ CREATE TABLE taxiroutes (
     miles INTEGER NOT NULL,
     primary key(id)
     );
-    
 INSERT INTO travelsite.taxiroutes (
 	leaving,
     leavingtime,
@@ -28,7 +26,6 @@ INSERT INTO travelsite.taxiroutes (
     arrivaltime,
     miles
     ) 
-
 VALUES 
 	('Newcastle', '16:45:00', 'Bristol', '18:00:00', 295),
     ('Bristol', '8:00:00', 'Newcastle', '09:15:00', 295),
@@ -52,6 +49,18 @@ VALUES
     ('Newcastle', '06:00:00', 'Birmingham', '07:30:00', 207),
     ('Aberdeen', '07:00:00', 'Portsmouth', '09:00:00', 579
 );
+
+CREATE TABLE taxibookings (
+    bookingid INT NOT NULL auto_increment,
+    leavingdate  date NOT NULL,   
+    routeid INT NOT NULL,  
+    userid VARCHAR(64) NOT NULL,
+    numseats INT NOT NULL default 1, 
+    totalfare Double NOT NULL,  
+    FOREIGN KEY (routeid) REFERENCES taxiroutes (routeid), 
+    FOREIGN KEY (userid) REFERENCES userid (userid), 
+    PRIMARY KEY (bookingid)
+); 
 
 UPDATE taxiusers
 SET usertype = 'admin'
