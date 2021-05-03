@@ -122,6 +122,8 @@ app.add_url_rule('/oscar_admininsert', view_func=taxi.oscar_admininsert)
 app.add_url_rule('/oscaradmininsert', view_func=taxi.oscaradmininsert, methods=['POST', 'GET'])
 app.add_url_rule('/oscar_adminroutes', view_func=taxi.oscar_adminroutes)
 app.add_url_rule('/oscaradminremoveroute', view_func=taxi.oscaradminremoveroute, methods=['POST', 'GET'])
+## TAXI USER MANAGEMENT
+app.add_url_rule('/oscaruserchangepass', view_func=taxi.oscaruserchangepass, methods = ['POST', 'GET'])
 
 
 @app.route("/")

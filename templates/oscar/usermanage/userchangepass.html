@@ -1,0 +1,29 @@
+{% extends "oscar/main.html" %}
+{% block title %}Login{{ super() }}{% endblock %}
+{% block head %}
+    {{ super() }}
+{% endblock %}
+{% block pagecontent %}
+    <div class="col-12"></div>
+
+    <div class="col-1"></div>
+        <form class="col-10" action="/oscaruserchangepass" method="POST">
+            <label for="password"><b>Current password:</b></label>
+            <input type="password" placeholder="Current password" autocomplete="off" name="password" value="{{request.form.password}}" required>
+            </br>
+            <label for="newPassword"><b>New password:</b></label>
+            <input type="password" placeholder="New password" autocomplete="off" name="newPassword" value="{{request.form.newPassword}}" required>
+            </br>
+            </br>
+            <input type="submit" value="Change password">
+        </form>
+    <div class="col-1"></div>
+    
+    <div class="col-12"></div>
+
+    <div class="col-1"></div>
+    <div class="col-10">
+        <p style="color: red; text-align: center; margin-bottom: 50px;">{{error}}</p>
+    </div>
+    <div class="col-1"></div>
+{% endblock %}
