@@ -75,7 +75,7 @@ CREATE TABLE coachroutes (
     primary key(coachid)
     );
 
-    INSERT INTO travelsite.coachroutes (
+INSERT INTO travelsite.coachroutes (
 	leaving,
     leavingtime,
     arrival,
