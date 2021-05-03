@@ -31,26 +31,26 @@ def coachhome():
 
 @app.route("/coach", methods = ['GET', 'POST'])
 def coach():
-        return render_template("/suleima/coach.html")
 
-    #conn = get_connection()
-    #if conn != None:
-    #    if conn.is_connected():
-    #        print("SQL connection established")
-    #        dbcursor = conn.cursor()
-    #        SQL_statement = "SELECT DISTINCT leaving FROM coachroutes;"
-    #       dbcursor.execute(SQL_statement)
-    #        print("SELECT statement executed")
-    #        rows = dbcursor.fetchall()
-    #        dbcursor.close()
-    #        conn.close()
-    #        return render_template("/suleima/coach.html, resultset=rows")
-    #    else:
-    #        print("database connection error")
-    #        return("database connection error")
-    #else:
-    #    print("database connection error")
-    #    return("database connection error")
+
+    conn = get_connection()
+    if conn != None:
+        if conn.is_connected():
+            print("SQL connection established")
+            dbcursor = conn.cursor()
+            SQL_statement = "SELECT DISTINCT leaving FROM coachroutes;"
+            dbcursor.execute(SQL_statement)
+            print("SELECT statement executed")
+            rows = dbcursor.fetchall()
+            dbcursor.close()
+            conn.close()
+            return render_template("/suleima/coach.html, resultset=rows")
+        else:
+            print("database connection error")
+            return("database connection error")
+    else:
+        print("database connection error")
+        return("database connection error")
 
 @app.route("/coachresult", methods=["GET", "POST"])
 def coachresult():
