@@ -27,9 +27,9 @@ app.secret_key = 'verysecretkey'
 ## create connection to DB
 def get_connection():
    conn = mysql.connector.connect(host='localhost',
-                                  user='root',
-                                  password='password',
-                                  database='travelsite')
+                                  user='suleima2abbara',
+                                  password='Suleima2abbarA14+$++',
+                                  database='suleima2abbara_prj')
    return conn
 
 ## LOG IN
