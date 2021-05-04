@@ -20,12 +20,14 @@ def get_connection():
 
 ## route to home page
 @app.route('/coachhome')         
-def coachhome():       
-   return render_template('/suleima/coachhome.html')
+def coachhome():    
+   username = session['username']   
+   return render_template('/suleima/coach.html', username=username)
 
 @app.route("/coach", methods=['POST', 'GET']) 
 def coach():
-    return render_template('/suleima/coach.html')
+    username = session['username'] 
+    return render_template('/suleima/coach.html', username=username)
 
 
 @app.route('/coachresult', methods=['POST', 'GET'])
@@ -139,6 +141,13 @@ def coachlogin():
       render_template("suleima/coachlogin.html", form=form, error=error)
    return render_template("suleima/coachlogin.html", form=form, error=error)
 
+## LOG OUT
+@app.route('/coachlogout')
+def coachlogout():
+   session.clear()
+   print("Logged out.")
+   gc.collect()
+   return render_template('/suleima/coach.html')
 
 @app.route("/loginsuccess", methods=['POST', 'GET']) 
 def loginsuccess():
