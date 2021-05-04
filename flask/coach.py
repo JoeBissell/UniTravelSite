@@ -22,11 +22,12 @@ def get_connection():
 @app.route('/coachhome')         
 def coachhome():    
    username = session['username']   
-   return render_template('/suleima/coachhome.html', username=username)
+   return render_template('/suleima/coach.html', username=username)
 
 @app.route("/coach", methods=['POST', 'GET']) 
 def coach():
-    return render_template('/suleima/coach.html')
+    username = session['username'] 
+    return render_template('/suleima/coach.html', username=username)
 
 
 @app.route('/coachresult', methods=['POST', 'GET'])
