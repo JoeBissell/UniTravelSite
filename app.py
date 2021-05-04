@@ -125,7 +125,7 @@ app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin, methods=['POST', 'GET
 app.add_url_rule('/oscarlogout', view_func=taxi.oscarlogout)
 ## TAXI BOOKINGS
 app.add_url_rule('/oscarbookings', view_func=taxi.oscarbookings, methods=['POST', 'GET'])
-app.add_url_rule('/oscarreturnarrival', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
+app.add_url_rule('/oscarreturnarrival/', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
 app.add_url_rule('/oscarselectbooking', view_func=taxi.oscarselectbooking, methods=['POST', 'GET'])
 app.add_url_rule('/oscarbookingconfirm', view_func=taxi.oscarbookingconfirm, methods=['POST', 'GET'])
 ## TAXI ADMIN
@@ -137,7 +137,7 @@ app.add_url_rule('/oscaradminremoveroute', view_func=taxi.oscaradminremoveroute,
 app.add_url_rule('/oscarusermanage', view_func=taxi.oscarusermanage)
 app.add_url_rule('/oscaruserchangepass', view_func=taxi.oscaruserchangepass, methods = ['POST', 'GET'])
 app.add_url_rule('/oscarbookingcancel', view_func=taxi.oscarbookingcancel, methods=['POST', 'GET']) 
-app.add_url_rule('/oscardeletebooking', view_func=taxi.oscardeletebooking, methods=['POST', 'GET'])
+app.add_url_rule('/oscardeletebooking/', view_func=taxi.oscardeletebooking, methods=['POST', 'GET'])
 
 @app.route("/")
 def index():
