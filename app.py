@@ -154,6 +154,10 @@ def hollie():
 def bradley():
     return render_template("bradley/index.html")
 
+@app.route("/suleima")
+def suleima():
+    return render_template("bradley/index.html")
+
 
 # app.add_url_rule('/coachhome', view_func=coach.coachhome)
 # app.add_url_rule('/coach', view_func=coach.coach)
