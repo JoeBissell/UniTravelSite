@@ -31,6 +31,7 @@ def coachhome():
 @app.route("/coach", methods=['POST', 'GET']) 
 def coach():
     if request.method == 'POST':
+        
         return render_template('/suleima/coachresult.html')
     else:
         return "error"
