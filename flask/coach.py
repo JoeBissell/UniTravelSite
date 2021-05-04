@@ -13,9 +13,9 @@ app = Flask(__name__)
 
 def get_connection():
    conn = mysql.connector.connect(host='localhost',
-                                  user='root',
-                                  password='password',
-                                  database='travelsite')
+                                  user='suleima2abbara',
+                                  password='Suleima2abbarA14+$++',
+                                  database='suleima2abbara_prj')
    return conn
 
 ## route to home page
@@ -84,7 +84,7 @@ def coachreg():
                      dbcursor.close()
                      conn.close()
                      gc.collect()
-                     return render_template("suleima/coachreg.html")
+                     return render_template("suleima/regsuccess.html")
                else:
                   error = "Connection error."
                   return render_template("suleima/coachreg.html", error=error)
