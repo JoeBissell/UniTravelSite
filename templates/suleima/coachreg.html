@@ -5,13 +5,13 @@
                     <h3>or log in to an existing account</h3>
                     <form method="POST" action="/regsuccess"  class="fdesign">
                         <label for="username">Username: </label>
-                        <input type="text" id="date" name="username" placeholder="username" required value="{{request.form.username}}"> 
+                        <input type="text" id="date" name="c_username" placeholder="username" required value="{{c_username}}"> 
                         <br>                        
                         <label for="email">Email: </label>
-                        <input type="email" placeholder="Email" id="date" name="email" required value="{{request.form.email}}">
+                        <input type="email" placeholder="Email" id="date" name="email" required value="{{email}}">
                         <br>
                         <label for="password">Password: </label>
-                        <input type="password" id="date" name="c_password" placeholder="password" required value="{{request.form.password}}">
+                        <input type="password" id="date" name="c_password" placeholder="password" required value="{{password}}">
                         <br>
 
                         <input type="submit" id="sub" value="submit">
