@@ -11,16 +11,20 @@
     <div id="index-container">
         <div id="index-wrapper">
             <h1>Welcome to the UWE Travel System</h1>
-            <h3>Please choose a method of transpot to begin</h3>
-            <a href="{{url_for('suleima')}}"><span>Coach</span><span>Suliema</span></a>
-            <a href="{{url_for('oscarindex')}}"><span>Taxi</span><span>Oscar</span></a>
-            <a href="{{url_for('joe')}}"><span>Car Hire</span><span>Joe</span></a>
-            <a href="{{url_for('bradley')}}"><span>Train</span><span>Bradley</span></a>
-            <a href="{{url_for('hollie')}}"><span>Flight</span><span>Hollie</span></a>
+            <div class="item-container">
+                <h3>choose a method of transport</h3>
+                <a href="{{url_for('suleima')}}"><span>Coach</span><span>Suliema</span></a>
+                <a href="{{url_for('oscarindex')}}"><span>Taxi</span><span>Oscar</span></a>
+                <a href="{{url_for('joe')}}"><span>Car Hire</span><span>Joe</span></a>
+                <a href="{{url_for('bradley')}}"><span>Train</span><span>Bradley</span></a>
+                <a href="{{url_for('hollie')}}"><span>Flight</span><span>Hollie</span></a>
+            </div>
             <hr>
-            <h3>Alternatively, you may register or login</h3>
-            <a href="{{url_for('joe')}}"><span>Login</span></a>
-            <a href="{{url_for('joe')}}"><span>Register</span></a>
+            <div class="item-container">
+                <h3>or login</h3>
+                <a href="{{url_for('joe')}}"><span>Login</span></a>
+                <a href="{{url_for('joe')}}"><span>Register</span></a>
+            </div>
         </div>
     </div>
 </body>
