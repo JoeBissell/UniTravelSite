@@ -84,7 +84,7 @@ def coachreg():
                      dbcursor.close()
                      conn.close()
                      gc.collect()
-                     return render_template("suleima/coachreg.html")
+                     return render_template("suleima/regsuccess.html")
                else:
                   error = "Connection error."
                   return render_template("suleima/coachreg.html", error=error)
@@ -98,11 +98,47 @@ def coachreg():
       return render_template("suleima/coachreg.html", error=e)
    return render_template("suleima/coachreg.html", error=error)
 
-
-
-@app.route("/coachlogin", methods=['POST', 'GET']) 
+## COACH LOG IN
+@app.route('/coachlogin', methods=["GET", "POST"])
 def coachlogin():
-    return render_template('/suleima/coachlogin.html')
+   form={}
+   error = ''
+   try:
+      if request.method == "POST":
+         username = request.form['username']
+         password = request.form['password']
+         print('Attempting login.')
+         if username !=None and password != None:
+            conn = get_connection()
+            if conn != None:
+               if conn.is_connected():
+                  print('Connected to DB.')
+                  dbcursor = conn.cursor()
+                  dbcursor.execute("SELECT password_hash, usertype, userid FROM coachusers WHERE username = %s;", (username,))
+                  data = dbcursor.fetchone()
+                  if dbcursor.rowcount < 1:
+                     error = "Username or password incorrect"
+                     return render_template("suleima/coachlogin.html", error=error)
+                  else:
+                     if sha256_crypt.verify(request.form['password'], str(data[0])):
+                        session['logged_in'] = True
+                        session['username'] = request.form['username']
+                        session['usertype'] = str(data[1])
+                        session['userid'] = str(data[2])
+                        print("Already logged in.")
+                        if session['usertype'] == 'admin':
+                           return render_template("suleima/admin.html", username=username, data='user specific data', usertype=session['usertype'], userid=session['userid'])
+                        else: 
+                           return render_template("suleima/loginsuccess.html", username=username, data='user specific data', usertype=session['usertype'], userid=session['userid'])
+                     else:
+                        error = "Invalid login 1."
+               gc.collect()
+               return render_template("suleima/coachlogin.html", form=form, error=error)
+   except Exception as e:
+      error = str(e) + "Invalid login 2."
+      render_template("suleima/coachlogin.html", form=form, error=error)
+   return render_template("suleima/coachlogin.html", form=form, error=error)
+
 
 @app.route("/loginsuccess", methods=['POST', 'GET']) 
 def loginsuccess():
