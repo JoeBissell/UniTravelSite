@@ -5,8 +5,20 @@ import hashlib
 import gc
 from functools import wraps
 from datetime import datetime
+import sys
 
-import taxi, coach
+sys.path.insert(0, './flask')
+
+#  Who's done what
+#  +++++++++++++++++++++
+#  + Flight - Hollie   +
+#  + Coach - Suliema   +
+#  + Taxi - Oscar      +
+#  + Car Hire - Joe    +
+#  + Train - Bradley   +
+#  +++++++++++++++++++++
+
+import taxi
 
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
@@ -143,9 +155,9 @@ def bradley():
     return render_template("bradley/index.html")
 
 
-app.add_url_rule('/coachhome', view_func=coach.coachhome)
-app.add_url_rule('/coach', view_func=coach.coach)
-app.add_url_rule('/coachresult', view_func=coach.coachresult)
+# app.add_url_rule('/coachhome', view_func=coach.coachhome)
+# app.add_url_rule('/coach', view_func=coach.coach)
+# app.add_url_rule('/coachresult', view_func=coach.coachresult)
 
 
 app.run(debug = True, port = 5000)

@@ -4,7 +4,7 @@ from passlib.hash import sha256_crypt
 import hashlib
 import gc
 from functools import wraps
-from flask_wtf import FlaskForm
+# from flask_wtf import FlaskForm  -- Commented this out as not a module name
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
