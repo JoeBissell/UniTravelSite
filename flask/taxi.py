@@ -440,12 +440,16 @@ def oscarbookingcancel():
          username = session['username']
          print('Connected to DB.')
          dbcursor = conn.cursor()
-         dbcursor.execute('SELECT * FROM taxibookings WHERE userid = userid;')
+         dbcursor.execute('SELECT * FROM taxibookings WHERE userid = %s;', (userid,))
          print('SELECT bookings executed.')
          bookingrows = dbcursor.fetchall()
          dbcursor.close()
          conn.close()
-         return render_template('oscar/bookings/viewbookings.html', bookingresult=bookingrows, userid=userid, username=username)
+         if not bookingrows:
+            error = 'No bookings'
+            return render_template('oscar/usermanage/usermanage.html', error=error)
+         else:
+            return render_template('oscar/usermanage/viewbookings.html', bookingresult=bookingrows, userid=userid, username=username)
       else:
          error = "Connection error."
          return render_template("oscar/index.html", error=error)
@@ -482,3 +486,47 @@ def oscardeletebooking():
       else:
          error = "No bookings"
          return render_template('oscar/index.html', error=error)
+
+## ACCOUNT MANAGEMENT
+@app.route('/oscarusermanage')
+@login_req
+def oscarusermanage():
+   return render_template('oscar/usermanage/usermanage.html')
+
+## USER CHANGE PASSWORD
+@app.route('/oscaruserchangepass', methods=['POST','GET'])
+@login_req
+def oscaruserchangepass():
+   username = session['username']
+   if request.method == 'POST':
+      password = request.form['password']
+      newPassword = request.form['newPassword']
+      if password != None and newPassword != None:
+         conn = get_connection()
+         if conn != None:
+            print('Connected to DB.')
+            dbcursor = conn.cursor()
+            dbcursor.execute("SELECT password_hash FROM taxiusers WHERE username = %s;", (username,))
+            print('SELECT executed.')
+            storedPassword = dbcursor.fetchone()
+            print(storedPassword)
+            if sha256_crypt.verify(request.form['password'], str(storedPassword[0])):
+               newPassword = sha256_crypt.hash((str(newPassword)))
+               dbcursor.execute("UPDATE taxiusers SET password_hash = %s WHERE username = %s;",(newPassword, username,))
+               print('UPDATE executed.')
+               conn.commit()
+               dbcursor.close()
+               conn.close()
+               gc.collect()
+               return render_template('oscar/usermanage/userchangepass.html')
+            else:
+               error="Invalid password"
+               return render_template('oscar/usermanage/userchangepass.html', error=error)
+         else:
+            print('Connection error.')
+            return ('Connection error.')
+      else:
+         return render_template('oscar/usermanage/userchangepass.html')
+   else:
+      error = "Something went wrong."
+      return render_template('oscar/usermanage/userchangepass.html', error=error)

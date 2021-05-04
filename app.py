@@ -5,8 +5,20 @@ import hashlib
 import gc
 from functools import wraps
 from datetime import datetime
+import sys
 
-import taxi, coach
+sys.path.insert(0, './flask')
+
+#  Who's done what
+#  +++++++++++++++++++++
+#  + Flight - Hollie   +
+#  + Coach - Suliema   +
+#  + Taxi - Oscar      +
+#  + Car Hire - Joe    +
+#  + Train - Bradley   +
+#  +++++++++++++++++++++
+
+import taxi
 
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
@@ -112,17 +124,19 @@ app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin, methods=['POST', 'GET
 app.add_url_rule('/oscarlogout', view_func=taxi.oscarlogout)
 ## TAXI BOOKINGS
 app.add_url_rule('/oscarbookings', view_func=taxi.oscarbookings, methods=['POST', 'GET'])
-app.add_url_rule('/oscarreturnarrival/', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
-app.add_url_rule('/oscarselectbooking/', view_func=taxi.oscarselectbooking, methods=['POST', 'GET'])
-app.add_url_rule('/oscarbookingconfirm/', view_func=taxi.oscarbookingconfirm, methods=['POST', 'GET'])
-app.add_url_rule('/oscarbookingcancel/', view_func=taxi.oscarbookingcancel, methods=['POST', 'GET']) 
-app.add_url_rule('/oscardeletebooking/', view_func=taxi.oscardeletebooking, methods=['POST', 'GET'])
+app.add_url_rule('/oscarreturnarrival', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
+app.add_url_rule('/oscarselectbooking', view_func=taxi.oscarselectbooking, methods=['POST', 'GET'])
+app.add_url_rule('/oscarbookingconfirm', view_func=taxi.oscarbookingconfirm, methods=['POST', 'GET'])
 ## TAXI ADMIN
 app.add_url_rule('/oscar_admininsert', view_func=taxi.oscar_admininsert)
 app.add_url_rule('/oscaradmininsert', view_func=taxi.oscaradmininsert, methods=['POST', 'GET'])
 app.add_url_rule('/oscar_adminroutes', view_func=taxi.oscar_adminroutes)
 app.add_url_rule('/oscaradminremoveroute', view_func=taxi.oscaradminremoveroute, methods=['POST', 'GET'])
-
+## TAXI USER MANAGEMENT
+app.add_url_rule('/oscarusermanage', view_func=taxi.oscarusermanage)
+app.add_url_rule('/oscaruserchangepass', view_func=taxi.oscaruserchangepass, methods = ['POST', 'GET'])
+app.add_url_rule('/oscarbookingcancel', view_func=taxi.oscarbookingcancel, methods=['POST', 'GET']) 
+app.add_url_rule('/oscardeletebooking', view_func=taxi.oscardeletebooking, methods=['POST', 'GET'])
 
 @app.route("/")
 def index():
@@ -140,10 +154,14 @@ def hollie():
 def bradley():
     return render_template("bradley/index.html")
 
+@app.route("/suleima")
+def suleima():
+    return render_template("suleima/index.html")
 
-app.add_url_rule('/coachhome', view_func=coach.coachhome)
-app.add_url_rule('/coach', view_func=coach.coach)
-app.add_url_rule('/coachresult', view_func=coach.coachresult)
+
+# app.add_url_rule('/coachhome', view_func=coach.coachhome)
+# app.add_url_rule('/coach', view_func=coach.coach)
+# app.add_url_rule('/coachresult', view_func=coach.coachresult)
 
 
 app.run(debug = True, port = 5000)
