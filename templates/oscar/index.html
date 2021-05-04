@@ -9,8 +9,9 @@
     <div class="col-1"></div>
     <div class="col-10 info-bar"> 
         {% if session.logged_in %} Welcome {{ username }} 
-            <form class="logout-form" action="/oscarlogout">
-            <input class="logout-input" type="submit" value="Logout"></form>                          
+            <br/>
+            <br/>
+            <a href="{{ url_for('oscarlogout') }}"><input type="submit" value="Logout"></a>                  
         {% else %} Welcome to UWE Taxi Travel. The best and fastest taxi's in the industry. <br/>
             <p style="color: red;">{{error}}</p>
         {% endif %} 
