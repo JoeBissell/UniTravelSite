@@ -13,11 +13,10 @@ app = Flask(__name__)
 
 def get_connection():
    conn = mysql.connector.connect(host='localhost',
-                                  user='suleima2abbara',
-                                  password='Suleima2abbarA14+$++',
-                                  database='suleima2abbara_prj')
+                                  user='root',
+                                  password='password',
+                                  database='travelsite')
    return conn
-
 
 ## route to home page
 @app.route('/coachhome')         
@@ -53,8 +52,13 @@ def regsuccess():
     username = request.form['username']
     return render_template('/suleima/regsuccess.html')
 
-@app.route("/coachreg", methods=['POST', 'GET']) 
+
+@app.route('/coachreg', methods=['POST', 'GET'])
 def coachreg():
+   error = ''
+   print('Register start')
+   try:
+      if request.method == "POST":
          username = request.form['username']
          password = request.form['password']
          email = request.form['email']
@@ -80,13 +84,19 @@ def coachreg():
                      dbcursor.close()
                      conn.close()
                      gc.collect()
-                     return render_template("suleima/regsuccess.html")
+                     return render_template("suleima/coachreg.html")
                else:
                   error = "Connection error."
-                  return render_template("suleima/coachhome.html", error=error)
+                  return render_template("suleima/coachreg.html", error=error)
             else: 
                error = "Connection error."
-               return render_template("suleima/coachhome.html", error=error)
+               return render_template("suleima/coachreg.html", error=error)
+         else:
+            print('Empty parameters.')
+            return render_template("suleima/coachreg.html", error=error)
+   except Exception as e:
+      return render_template("suleima/coachreg.html", error=e)
+   return render_template("suleima/coachreg.html", error=error)
 
 
 

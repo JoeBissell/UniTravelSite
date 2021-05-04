@@ -30,34 +30,3 @@
     </div>
     <div class="col-1"></div>
 {% endblock %}
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  <h1>This is start of the basic booking process</h1> 
-  <form action="/dumpsVar/" method="POST">
-  Username: {{ username }} <br/>
-  User ID: {{ userid }} <br/>
-  Booking ID: {{resultset[0]}} <br/>
-  Departure City : {{resultset[2]}} <br/>
-  Departure Date : {{resultset[4]}} <br/>
-  Departure Time : {{resultset[9]}} <br/>
-  Arrival City : {{resultset[3]}} <br/>  
-  Number of seats : {{resultset[5]}} <br/>
-  Total Fare : {{resultset[6]}} <br/>
-  Payment: Card ending with ****** {{cardnumber}} <br/>
-  <input type="hidden" name="totalfare" value="{{resultset[7]}}" /> 
-  <input type="hidden" name="bookingid" value="{{resultset[8]}}" />   
-  <input type="submit" value="Proceed to further actions - to dumpsVar" /> 
-  </form>  
-  <a href="/">Go to Home Page</a>
-  </p>
-
-
-
