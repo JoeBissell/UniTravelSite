@@ -19,6 +19,7 @@ sys.path.insert(0, './flask')
 #  +++++++++++++++++++++
 
 import taxi
+import coach
 
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
@@ -156,12 +157,12 @@ def bradley():
 
 @app.route("/suleima")
 def suleima():
-    return render_template("suleima/index.html")
+    return render_template("suleima/coachhome.html")
 
 
-# app.add_url_rule('/coachhome', view_func=coach.coachhome)
-# app.add_url_rule('/coach', view_func=coach.coach)
-# app.add_url_rule('/coachresult', view_func=coach.coachresult)
+app.add_url_rule('/coachhome', view_func=coach.coachhome)
+app.add_url_rule('/coach', view_func=coach.coach, methods=['POST', 'GET'])
+app.add_url_rule('/coachresult', view_func=coach.coachresult, methods=['POST', 'GET'])
 
 
 app.run(debug = True, port = 5000)

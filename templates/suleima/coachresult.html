@@ -2,5 +2,22 @@
 
 
 {% block content %}
-    <p>{{ resultset }}</p>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
+
+    <table class="coachtable">
+        <tr>
+            <th>Leaving</th>
+            <th>Leaving time</th>
+            <th>Arrival </th>
+            <th>Arrival time</th>
+        </tr>
+        {% for row in resultset %}
+        <tr>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+        </tr>
+        {% endfor %}
+    </table>
 {% endblock %}

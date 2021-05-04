@@ -8,11 +8,7 @@ from functools import wraps
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
 from wtforms.validators import DataRequired, Length, Email, EqualTo
 
-
-
 app = Flask(__name__)   
-
-
 
 
 def get_connection():
@@ -30,15 +26,26 @@ def coachhome():
 
 @app.route("/coach", methods=['POST', 'GET']) 
 def coach():
-    if request.method == 'POST':
-        
-        return render_template('/suleima/coachresult.html')
-    else:
-        return "error"
+    return render_template('/suleima/coach.html')
+
 
 @app.route('/coachresult', methods=['POST', 'GET'])
 def coachresult():
-    return render_template ('/suleima/coachresult.html')
+    leaving=request.form['leaving']
+    conn = get_connection()
+    if conn != None:
+           print ('Connected to DB.')
+           dbcursor = conn.cursor()
+           SQL_statement = 'SELECT * FROM coach WHERE leaving = %s'
+           args = (leaving,)
+           dbcursor.execute(SQL_statement, args)
+           print('SELECT executed.')
+           rows = dbcursor.fetchall()
+           dbcursor.close()
+           conn.close()
+           return render_template('suleima/coachresult.html', resultset=rows)
+    else:
+        return "connection failed"
 
 
 
