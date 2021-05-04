@@ -31,3 +31,12 @@ INSERT INTO suleima2abbara_prj.coach VALUES
     ('NULL','Newcastle', '06:00:00', 'Birmingham', '19:30:00'),
     ('NULL','Aberdeen', '07:00:00', 'Portsmouth', '01:00:00')
 ;
+
+CREATE TABLE coachusers (
+	userid INTEGER NOT NULL auto_increment,
+    username VARCHAR(64) NOT NULL UNIQUE,
+    email VARCHAR(120) NOT NULL UNIQUE,
+    password_hash VARCHAR(128),
+    usertype VARCHAR(8) DEFAULT 'standard',
+    primary key(id)
+    );

@@ -10,7 +10,7 @@
         <div id="suleima-wrapper">
             <div class="header">
                 <h1>Tosjosumbalie Travel</h1>
-                <a href="{{ url_for('login') }}"><button class="signin">Log In</button></a>
+                <a href="{{ url_for('coachlogin') }}"><button class="signin">Log In</button></a>
             </div>
 
             <div class="row">
@@ -19,7 +19,7 @@
                     <ul>
                         <li>Air travel</li>
                         <li>Train travel</li>
-                        <li>Coach travel</li>
+                        <a href="{{ url_for('coachhome') }}"><li>Coach Travel</li></a>
                         <a href="{{ url_for('oscarindex') }}"><li>Taxi travel</li></a>
                         <li>Car hire</li>
                         <li>All travel options</li>
@@ -39,7 +39,7 @@
 
                         <h4>Don't have an account? Sign up here!</h4>
                         <h1>Register now!</h1>
-                        <a href="{{ url_for('register') }}"><button>Register</button></a>
+                        <a href="{{ url_for('coachreg') }}"><button>Register</button></a>
 
                     </div>
                 </div>
