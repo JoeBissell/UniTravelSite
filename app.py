@@ -163,6 +163,14 @@ def suleima():
 app.add_url_rule('/coachhome', view_func=coach.coachhome)
 app.add_url_rule('/coach', view_func=coach.coach, methods=['POST', 'GET'])
 app.add_url_rule('/coachresult', view_func=coach.coachresult, methods=['POST', 'GET'])
+app.add_url_rule('/coachreg', view_func=coach.coachreg, methods=['POST', 'GET'])
+app.add_url_rule('/regsuccess', view_func=coach.regsuccess, methods=['POST', 'GET'])
+app.add_url_rule('/coachlogin', view_func=coach.coachlogin, methods=['POST', 'GET'])
+app.add_url_rule('/loginsuccess', view_func=coach.loginsuccess, methods=['POST', 'GET'])
+
+
+
+
 
 
 app.run(debug = True, port = 5000)

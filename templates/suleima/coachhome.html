@@ -1,7 +1,7 @@
 {% extends "suleima/coachlayout.html" %}
 {% block content %}
                     
-    <h1> <b>Welcome to Coach travel</b> </h1>
+    <h1> <b>Welcome {{request.form["username"]}} to Coach travel</b> </h1>
     <h3>Maximum number of bookable seats for Coach Travel is 45 per trip</h3>
     <h3>there are no trips to Dundee and Aberdeen</h3>
     <h3>Coach trips operate Sunday to Friday </h3>

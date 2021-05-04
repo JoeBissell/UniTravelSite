@@ -1,0 +1,17 @@
+{% extends "suleima/coachlayout.html" %}
+{% block content %}
+                    <h1>Welcome to Coach travel</h1>
+                    <h3>Log In to continue to the booking process</h3>
+                    <h3>or Register if you are a new user</h3>
+                    <form method="POST" action="/loginsuccess"  class="fdesign">
+                        <label for="username">Username: </label>
+                        <input type="text" id="date" name="c_username" placeholder="username" required value="{{request.form.c_username}}"> 
+                        <br>                        
+                        <label for="password">Password: </label>
+                        <input type="password" id="date" name="c_password" placeholder="password" required value="{{request.form.c_password}}">
+                        <br>
+
+                        <input type="submit" id="sub" value="submit">
+
+                    </form>
+{% endblock %}

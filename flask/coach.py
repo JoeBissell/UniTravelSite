@@ -48,6 +48,21 @@ def coachresult():
         return "connection failed"
 
 
+@app.route("/regsuccess", methods=['POST', 'GET']) 
+def regsuccess():
+    username = request.form['username']
+    return render_template('/suleima/regsuccess.html')
 
+@app.route("/coachreg", methods=['POST', 'GET']) 
+def coachreg():
+    return render_template('/suleima/coachreg.html')
 
+@app.route("/coachlogin", methods=['POST', 'GET']) 
+def coachlogin():
+    return render_template('/suleima/coachlogin.html')
+
+@app.route("/loginsuccess", methods=['POST', 'GET']) 
+def loginsuccess():
+    username=request.form['username']
+    return render_template('/suleima/loginsuccess.html')
 
