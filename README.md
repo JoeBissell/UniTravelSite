@@ -23,7 +23,7 @@ Each person has done their own CSS, Flask, SQL and HTML.
 
 Run app.py
 
-Naviate go localhost:5000
+Naviate to localhost:5000
 
 The following commands may need to be run to install the releavent modules
 
