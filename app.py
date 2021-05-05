@@ -27,9 +27,9 @@ app.secret_key = 'verysecretkey'
 ## create connection to DB
 def get_connection():
    conn = mysql.connector.connect(host='localhost',
-                                  user='root',
-                                  password='password',
-                                  database='travelsite')
+                                  user='suleima2abbara',
+                                  password='Suleima2abbarA14+$++',
+                                  database='suleima2abbara_prj')
    return conn
 
 ## LOG IN
@@ -124,10 +124,10 @@ app.add_url_rule('/oscarregister', view_func=taxi.oscarregister,  methods=['POST
 app.add_url_rule('/oscarlogin', view_func=taxi.oscarlogin, methods=['POST', 'GET'])
 app.add_url_rule('/oscarlogout', view_func=taxi.oscarlogout)
 ## TAXI BOOKINGS
-app.add_url_rule('/oscarbookings', view_func=taxi.oscarbookings, methods=['POST', 'GET'])
-app.add_url_rule('/oscarreturnarrival', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
-app.add_url_rule('/oscarselectbooking', view_func=taxi.oscarselectbooking, methods=['POST', 'GET'])
-app.add_url_rule('/oscarbookingconfirm', view_func=taxi.oscarbookingconfirm, methods=['POST', 'GET'])
+app.add_url_rule('/oscarbookings/', view_func=taxi.oscarbookings, methods=['POST', 'GET'])
+app.add_url_rule('/oscarreturnarrival/', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
+app.add_url_rule('/oscarselectbooking/', view_func=taxi.oscarselectbooking, methods=['POST', 'GET'])
+app.add_url_rule('/oscarbookingconfirm/', view_func=taxi.oscarbookingconfirm, methods=['POST', 'GET'])
 ## TAXI ADMIN
 app.add_url_rule('/oscar_admininsert', view_func=taxi.oscar_admininsert)
 app.add_url_rule('/oscaradmininsert', view_func=taxi.oscaradmininsert, methods=['POST', 'GET'])
@@ -137,7 +137,7 @@ app.add_url_rule('/oscaradminremoveroute', view_func=taxi.oscaradminremoveroute,
 app.add_url_rule('/oscarusermanage', view_func=taxi.oscarusermanage)
 app.add_url_rule('/oscaruserchangepass', view_func=taxi.oscaruserchangepass, methods = ['POST', 'GET'])
 app.add_url_rule('/oscarbookingcancel', view_func=taxi.oscarbookingcancel, methods=['POST', 'GET']) 
-app.add_url_rule('/oscardeletebooking', view_func=taxi.oscardeletebooking, methods=['POST', 'GET'])
+app.add_url_rule('/oscardeletebooking/', view_func=taxi.oscardeletebooking, methods=['POST', 'GET'])
 
 @app.route("/")
 def index():
@@ -167,6 +167,8 @@ app.add_url_rule('/coachreg', view_func=coach.coachreg, methods=['POST', 'GET'])
 app.add_url_rule('/regsuccess', view_func=coach.regsuccess, methods=['POST', 'GET'])
 app.add_url_rule('/coachlogin', view_func=coach.coachlogin, methods=['POST', 'GET'])
 app.add_url_rule('/loginsuccess', view_func=coach.loginsuccess, methods=['POST', 'GET'])
+app.add_url_rule('/coachlogout', view_func=coach.coachlogout, methods=['POST', 'GET'])
+#app.add_url_rule('/coachbook', view_func=coach.coachbook, methods=['POST', 'GET'])
 
 
 

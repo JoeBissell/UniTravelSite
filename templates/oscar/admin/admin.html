@@ -9,16 +9,9 @@
 <div class="col-1"></div>
 <div class="col-10 info-bar"> 
     Admin Page
-</div>
-<div class="col-1"></div>
-
-<div class="col-12"></div>
-
-<div class="col-1"></div>
-    <div class="col-10"> <form class="logout-form" action="/oscarlogout">
-    <input class="logout-input" type="submit" value="Logout"></form>
-    <br>
-    <p style="color: red;">{{msg}}</p>
+    <br/>
+    <br/>
+    <a href="{{ url_for('oscarlogout') }}"><input type="submit" value="Logout"></a>  
 </div>
 <div class="col-1"></div>
 
@@ -26,8 +19,13 @@
 
 <div class="col-1"></div>
 <div class="col-10">
-    <a href="{{ url_for('oscar_admininsert') }}"> Insert new route</a>
-    <a href="{{ url_for('oscar_adminroutes') }}"> Show/delete routes</a>
+    <br/>
+    <br/>
+    <a href="{{ url_for('oscar_admininsert') }}"><input type="submit" value="Add route"></a>
+    <br/>
+    <br/>
+    <a href="{{ url_for('oscar_adminroutes') }}"><input type="submit" value="View/delete routes"></a>
+
 </div>
 <div class="col-1"></div>
 {% endblock %}

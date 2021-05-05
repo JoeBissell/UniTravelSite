@@ -29,18 +29,23 @@
 
                 <!--this is the main content part in desktop mode-->
                 <div class="col-6">
-
                     {% block content %}
                     {% endblock %}
                 </div>
                 <!-- thi is the left side part in desktop mode-->
                 <div class="col-3 right">
                     <div class="aside">
-
+                        {% if session.logged_in %} Welcome {{ username }} 
+                        <br/>
+                        <br/>
+                        <a href="{{ url_for('coachlogout') }}"><input type="submit" value="Logout"></a>                 
+                        {% else %}
                         <h4>Don't have an account? Sign up here!</h4>
                         <h1>Register now!</h1>
                         <a href="{{ url_for('coachreg') }}"><button>Register</button></a>
-
+                        <br/>
+                        <br/>  
+                        {% endif %} 
                     </div>
                 </div>
 

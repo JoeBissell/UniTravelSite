@@ -9,23 +9,28 @@
 <div class="col-1"></div>
 <div class="col-10 info-bar"> 
     User Management
-    <form class="logout-form" action="/oscarlogout">
-        <input class="logout-input" type="submit" value="Logout"></form>
+    <br/>
+    <br/>
+    <input type="submit" value="Logout" action="/oscarlogout">      
 </div>
-<div class="col-1"></div>
-
-<div class="col-12"></div>
-
-<div class="col-1"></div>
-<div class="col-10">{{ error }}</div>
 <div class="col-1"></div>
 
 <div class="col-12"></div>
 
 <div class="col-1"></div>
 <div class="col-10">
-    <a href="{{ url_for('oscarbookingcancel') }}"> View/cancel bookings</a>
-    <a href="{{ url_for('oscaruserchangepass') }}"> Change password</a>
+    <br/>
+    <br/>
+    <a href="{{ url_for('oscarbookingcancel') }}"><input type="submit" value="View/cancel bookings"></a> 
+    <br/>
+    <br/>
+    <a href="{{ url_for('oscaruserchangepass') }}"><input type="submit" value="Change password"></a>
 </div>
+<div class="col-1"></div>
+
+<div class="col-12"></div>
+
+<div class="col-1"></div>
+<div class="col-10"><p style="color: red;">{{error}}</p></div>
 <div class="col-1"></div>
 {% endblock %}

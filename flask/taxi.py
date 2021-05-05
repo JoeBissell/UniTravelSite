@@ -528,5 +528,4 @@ def oscaruserchangepass():
       else:
          return render_template('oscar/usermanage/userchangepass.html')
    else:
-      error = "Something went wrong."
-      return render_template('oscar/usermanage/userchangepass.html', error=error)
+      return render_template('oscar/usermanage/userchangepass.html')

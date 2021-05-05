@@ -38,5 +38,5 @@ CREATE TABLE coachusers (
     email VARCHAR(120) NOT NULL UNIQUE,
     password_hash VARCHAR(128),
     usertype VARCHAR(8) DEFAULT 'standard',
-    primary key(id)
+    primary key(userid)
     );

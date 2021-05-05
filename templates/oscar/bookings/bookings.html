@@ -43,7 +43,12 @@
     <div class="col-12"></div>
 
     <div class="col-1"></div>
-    <div class="col-10 info-bar">Bookings</div>
+    <div class="col-10 info-bar">
+        Bookings 
+        <br/>
+        <br/>
+        The cost of booking is £1 per mile. There is an additional cost for more than 1 passenger.
+    </div>
     <div class="col-1"></div>
 
     <div class="col-12"></div>
@@ -51,25 +56,29 @@
     <div class="col-1"></div>
     <div class="col-10">
         <form action="/oscarselectbooking/" method="POST"> 
-            Select departure city: 
+            <label for="departureslist"><b>Leaving:</b></label>
             <select name="departureslist" onchange="getarrivalcity(this.value)">
             {% for leaving in leavinglist %}
                 <option value="{{leaving}}"> {{leaving}} </option>	    
             {% endfor %} 
             </select>       
             <br/>
+            <br/>
 
-            Select arrival city:
+            <label for="arrivalslist"><b>Arrival:</b></label>
             <select id="arrivalslist" name="arrivalslist">            
             </select>
             <br/>
-
-            Select date of leaving :
-            <input type="date" name="leavedate" id="leavedate" required />
             <br/>
 
-            Select number of seats:
-            <input type="number" name="numseats" id="numseats" required />
+            <label for="date"><b>Date:</b></label>
+            <input type="date" name="leavedate" id="leavedate" required>
+            <br/>
+            <br/>
+
+            <label for="numseats"><b>Number of seats:</b></label>
+            <input type="number" name="numseats" id="numseats" required>
+            <br/>
             <br/>
 
             <input type="submit" value="Proceed Booking"/>

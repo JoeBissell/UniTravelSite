@@ -3,15 +3,15 @@
                     <h1>Welcome to Coach travel</h1>
                     <h3>Log In to continue to the booking process</h3>
                     <h3>or Register if you are a new user</h3>
-                    <form method="POST" action="/loginsuccess"  class="fdesign">
+                    <form method="POST" action="/coachlogin"  class="fdesign">
                         <label for="username">Username: </label>
-                        <input type="text" id="date" name="c_username" placeholder="username" required value="{{request.form.c_username}}"> 
+                        <input type="text" id="date" name="username" placeholder="username" required value="{{request.form.username}}"> 
                         <br>                        
                         <label for="password">Password: </label>
-                        <input type="password" id="date" name="c_password" placeholder="password" required value="{{request.form.c_password}}">
+                        <input type="password" id="date" name="password" placeholder="password" required value="{{request.form.password}}">
                         <br>
 
                         <input type="submit" id="sub" value="submit">
-
                     </form>
+                    {{ error }}
 {% endblock %}
