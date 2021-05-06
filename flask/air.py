@@ -12,16 +12,16 @@ app = Flask(__name__)
 # DATABASE CONNECTION
 def get_connection():
    conn = mysql.connector.connect(host='localhost',
-                                  user='hollie3baker',
-                                  password='Hollie3bakeR12+$++',
-                                  database='hollie3baker_prj')
+                                  user='root',
+                                  password='Puppy123?£',
+                                  database='AirTravel')
    return conn
 
 # HOMEPAGE
 @app.route('/airtravelhome')         
-def coachhome():    
-   username = session['username']   
-   return render_template('/hollie/airTravelform.html', username=username)
+def airtravelhome():    
+   #username = session['username']   
+   return render_template('/hollie/airTravelform.html')
 
 @app.route("/airtravel", methods=['POST', 'GET']) 
 def coach():

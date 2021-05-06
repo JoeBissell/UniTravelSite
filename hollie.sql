@@ -1,4 +1,4 @@
-USE hollie3baker_prj;
+USE AirTravel;
 CREATE TABLE airusers(
     airuserid INTEGER NOT NULL AUTO_INCREMENT,
     username VARCHAR(64) NOT NULL UNIQUE,
