@@ -1,0 +1,12 @@
+{% extends "hollie/airTravelhomeDesign.html" %}
+{% block content %}
+                    
+    <h1> <b>Welcome {{request.form["username"]}} you have logged into your account on Air Travel</b> </h1>
+    <h3> If you wish to book with another option then please choose from the options to your left</h3>
+    <h3>Air Travel offers all routes chosen across the UK</h3>
+    <h3>Please Note:</h3>
+    <h3>Maximum seat availability is 100 per route</h3>
+    <h3>This service also operates Monday - Saturday ONLY. </h3>
+    <a href="{{ url_for('airtravel') }}"><button>Find your flight now!</button></a>
+
+{% endblock %}

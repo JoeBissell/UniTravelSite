@@ -1,0 +1,20 @@
+{% extends "hollie/airTravelhomeDesign.html" %}
+{% block content %}
+    <h1>Welcome to Air Travel</h1>
+    <h3>Register your free account here</h3>
+    <h3>If you already have an account then please login to continue</h3>
+    <form method="POST" action="/registerairtravel"  class="fdesign">
+        <label for="username">Username: </label>
+        <input type="text" id="date" name="username" placeholder="username" required value="{{request.form.username}}"> 
+        <br>                        
+        <label for="email">Email: </label>
+        <input type="email" placeholder="Email" id="date" name="email" required value="{{request.form.email}}">
+        <br>
+        <label for="password">Password: </label>
+        <input type="password" id="date" name="password" placeholder="password" required value="{{request.form.password}}">
+        <br>
+
+        <input type="submit" id="sub" value="submit">
+
+    </form>
+{% endblock %}
