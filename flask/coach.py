@@ -154,3 +154,7 @@ def loginsuccess():
     username=request.form['username']
     return render_template('/suleima/loginsuccess.html')
 
+@app.route("/coachbook", methods=['POST', 'GET']) 
+def coachbook():
+    username = request.form['username']
+    return render_template('/suleima/coachbook.html')
