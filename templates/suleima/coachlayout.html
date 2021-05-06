@@ -2,15 +2,15 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='suleima.css') }}"/>
         <title>Coach Travel</title>
-    </head>
 
     <body>
         <div id="suleima-wrapper">
             <div class="header">
-                <h1>Tosjosumbalie Travel</h1>
-                <a href="{{ url_for('coachlogin') }}"><button class="signin">Log In</button></a>
+
+                <h1>UWE Coach Travel</h1>
+
             </div>
 
             <div class="row">
@@ -38,11 +38,12 @@
                         {% if session.logged_in %} Welcome {{ username }} 
                         <br/>
                         <br/>
-                        <a href="{{ url_for('coachlogout') }}"><input type="submit" value="Logout"></a>                 
+                        <a href="{{ url_for('coachlogout') }}"><input type="submit"  value="Logout"></a>                 
                         {% else %}
                         <h4>Don't have an account? Sign up here!</h4>
-                        <h1>Register now!</h1>
-                        <a href="{{ url_for('coachreg') }}"><button>Register</button></a>
+                        <a href="{{ url_for('coachreg') }}"><button class="coachbutton">Register Now!</button></a>
+                        <h4>or Log In to an existing account</h4>
+                        <a href="{{ url_for('coachlogin') }}"><button class="coachbutton">Log in</button></a>
                         <br/>
                         <br/>  
                         {% endif %} 

@@ -2,7 +2,6 @@
 
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
 
     <table class="coachtable">
         <tr>
@@ -10,16 +9,15 @@
             <th>Leaving time</th>
             <th>Arrival </th>
             <th>Arrival time</th>
-            <th>ACTION</th>
         </tr>
         {% for row in resultset %}
         <tr>
             <td>{{row[1]}}</td>
             <td>{{row[2]}}</td>
             <td>{{row[3]}}</td>
-            <td>{{row[4]}}</td>
-            <a href="{{ url_for('coachbook') }}"><td>BOOK NOW!</td></a> 
+            <td>{{row[4]}}</td> 
         </tr>
         {% endfor %}
     </table>
+    <a href="{{ url_for('coachbook') }}"><button>BOOK NOW!</button></a>
 {% endblock %}

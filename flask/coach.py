@@ -4,9 +4,10 @@ from passlib.hash import sha256_crypt
 import hashlib
 import gc
 from functools import wraps
-# from flask_wtf import FlaskForm  -- Commented this out as not a module name
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from flask import Flask, request, render_template, url_for, jsonify, redirect
+import mysql.connector
+from datetime import datetime
+
 
 app = Flask(__name__)   
 
@@ -26,8 +27,8 @@ def coachhome():
 
 @app.route("/coach", methods=['POST', 'GET']) 
 def coach():
-    username = session['username'] 
-    return render_template('/suleima/coach.html', username=username)
+   username = session['username']   
+   return render_template('/suleima/coach.html', username=username)
 
 
 @app.route('/coachresult', methods=['POST', 'GET'])
@@ -156,5 +157,41 @@ def loginsuccess():
 
 @app.route("/coachbook", methods=['POST', 'GET']) 
 def coachbook():
-    username = request.form['username']
-    return render_template('/suleima/coachbook.html')
+   username = session['username']
+   conn = get_connection()
+   print('MySQL Connection is established')                          
+   dbcursor = conn.cursor()    #Creating cursor object            
+   dbcursor.execute('SELECT DISTINCT deptCity FROM coachroutes3;')   
+   print('SELECT statement executed successfully.')             
+   rows = dbcursor.fetchall()                                    
+   dbcursor.close()              
+   conn.close() #Connection must be 
+   cities = []
+   for city in rows:
+      city = str(city).strip("(")
+      city = str(city).strip(")")
+      city = str(city).strip(",")
+      city = str(city).strip("'")
+      cities.append(city)
+   return render_template('/suleima/coachbook.html', departurelist=cities)
+
+@app.route ('/arrivalcity/', methods = ['POST', 'GET'])
+def ajax_returncity():   
+	print('/arrivalcity') 
+
+	if request.method == 'GET':
+		deptcity = request.args.get('q')
+		conn = get_connection()
+		if conn != None:    #Checking if connection is None         
+			print('MySQL Connection is established')                          
+			dbcursor = conn.cursor()    #Creating cursor object            
+			dbcursor.execute('SELECT DISTINCT arrivCity FROM routes WHERE deptCity = %s;', (deptcity,))   
+			print('SELECT arrival statement executed successfully.')             
+			rows = dbcursor.fetchall()
+			total = dbcursor.rowcount                                    
+			dbcursor.close()              
+			conn.close() #Connection must be closed			
+			return jsonify(returncities=rows, size=total)
+		else:
+			print('DB connection Error')
+			return jsonify(returncities='DB Connection Error')

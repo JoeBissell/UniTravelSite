@@ -381,120 +381,12 @@ body {
 #suleima-wrapper {
   background-color: #f2e1d1;
   /*for unordered list inside the menu class, do the following*/
+
   /*for list item inside menu class do the following*/
   /*when mouse hovers  over the list item, change colour to following*/
   /* FORM DESIGN */
   /*for aside class do the following*/
   /* for desktop: */
-}
-
-#suleima-wrapper .row:after {
-  content: "";
-  clear: both;
-  display: block;
-}
-
-#suleima-wrapper [class*="col-"] {
-  float: left;
-  padding: 15px;
-}
-
-#suleima-wrapper html {
-  font-family: 'Lucida Sans', sans-serif;
-}
-
-#suleima-wrapper .header {
-  background-color: #6e9aa6;
-  color: #ffffff;
-  padding: 15px;
-}
-
-#suleima-wrapper button.signin {
-  position: absolute;
-  font-weight: bold;
-  top: 5px;
-  right: 0;
-  -webkit-transition-duration: 0.4s;
-          transition-duration: 0.4s;
-}
-
-#suleima-wrapper button.signin:hover {
-  background-color: #e0e0e0;
-  color: #000000;
-}
-
-#suleima-wrapper .signin {
-  padding: 10px;
-  color: #000000;
-  text-align: center;
-  border: none;
-  background-color: #ffffff;
-  cursor: pointer;
-}
-
-#suleima-wrapper .airimage {
-  width: 250px;
-  height: 200px;
-}
-
-#suleima-wrapper .menu ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-}
-
-#suleima-wrapper .menu li {
-  padding: 8px;
-  margin-bottom: 7px;
-  background-color: #6e9aa6;
-  opacity: 75%;
-  color: #ffffff;
-  /*shadow on the box, barely visible*/
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-#suleima-wrapper .menu li:hover {
-  background-color: #57828e;
-}
-
-#suleima-wrapper .fdesign {
-  padding: 10px;
-  text-align: center;
-  background-color: #a6917e;
-}
-
-#suleima-wrapper #date {
-  padding: 10px;
-  margin: 5px;
-}
-
-#suleima-wrapper #sub {
-  padding: 10px;
-  background-color: #f2e1d1;
-  opacity: 65%;
-  border: 0.5px 0.5px 0.5px 0.5px;
-  border-color: #000000;
-  font-weight: bolder;
-}
-
-#suleima-wrapper .aside {
-  background-color: #6e9aa6;
-  opacity: 75%;
-  padding: 15px;
-  color: #ffffff;
-  text-align: center;
-  font-size: 14px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-}
-
-#suleima-wrapper .footer {
-  background-color: #6e9aa6;
-  color: #ffffff;
-  text-align: center;
-  font-size: 12px;
-  padding: 15px;
 }
 
 #suleima-wrapper .col-1 {

@@ -168,7 +168,8 @@ app.add_url_rule('/regsuccess', view_func=coach.regsuccess, methods=['POST', 'GE
 app.add_url_rule('/coachlogin', view_func=coach.coachlogin, methods=['POST', 'GET'])
 app.add_url_rule('/loginsuccess', view_func=coach.loginsuccess, methods=['POST', 'GET'])
 app.add_url_rule('/coachlogout', view_func=coach.coachlogout, methods=['POST', 'GET'])
-#app.add_url_rule('/coachbook', view_func=coach.coachbook, methods=['POST', 'GET'])
+app.add_url_rule('/coachbook', view_func=coach.coachbook, methods=['POST', 'GET'])
+app.add_url_rule('/arrivalcity/', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
 
 
 
