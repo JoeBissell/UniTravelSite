@@ -7,7 +7,7 @@
 
     <body>
         <div id="suleima-wrapper">
-            <div class="header">
+            <div class="coach-header">
 
                 <h1>UWE Coach Travel</h1>
 
@@ -17,12 +17,12 @@
                 <!--this is the menu on the left in desktop mode-->
                 <div class="col-3 menu"> 
                     <ul>
-                        <li>Air travel</li>
-                        <li>Train travel</li>
-                        <a href="{{ url_for('coachhome') }}"><li>Coach Travel</li></a>
-                        <a href="{{ url_for('oscarindex') }}"><li>Taxi travel</li></a>
-                        <li>Car hire</li>
-                        <li>All travel options</li>
+                        <a href=""><li class="menuitem">Air travel</li></a>
+                        <li class="menuitem">Train travel</li>
+                        <a href="{{ url_for('coach') }}"><li class="c_menuitem">Coach Travel</li></a>
+                        <a href="{{ url_for('oscarindex') }}"><li class="menuitem">Taxi travel</li></a>
+                        <li class="menuitem">Car hire</li>
+                        <a href="{{ url_for('index') }}"><li class="menuitem">All travel options</li></a>
                     </ul>
 
                 </div>
@@ -38,7 +38,7 @@
                         {% if session.logged_in %} Welcome {{ username }} 
                         <br/>
                         <br/>
-                        <a href="{{ url_for('coachlogout') }}"><input type="submit"  value="Logout"></a>                 
+                        <a href="{{ url_for('coachlogout') }}"><button class="coachbutton">Log out</button></a>                 
                         {% else %}
                         <h4>Don't have an account? Sign up here!</h4>
                         <a href="{{ url_for('coachreg') }}"><button class="coachbutton">Register Now!</button></a>

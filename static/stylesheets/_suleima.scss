@@ -1,10 +1,15 @@
+* {box-sizing: border-box;} 
+
+body{
+        background-color: black;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+    }
+
 #suleima-wrapper{
     background-color: black;
     color: white;
-    * {box-sizing: border-box;} 
-    body{
-        background-color: black;
-    }
+
+
     .row:after{
         content: "";
         clear: both;
@@ -14,9 +19,87 @@
         float: left;
         padding: 15px;
     }
+ 
+    
+    a:link{
+        color: white;
+        text-decoration: none;
 
-    html{
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    a:hover{
+        background-color: grey;
+        color: white;
     }
 
+    .coach-header{
+        text-align: center;
+        border: 3px;
+        border-color: white;
+        border-style: solid;
+
+    }
+    .menu{
+    
+        ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+
+            .c_menuitem{
+                padding: 3px;
+                margin-bottom: 5px;
+                border-color: black;
+                border: 2px solid white;
+                background-color: #ffffff;
+                opacity: 100%;
+                color: black;
+            }
+
+            .menuitem {
+                padding: 3px;
+                margin-bottom: 7px;
+                border-color: #ffffff;
+                border: 2px solid white;
+                opacity: 100%;
+                color: #ffffff;
+            }
+
+            .menuitem:hover {
+                background-color: white;
+                border: 2px solid black;
+                color: black;
+            }
+        }
+    }
+
+    .coachbutton{
+        background-color: black;
+        padding: 8px;
+        border: 2px solid white;
+        color: white;
+    }
+
+    .coachbutton:hover{
+        background-color: white;
+        color: black;
+    }
+    .coachbutton:active{
+        background-color: white;
+        color: black;
+    }
+
+        
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
 }
+

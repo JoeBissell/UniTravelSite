@@ -378,9 +378,143 @@ body {
   }
 }
 
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+}
+
 #suleima-wrapper {
   background-color: black;
   color: white;
+}
+
+#suleima-wrapper .row:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+#suleima-wrapper [class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+#suleima-wrapper a:link {
+  color: white;
+  text-decoration: none;
+}
+
+#suleima-wrapper a:hover {
+  background-color: grey;
+  color: white;
+}
+
+#suleima-wrapper .coach-header {
+  text-align: center;
+  border: 3px;
+  border-color: white;
+  border-style: solid;
+}
+
+#suleima-wrapper .menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#suleima-wrapper .menu ul .c_menuitem {
+  padding: 3px;
+  margin-bottom: 5px;
+  border-color: black;
+  border: 2px solid white;
+  background-color: #ffffff;
+  opacity: 100%;
+  color: black;
+}
+
+#suleima-wrapper .menu ul .menuitem {
+  padding: 3px;
+  margin-bottom: 7px;
+  border-color: #ffffff;
+  border: 2px solid white;
+  opacity: 100%;
+  color: #ffffff;
+}
+
+#suleima-wrapper .menu ul .menuitem:hover {
+  background-color: white;
+  border: 2px solid black;
+  color: black;
+}
+
+#suleima-wrapper .coachbutton {
+  background-color: black;
+  padding: 8px;
+  border: 2px solid white;
+  color: white;
+}
+
+#suleima-wrapper .coachbutton:hover {
+  background-color: white;
+  color: black;
+}
+
+#suleima-wrapper .coachbutton:active {
+  background-color: white;
+  color: black;
+}
+
+#suleima-wrapper .col-1 {
+  width: 8.33%;
+}
+
+#suleima-wrapper .col-2 {
+  width: 16.66;
+}
+
+#suleima-wrapper .col-3 {
+  width: 25%;
+}
+
+#suleima-wrapper .col-4 {
+  width: 33.33%;
+}
+
+#suleima-wrapper .col-5 {
+  width: 41.66%;
+}
+
+#suleima-wrapper .col-6 {
+  width: 50%;
+}
+
+#suleima-wrapper .col-7 {
+  width: 58.33%;
+}
+
+#suleima-wrapper .col-8 {
+  width: 66.66%;
+}
+
+#suleima-wrapper .col-9 {
+  width: 75%;
+}
+
+#suleima-wrapper .col-10 {
+  width: 83.33%;
+}
+
+#suleima-wrapper .col-11 {
+  width: 91.66%;
+}
+
+#suleima-wrapper .col-12 {
+  width: 100%;
 }
 
 #hollie-wrapper {
