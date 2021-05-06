@@ -174,11 +174,19 @@ app.add_url_rule('/arrivalcity/', view_func=taxi.ajax_returnarrival, methods=['P
 
 ## HOLLIE'S AIR TRAVEL APP
 # HOMEPAGE, LOGIN, SIGN UP AND REGISTER APP ROUTES
+<<<<<<< HEAD
 app.add_url_rule('/airtravelhome', view_func=air.airtravelhome)
 #app.add_url_rule('/airtravel', view_func=air.airtravel, methods=['POST', 'GET'])
 app.add_url_rule('/airtravelsuccessreg', view_func=air.airtravelsuccessreg, methods=['POST', 'GET'])
 app.add_url_rule('/registerairtravel', view_func=air.registerairtravel, methods=['POST', 'GET'])
 app.add_url_rule('/airtravellogin', view_func=air.airtravellogin, methods=['POST', 'GET'])
+=======
+#app.add_url_rule('/airtravelhome', view_func=air.airtravelhome)
+#app.add_url_rule('/airtravel', view_func=air.airtravel, methods=['POST', 'GET'])
+#app.add_url_rule('/airtravelsuccessreg', view_func=air.airtravelsuccessreg, methods=['POST', 'GET'])
+#app.add_url_rule('/registerairtravel', view_func=air.registerairtravel, methods=['POST', 'GET'])
+#app.add_url_rule('/airtravellogin', view_func=air.airtravellogin, methods=['POST', 'GET'])
+>>>>>>> ee8d41810ad1432fe787696bc8d470bf4286394c
 #app.add_url_rule('/logoutairtravel', view_func=air.logoutairtravel, methods=['POST', 'GET'])
 #app.add_url_rule('/successairlogin', view_func=air.successairlogin, methods=['POST', 'GET'])
 

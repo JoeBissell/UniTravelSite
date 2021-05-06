@@ -1,0 +1,22 @@
+#suleima-wrapper{
+    background-color: black;
+    color: white;
+    * {box-sizing: border-box;} 
+    body{
+        background-color: black;
+    }
+    .row:after{
+        content: "";
+        clear: both;
+        display: block;
+    }
+    [class*="col-"] {
+        float: left;
+        padding: 15px;
+    }
+
+    html{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+}

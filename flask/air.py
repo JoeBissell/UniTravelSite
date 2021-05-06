@@ -16,7 +16,7 @@ def get_connection():
                                   password='Puppy123?£',
                                   database='AirTravel')
    return conn
-
+ 
 # HOMEPAGE
 @app.route('/airtravelhome')         
 def airtravelhome():    
