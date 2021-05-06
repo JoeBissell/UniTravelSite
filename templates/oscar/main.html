@@ -22,12 +22,22 @@
                 <a href="{{ url_for('oscarindex') }}"><i class="fa fa-home"></i> Home</a>
                 <a href="{{ url_for('oscarlookup') }}"><i class="fa fa-search"></i> Lookup</a>
                 <a href="{{ url_for('oscarlogin') }}"><i class="fa fa-lock"></i> Login</a>
-                <a href="{{ url_for('oscarregister') }}"><i class="fa fa-lock"></i> Register</a>
-                <a href="{{ url_for('oscarbookings') }}""><i class="fa fa-lock"></i> Bookings</a>
-                <a href="{{ url_for('oscarusermanage') }}"><i class="fa fa-home"></i> Account Management</a>
+                <a href="{{ url_for('oscarregister') }}"><i class="fa fa-plug"></i> Register</a>
+                <a href="{{ url_for('oscarbookings') }}""><i class="fa fa-calendar"></i> Bookings</a>
+                <a href="{{ url_for('oscarusermanage') }}"><i class="fa fa-user-o"></i> Account Management</a>
              </div>
             <div class="nav-right">
-                <a href="#home"><i class="fa fa-bars"></i> Other Travel</a>
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fa fa-mail-forward"></i> Other Travel</button>
+                    <div class="dropdown-content">
+                      <a href="{{ url_for('joe') }}"><i class="fa fa- fa-car"></i> Car Hire</a>
+                      <a href="{{ url_for('hollie') }}"><i class="fa fa- fa-plane"></i> Flights</a>
+                      <a href="{{ url_for('suleima') }}"><i class="fa fa- fa-bus"></i> Coach</a>
+                      <a href="{{ url_for('bradley') }}"><i class="fa fa- fa-train"></i> Train</a>
+                      <a href="{{ url_for('index') }}"><i class="fa fa- fa-dollar"></i> Compare prices</a>
+                    </div>
+                </div>
+                <div class="mobiletravel"><a href="{{ url_for('index') }}"><i class="fa fa-mail-forward"></i> Other Travel</a> </div>
             </div>
         </nav>
         <div class="col-1"></div>
