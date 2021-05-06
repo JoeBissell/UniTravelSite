@@ -20,6 +20,7 @@ sys.path.insert(0, './flask')
 
 import taxi
 import coach
+import air
 
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
@@ -149,7 +150,7 @@ def joe():
 
 @app.route("/hollie")
 def hollie():
-    return render_template("hollie/index.html")
+    return render_template("hollie/airTravelwelcome.html")
 
 @app.route("/bradley")
 def bradley():
@@ -171,7 +172,15 @@ app.add_url_rule('/coachlogout', view_func=coach.coachlogout, methods=['POST', '
 app.add_url_rule('/coachbook', view_func=coach.coachbook, methods=['POST', 'GET'])
 app.add_url_rule('/arrivalcity/', view_func=taxi.ajax_returnarrival, methods=['POST', 'GET'])
 
-
+## HOLLIE'S AIR TRAVEL APP
+# HOMEPAGE, LOGIN, SIGN UP AND REGISTER APP ROUTES
+app.add_url_rule('/airtravelhome', view_func=air.airtravelhome)
+app.add_url_rule('/airtravel', view_func=air.airtravel, methods=['POST', 'GET'])
+app.add_url_rule('/airtravelsuccessreg', view_func=air.airtravelsuccessreg, methods=['POST', 'GET'])
+app.add_url_rule('/registerairtravel', view_func=air.registerairtravel, methods=['POST', 'GET'])
+app.add_url_rule('/airtravellogin', view_func=air.airtravellogin, methods=['POST', 'GET'])
+app.add_url_rule('/logoutairtravel', view_func=air.logoutairtravel, methods=['POST', 'GET'])
+app.add_url_rule('/successairlogin', view_func=air.successairlogin, methods=['POST', 'GET'])
 
 
 

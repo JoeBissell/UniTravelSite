@@ -1,0 +1,28 @@
+{% extends "hollie/airTravelhomeDesign.html" %}
+{% block content %}
+
+ <form method="POST" class="fdesign">
+    <h1>Welcome to Air Travel</h1>
+    <label for="From">From: </label>
+    <input type="text" id="date" name="leaving" placeholder="From">
+    <label for="to">To: </label>
+    <input type="text" id="date" name="arrival" placeholder="To">
+    <br>
+    <label for="Departure Time">start date: </label>
+    <input type="date" id="date" name="leavingtime">
+    <label for="Arrival Time">end date: </label>
+    <input type="date" id="date" name="arrivaltime">
+    <h3>Journey</h3>
+    <input type="radio" id="journey" name="oneway" value="oneway">
+    <label for="journey">One-way ticket</label>
+    <input type="radio" id="journey" name="return" value="returnticket">
+    <label for="journey">Return Ticket</label>
+    <br>
+    <h3>Passengers</h3>
+    <label for="quantity">Adults:</label>
+    <input type="number" id="date" name="quantity" min="1" max="45">
+    <label for="quantity">Children (Under 10):</label>
+    <input type="number" id="date" name="quantity" min="0" max="44"><br>
+    <input type="submit" id="sub" value="submit">
+</form>
+{% endblock %}

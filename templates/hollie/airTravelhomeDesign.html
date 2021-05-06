@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
+        <title>Air Travel</title>
+    </head>
+
+    <body>
+        <!-- TITLE OF WEBSITE -->
+        <div id="hollie-wrapper">
+            <div class="header">
+                <h1>Tosjosumbalie Travel</h1>
+                <a href="{{ url_for('airtravellogin') }}"><button class="signin">Log In</button></a>
+            </div>
+
+            <div class="row">
+                <!-- NAV BAR -->
+                <div class="col-3 menu"> 
+                    <ul>
+                        <a href="{{ url_for('airtravelhome') }}"><li>Air travel</li></a>
+                        <li>Train travel</li>
+                        <a href="{{ url_for('coachhome') }}"><li>Coach Travel</li></a>
+                        <a href="{{ url_for('oscarindex') }}"><li>Taxi travel</li></a>
+                        <li>Car hire</li>
+                        <li>All travel options</li>
+                    </ul>
+
+                </div>
+
+                <!--this is the main content part in desktop mode-->
+                <div class="col-6">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                <!-- LOGIN AND REGISTER SECTION -->
+                <div class="col-3 right">
+                    <div class="aside">
+                        {% if session.logged_in %} Welcome {{ username }} 
+                        <br/>
+                        <br/>
+                        <a href="{{ url_for('logoutairtravel') }}"><input type="submit" value="Logout"></a>                 
+                        {% else %}
+                        <h4>Don't have an account? Sign up for free here!</h4>
+                        <h1>Register now!</h1>
+                        <a href="{{ url_for('registerairtravel') }}"><button>Register</button></a>
+                        <br/>
+                        <br/>  
+                        {% endif %} 
+                    </div>
+                </div>
+            <!-- FOOTER SECTION -->
+            </div>
+            <div class="footer">
+                <p> Copyright Hollie Baker - ID: 19041302</p>
+            </div>
+        </div>
+    </body>
+</html>

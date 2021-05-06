@@ -1,0 +1,5 @@
+{% extends "hollie/airTravelhomeDesign.html" %}
+{% block content %}
+    <h1>Tosjosumbalie Travel Welcomes {{request.form["username"]}}</h1>
+    <a href="{{ url_for('airtravel') }}"><button>See options Available!</button></a>
+{% endblock %}
