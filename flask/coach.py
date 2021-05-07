@@ -25,10 +25,14 @@ def coachhome():
    username = session['username']   
    return render_template('/suleima/coachhome.html', username=username)
 
-@app.route("/coach", methods=['POST', 'GET']) 
-def coach():
-   username = session['username']   
-   return render_template('/suleima/coach.html', username=username)
+def check_login(f):
+   @wraps(f)
+   def wrap(*args, **kwargs):
+      if ('logged_in' not in session):
+         return f(*args, **kwargs)
+      else: 
+         return render_template('suleima/coachhome.html', error= 'Already logged in')
+   return wrap
 
 
 
@@ -138,7 +142,30 @@ def loginsuccess():
     username=request.form['username']
     return render_template('/suleima/loginsuccess.html')
 
+def login_req(f):
+   @wraps(f)
+   def wrap(*args, **kwargs):
+      if 'logged_in' in session:
+         return f(*args, **kwargs)
+      else:
+         print("Login required.")
+      return render_template("suleima/coachlogin.html", error="Please login first")
+   return wrap
+
+## ADMIN LOG IN REQUIRED
+def admin_req(f):
+   @wraps(f)
+   def wrap(*args, **kwargs):
+      if ('logged_in' in session) and (session['usertype'] == 'admin'):
+         return f(*args, **kwargs)
+      else:
+         print("Admin login required.")
+         abort(401)
+   return wrap
+
+
 @app.route("/coachbook", methods=['POST', 'GET']) 
+@login_req
 def coachbook():
    username = session['username']
    conn = get_connection()
@@ -159,9 +186,9 @@ def coachbook():
    return render_template('/suleima/coachbook.html', departurelist=cities)
 
 @app.route ('/arrivalcoach/', methods = ['POST', 'GET'])
+@login_req
 def ajax_returncoach():   
-	print('/arrivalcity') 
-
+	print('/arrivalcoach') 
 	if request.method == 'GET':
 		deptcity = request.args.get('q')
 		conn = get_connection()
@@ -180,6 +207,7 @@ def ajax_returncoach():
 			return jsonify(returncities='DB Connection Error')
 
 @app.route ('/select-coach/', methods = ['POST', 'GET'])
+@login_req
 def select_coach():
 	if request.method == 'POST':
 		print('Select booking initiated')
@@ -195,21 +223,90 @@ def select_coach():
 			print('MySQL Connection is established')                          
 			dbcursor = conn.cursor()    #Creating cursor object            
 			dbcursor.execute('SELECT * FROM coachroutes3 WHERE deptCity = %s AND arrivCity = %s;', (departcity, arrivalcity))   
-		#	print('SELECT statement executed successfully.')             
+			print('SELECT statement executed successfully.')             
 			rows = dbcursor.fetchall()
 			datarows=[]			
 			for row in rows:
 				data = list(row)                    
 				fare = (float(row[5]) * float(adultseats)) + (float(row[5]) * 0.5 * float(childseats))
-				#print(fare)
+				print(fare)
 				data.append(fare)
-				#print(data)
+				print(data)
 				datarows.append(data)			
 			dbcursor.close()              
 			conn.close() #Connection must be closed
-			#print(datarows)
-			#print(len(datarows))			
+			print(datarows)
+			print(len(datarows))			
 			return render_template('/suleima/c_bookstart.html', resultset=datarows, lookupdata=lookupdata)
 		else:
 			print('DB connection Error')
 			return redirect(url_for('index'))
+
+
+@app.route ('/c_confirm/', methods = ['POST', 'GET'])
+@login_req
+def c_confirm():
+	if request.method == 'POST':		
+		print('booking confirm initiated')
+		journeyid = request.form['bookingchoice']		
+		departcity = request.form['deptcity']
+		arrivalcity = request.form['arrivcity']
+		outdate = request.form['outdate']
+		adultseats =request.form['adultseats']
+		childseats =request.form['childseats']
+		totalfare = request.form['totalfare']
+		cardnumber = request.form['cardnumber']
+
+		totalseats = adultseats + childseats
+		bookingdata = [journeyid, departcity, arrivalcity, outdate, adultseats, childseats, totalfare]
+		print(bookingdata)
+		conn = get_connection()
+		if conn != None:    #Checking if connection is None         
+			print('MySQL Connection is established')                          
+			dbcursor = conn.cursor()    #Creating cursor object     	
+			dbcursor.execute('INSERT INTO c_bookings (deptDate, idRoutes, noOfSeats, totFare) VALUES \
+				(%s, %s, %s, %s);', (outdate,  journeyid, totalseats, totalfare))   
+			print('Booking statement executed successfully.')             
+			conn.commit()	
+			#dbcursor.execute('SELECT AUTO_INCREMENT - 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s;', ('TEST_DB', 'bookings'))   
+			dbcursor.execute('SELECT LAST_INSERT_ID();')
+			print('SELECT statement executed successfully.')             
+			rows = dbcursor.fetchone()
+			#print ('row count: ' + str(dbcursor.rowcount))
+			bookingid = rows[0]
+			bookingdata.append(bookingid)
+			dbcursor.execute('SELECT * FROM coachroutes3 WHERE idRoutes = %s;', (journeyid,))   			
+			rows = dbcursor.fetchall()
+			deptTime = rows[0][2]
+			arrivTime = rows[0][4]
+			bookingdata.append(deptTime)
+			bookingdata.append(arrivTime)
+			print(bookingdata)
+			print(len(bookingdata))
+			cardnumber = cardnumber[-4:-1]
+			print(cardnumber)
+			dbcursor.execute
+			dbcursor.close()              
+			conn.close() #Connection must be closed
+			return render_template('suleima/c_confirm.html', resultset=bookingdata, cardnumber=cardnumber)
+		else:
+			print('DB connection Error')
+			return redirect(url_for('index'))
+
+
+@app.route ('/dumpsVar/', methods = ['POST', 'GET'])
+def dumpVar():
+	if request.method == 'POST':
+		result = request.form
+		output = "<H2>Data Received: </H2></br>"
+		output += "Number of Data Fields : " + str(len(result))
+		for key in list(result.keys()):
+			output = output + " </br> " + key + " : " + result.get(key)
+		return output
+	else:
+		result = request.args
+		output = "<H2>Data Received: </H2></br>"
+		output += "Number of Data Fields : " + str(len(result))
+		for key in list(result.keys()):
+			output = output + " </br> " + key + " : " + result.get(key)
+		return output  

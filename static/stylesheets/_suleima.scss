@@ -154,13 +154,15 @@
             border: 2px solid black;
             border-radius: 4px;
         }
-        .tripinfo{
-            border: 2px solid black;
-            padding: 2px;
-            border-radius: 4px;
 
-        }
+        .coachform{
+            .tripinfo{
+                border: 2px solid black;
+                padding: 2px;
+                border-radius: 4px;
 
+            }
+        
             .c_table
             {
                 border: 2px solid black;
@@ -179,7 +181,7 @@
                 }
 
             }
-        .coachform{
+
            
             .c-input{
                 width: 100%;

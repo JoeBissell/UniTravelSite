@@ -68,20 +68,19 @@ INSERT INTO suleima2abbara_prj.coachroutes3 VALUES
   
   select * from coachroutes3; 
   
-CREATE TABLE coachbookings (
+CREATE TABLE c_bookings (
   idBooking INT NOT NULL auto_increment, 
   deptDate  datetime NOT NULL,   
-  arrivDate datetime NOT NULL, 
   idRoutes INT NOT NULL,  
   noOfSeats INT NOT NULL default 1, 
   totFare Double NOT NULL,  
- FOREIGN KEY (idRoutes) REFERENCES routes (idRoutes), 
+ FOREIGN KEY (idRoutes) REFERENCES coachroutes3 (idRoutes), 
  PRIMARY KEY (idBooking)
     ); 
-    
+SELECT * FROM coachroutes3 ;
 select * from bookings; 
 delete from bookings; 
-
+select * from coachusers; 
 CREATE TABLE coachusers (
 	userid INTEGER NOT NULL auto_increment,
     username VARCHAR(64) NOT NULL UNIQUE,

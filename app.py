@@ -162,7 +162,7 @@ def suleima():
 
 
 app.add_url_rule('/coachhome', view_func=coach.coachhome)
-app.add_url_rule('/coach', view_func=coach.coach, methods=['POST', 'GET'])
+#app.add_url_rule('/coach', view_func=coach.coach, methods=['POST', 'GET'])
 #app.add_url_rule('/coachresult', view_func=coach.coachresult, methods=['POST', 'GET'])
 app.add_url_rule('/coachreg', view_func=coach.coachreg, methods=['POST', 'GET'])
 app.add_url_rule('/regsuccess', view_func=coach.regsuccess, methods=['POST', 'GET'])
@@ -172,6 +172,9 @@ app.add_url_rule('/coachlogout', view_func=coach.coachlogout, methods=['POST', '
 app.add_url_rule('/coachbook', view_func=coach.coachbook, methods=['POST', 'GET'])
 app.add_url_rule('/arrivalcoach/', view_func=coach.ajax_returncoach, methods=['POST', 'GET'])
 app.add_url_rule('/select-coach/', view_func=coach.select_coach, methods=['POST', 'GET'])
+app.add_url_rule('/c_confirm/', view_func=coach.c_confirm, methods=['POST', 'GET'])
+app.add_url_rule('/dumpsVar/', view_func=coach.dumpVar, methods=['POST', 'GET'])
+
 
 
 ## HOLLIE'S AIR TRAVEL APP

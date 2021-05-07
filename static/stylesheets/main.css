@@ -533,26 +533,26 @@ body {
   border-radius: 4px;
 }
 
-#suleima-wrapper .content .tripinfo {
+#suleima-wrapper .content .coachform .tripinfo {
   border: 2px solid black;
   padding: 2px;
   border-radius: 4px;
 }
 
-#suleima-wrapper .content .c_table {
+#suleima-wrapper .content .coachform .c_table {
   border: 2px solid black;
   border-radius: 4px;
   margin-top: 5px;
 }
 
-#suleima-wrapper .content .c_table td {
+#suleima-wrapper .content .coachform .c_table td {
   border: 1px solid black;
   border-radius: 4px;
   text-align: center;
   padding: 5px;
 }
 
-#suleima-wrapper .content .c_table th {
+#suleima-wrapper .content .coachform .c_table th {
   border: 1px solid black;
   border-radius: 4px;
   padding: 3px;

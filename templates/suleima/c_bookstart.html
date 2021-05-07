@@ -5,23 +5,22 @@
 
 
       <h3> Coach trip details: </h3>
+<form class="coachform" action="/c_confirm/" method="POST">
+    <div class="tripinfo">
 
-<div class="tripinfo">
+        Departure City : {{lookupdata[0]}} <br/>
+        <input type="hidden" name="deptcity" id="deptcity" value="{{lookupdata[0]}}"/>
+        Arrival City : {{lookupdata[1]}} <br/>
+        <input type="hidden" name="arrivcity" id="arrivcity" value="{{lookupdata[1]}}"/>
+        Trip Date : {{lookupdata[2]}} <br/>
+        <input type="hidden" name="outdate" id="outdate" value="{{lookupdata[2]}}"/>
+        Adult Seats : {{lookupdata[3]}} <br/>
+        <input type="hidden" name="adultseats" id="adultseats" value="{{lookupdata[3]}}"/>
+        Child Seats : {{lookupdata[4]}} <br/>
+        <input type="hidden" name="childseats" id="childseats" value="{{lookupdata[4]}}"/>
 
+    </div>
 
-
-      Departure City : {{lookupdata[0]}} <br/>
-      <input type="hidden" name="deptcity" id="deptcity" value="{{lookupdata[0]}}"/>
-      Arrival City : {{lookupdata[1]}} <br/>
-      <input type="hidden" name="arrivcity" id="arrivcity" value="{{lookupdata[1]}}"/>
-      Trip Date : {{lookupdata[2]}} <br/>
-      <input type="hidden" name="outdate" id="outdate" value="{{lookupdata[2]}}"/>
-      Adult Seats : {{lookupdata[3]}} <br/>
-      <input type="hidden" name="adultseats" id="adultseats" value="{{lookupdata[4]}}"/>
-      Child Seats : {{lookupdata[4]}} <br/>
-      <input type="hidden" name="childseats" id="childseats" value="{{lookupdata[5]}}"/>
-
-</div>
 
       <table class="c_table"> 
       <tr>
@@ -44,7 +43,7 @@
       
      {% endfor %} 
     </table>  
-<form class="coachform" action="/booking_confirm/" method="POST">  
+  
   <h3> Payment </h3>
     Full name on card: 
     <input class="c-input" type="text" name="cardname" id="cardname" /> <br/>
@@ -55,7 +54,7 @@
     CVV:
     <input class="c-input"  type="number" name="cvv" id="cvv" max="999" size="3"/> <br/>
     <input class="c-submit" type="submit" value="Confirm Booking and Payment"/>
-  </form> 
+</form> 
 
 
   <a href="{{ url_for('coachhome') }}"><button class="coachbutton">Home</button></a>
