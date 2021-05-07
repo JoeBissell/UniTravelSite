@@ -28,7 +28,7 @@
                 </div>
 
                 <!--this is the main content part in desktop mode-->
-                <div class="col-6">
+                <div class="col-6 content">
                     {% block content %}
                     {% endblock %}
                 </div>
@@ -40,9 +40,9 @@
                         <br/>
                         <a href="{{ url_for('coachlogout') }}"><button class="coachbutton">Log out</button></a>                 
                         {% else %}
-                        <h4>Don't have an account? Sign up here!</h4>
+                        <h3>Don't have an account? Sign up here!</h4>
                         <a href="{{ url_for('coachreg') }}"><button class="coachbutton">Register Now!</button></a>
-                        <h4>or Log In to an existing account</h4>
+                        <h3>or Log In to an existing account</h4>
                         <a href="{{ url_for('coachlogin') }}"><button class="coachbutton">Log in</button></a>
                         <br/>
                         <br/>  
@@ -51,8 +51,8 @@
                 </div>
 
             </div>
-            <div class="footer">
-                <p>this travel method is covered by Suleima Abbara - 19020111</p>
+            <div class="coachfooter">
+                <h4>this travel method is covered by Suleima Abbara - 19020111</h4>
             
             </div>
         </div>
