@@ -174,10 +174,6 @@ app.add_url_rule('/arrivalcity/', view_func=taxi.ajax_returnarrival, methods=['P
 
 ## HOLLIE'S AIR TRAVEL APP
 # HOMEPAGE, LOGIN, SIGN UP AND REGISTER APP ROUTES
-<<<<<<< HEAD
-=======
-
->>>>>>> c9131500d8dd5e2a14872b029ee3cfebcf30772e
 app.add_url_rule('/airtravelhome', view_func=air.airtravelhome)
 #app.add_url_rule('/airtravel', view_func=air.airtravel, methods=['POST', 'GET'])
 app.add_url_rule('/airtravelsuccessreg', view_func=air.airtravelsuccessreg, methods=['POST', 'GET'])

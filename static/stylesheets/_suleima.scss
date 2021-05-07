@@ -1,11 +1,12 @@
 * {box-sizing: border-box;} 
 
-body{
+#suleima-wrapper{
+
+    body{
         background-color: black;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
     }
 
-#suleima-wrapper{
     background-color: black;
     color: white;
 
@@ -71,21 +72,52 @@ body{
             }
         }
     }
-
     .coachbutton{
         background-color: black;
         padding: 8px;
         border: 2px solid white;
         color: white;
     }
-
     .coachbutton:hover{
         background-color: white;
         color: black;
     }
-    .coachbutton:active{
-        background-color: white;
-        color: black;
+
+    
+
+    .right {
+        .aside{
+            .coachbutton{
+                background-color: black;
+                padding: 8px;
+                border: 2px solid white;
+                color: white;
+            }
+
+            .coachbutton:hover{
+                background-color: white;
+                color: black;
+            }
+        }
+    }
+
+    .content{
+        .coachbutton{
+            background-color: black;
+            padding: 8px;
+            border: 2px solid white;
+            color: white;
+        }
+        .coachbutton:hover{
+            background-color: white;
+            color: black;
+        }
+    }
+
+    .coachfooter{
+    
+        text-align: center;
+    
     }
 
         

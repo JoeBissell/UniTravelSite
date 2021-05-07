@@ -383,14 +383,14 @@ body {
           box-sizing: border-box;
 }
 
-body {
-  background-color: black;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
-}
-
 #suleima-wrapper {
   background-color: black;
   color: white;
+}
+
+#suleima-wrapper body {
+  background-color: black;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
 }
 
 #suleima-wrapper .row:after {
@@ -464,9 +464,32 @@ body {
   color: black;
 }
 
-#suleima-wrapper .coachbutton:active {
+#suleima-wrapper .right .aside .coachbutton {
+  background-color: black;
+  padding: 8px;
+  border: 2px solid white;
+  color: white;
+}
+
+#suleima-wrapper .right .aside .coachbutton:hover {
   background-color: white;
   color: black;
+}
+
+#suleima-wrapper .content .coachbutton {
+  background-color: black;
+  padding: 8px;
+  border: 2px solid white;
+  color: white;
+}
+
+#suleima-wrapper .content .coachbutton:hover {
+  background-color: white;
+  color: black;
+}
+
+#suleima-wrapper .coachfooter {
+  text-align: center;
 }
 
 #suleima-wrapper .col-1 {
