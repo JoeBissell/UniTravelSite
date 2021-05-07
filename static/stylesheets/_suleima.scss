@@ -9,8 +9,6 @@
 #suleima-wrapper{
 
     body{
-
-    
     background-color: black;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
@@ -115,11 +113,8 @@
         .aside{
             margin: 3px;
             padding: 3px;
-
             border: 2px solid white;
             border-radius: 4px;
-
-
 
             .coachbutton{
                 background-color: black;
@@ -127,7 +122,6 @@
                 border: 2px solid white;
                 color: white;
                 border-radius: 4px;
-
             }
 
             .coachbutton:hover{
@@ -153,20 +147,40 @@
             border: 2px solid white;
             color: white;
             border-radius: 4px;
-
         }
         .coachbutton:hover{
             background-color: white;
             color: black;
             border: 2px solid black;
             border-radius: 4px;
-
+        }
+        .tripinfo{
+            border: 2px solid black;
+            padding: 2px;
+            border-radius: 4px;
 
         }
 
+            .c_table
+            {
+                border: 2px solid black;
+                border-radius: 4px;
+                margin-top: 5px;
+                td{
+                    border: 1px solid black;
+                    border-radius: 4px;
+                    text-align: center;
+                    padding: 5px;
+                }
+                th{
+                    border: 1px solid black;
+                    border-radius: 4px;
+                    padding: 3px;
+                }
+
+            }
         .coachform{
            
-
             .c-input{
                 width: 100%;
                 padding: 12px 20px;
@@ -177,17 +191,6 @@
                 box-sizing: border-box;
             }
 
-            .table
-            {
-
-                .resulttable{
-                    .th{
-                        border: 1px solid black;
-                    }
-
-
-                }
-            }
 
             .c-submit{
                 background-color: black;

@@ -533,6 +533,31 @@ body {
   border-radius: 4px;
 }
 
+#suleima-wrapper .content .tripinfo {
+  border: 2px solid black;
+  padding: 2px;
+  border-radius: 4px;
+}
+
+#suleima-wrapper .content .c_table {
+  border: 2px solid black;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+#suleima-wrapper .content .c_table td {
+  border: 1px solid black;
+  border-radius: 4px;
+  text-align: center;
+  padding: 5px;
+}
+
+#suleima-wrapper .content .c_table th {
+  border: 1px solid black;
+  border-radius: 4px;
+  padding: 3px;
+}
+
 #suleima-wrapper .content .coachform .c-input {
   width: 100%;
   padding: 12px 20px;
@@ -542,10 +567,6 @@ body {
   border-radius: 4px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-}
-
-#suleima-wrapper .content .coachform .table .resulttable .th {
-  border: 1px solid black;
 }
 
 #suleima-wrapper .content .coachform .c-submit {
@@ -619,7 +640,12 @@ body {
 }
 
 #hollie-wrapper {
-  background-color: #f2e1d1;
+  /*for unordered list inside the menu class, do the following*/
+  /*for list item inside menu class do the following*/
+  /*when mouse hovers  over the list item, change colour to following*/
+  /* FORM DESIGN */
+  /*for aside class do the following*/
+  /* for desktop: */
 }
 
 #hollie-wrapper * {

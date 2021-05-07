@@ -23,7 +23,7 @@ def get_connection():
 @app.route('/coachhome')         
 def coachhome():    
    username = session['username']   
-   return render_template('/suleima/coach.html', username=username)
+   return render_template('/suleima/coachhome.html', username=username)
 
 @app.route("/coach", methods=['POST', 'GET']) 
 def coach():
@@ -148,7 +148,7 @@ def coachbook():
    print('SELECT statement executed successfully.')             
    rows = dbcursor.fetchall()                                    
    dbcursor.close()              
-   conn.close() #Connection must be 
+   conn.close() 
    cities = []
    for city in rows:
       city = str(city).strip("(")
@@ -186,10 +186,9 @@ def select_coach():
 		departcity = request.form['departureslist']
 		arrivalcity = request.form['arrivalslist']
 		outdate = request.form['outdate']
-		returndate = request.form['returndate']
 		adultseats = request.form['adultseats']
 		childseats = request.form['childseats']
-		lookupdata = [departcity, arrivalcity, outdate, returndate, adultseats, childseats]
+		lookupdata = [departcity, arrivalcity, outdate, adultseats, childseats]
 		#print(lookupdata)
 		conn = get_connection()
 		if conn != None:    #Checking if connection is None         
