@@ -518,12 +518,7 @@ body {
 }
 
 #hollie-wrapper {
-  /*for unordered list inside the menu class, do the following*/
-  /*for list item inside menu class do the following*/
-  /*when mouse hovers  over the list item, change colour to following*/
-  /* FORM DESIGN */
-  /*for aside class do the following*/
-  /* for desktop: */
+  background-color: #f2e1d1;
 }
 
 #hollie-wrapper * {
