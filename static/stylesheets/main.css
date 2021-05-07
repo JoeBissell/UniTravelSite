@@ -383,6 +383,11 @@ body {
           box-sizing: border-box;
 }
 
+#suleima-coach {
+  background-color: black;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serifa;
+}
+
 #suleima-wrapper {
   background-color: black;
   color: white;
@@ -390,7 +395,7 @@ body {
 
 #suleima-wrapper body {
   background-color: black;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande';
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 #suleima-wrapper .row:after {
@@ -401,7 +406,7 @@ body {
 
 #suleima-wrapper [class*="col-"] {
   float: left;
-  padding: 15px;
+  padding: 10px;
 }
 
 #suleima-wrapper a:link {
@@ -419,6 +424,11 @@ body {
   border: 3px;
   border-color: white;
   border-style: solid;
+  border-radius: 4px;
+}
+
+#suleima-wrapper .menu {
+  padding: 0;
 }
 
 #suleima-wrapper .menu ul {
@@ -428,28 +438,37 @@ body {
 }
 
 #suleima-wrapper .menu ul .c_menuitem {
-  padding: 3px;
+  padding: 8px;
+  margin-top: 5px;
   margin-bottom: 5px;
   border-color: black;
   border: 2px solid white;
   background-color: #ffffff;
   opacity: 100%;
   color: black;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
 }
 
 #suleima-wrapper .menu ul .menuitem {
-  padding: 3px;
-  margin-bottom: 7px;
+  padding: 8px;
+  margin-bottom: 8px;
+  margin-top: 5px;
   border-color: #ffffff;
   border: 2px solid white;
   opacity: 100%;
   color: #ffffff;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 4px;
 }
 
 #suleima-wrapper .menu ul .menuitem:hover {
   background-color: white;
   border: 2px solid black;
   color: black;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .coachbutton {
@@ -457,11 +476,24 @@ body {
   padding: 8px;
   border: 2px solid white;
   color: white;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .coachbutton:hover {
   background-color: white;
   color: black;
+  border-radius: 4px;
+}
+
+#suleima-wrapper .right {
+  padding: 0px;
+}
+
+#suleima-wrapper .right .aside {
+  margin: 3px;
+  padding: 3px;
+  border: 2px solid white;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .right .aside .coachbutton {
@@ -469,11 +501,21 @@ body {
   padding: 8px;
   border: 2px solid white;
   color: white;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .right .aside .coachbutton:hover {
   background-color: white;
   color: black;
+  border-radius: 4px;
+}
+
+#suleima-wrapper .content {
+  background-color: white;
+  color: black;
+  margin: 3px;
+  padding: 6px;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .content .coachbutton {
@@ -481,15 +523,51 @@ body {
   padding: 8px;
   border: 2px solid white;
   color: white;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .content .coachbutton:hover {
   background-color: white;
   color: black;
+  border: 2px solid black;
+  border-radius: 4px;
+}
+
+#suleima-wrapper .content .coachform .c-input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+#suleima-wrapper .content .coachform .table .resulttable .th {
+  border: 1px solid black;
+}
+
+#suleima-wrapper .content .coachform .c-submit {
+  background-color: black;
+  padding: 8px;
+  border: 2px solid white;
+  color: white;
+  border-radius: 4px;
+}
+
+#suleima-wrapper .content .coachform .c-submit:hover {
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .coachfooter {
+  border: 3px solid white;
+  margin: 0;
   text-align: center;
+  border-radius: 4px;
 }
 
 #suleima-wrapper .col-1 {
@@ -501,7 +579,7 @@ body {
 }
 
 #suleima-wrapper .col-3 {
-  width: 25%;
+  width: 24%;
 }
 
 #suleima-wrapper .col-4 {
@@ -513,7 +591,7 @@ body {
 }
 
 #suleima-wrapper .col-6 {
-  width: 50%;
+  width: 49%;
 }
 
 #suleima-wrapper .col-7 {

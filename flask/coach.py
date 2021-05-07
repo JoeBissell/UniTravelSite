@@ -31,28 +31,11 @@ def coach():
    return render_template('/suleima/coach.html', username=username)
 
 
-@app.route('/coachresult', methods=['POST', 'GET'])
-def coachresult():
-    leaving=request.form['leaving']
-    conn = get_connection()
-    if conn != None:
-           print ('Connected to DB.')
-           dbcursor = conn.cursor()
-           SQL_statement = 'SELECT * FROM coach WHERE leaving = %s'
-           args = (leaving,)
-           dbcursor.execute(SQL_statement, args)
-           print('SELECT executed.')
-           rows = dbcursor.fetchall()
-           dbcursor.close()
-           conn.close()
-           return render_template('suleima/coachresult.html', resultset=rows)
-    else:
-        return "connection failed"
 
 
 @app.route("/regsuccess", methods=['POST', 'GET']) 
 def regsuccess():
-    username = request.form['username']
+    username = session['username']
     return render_template('/suleima/regsuccess.html')
 
 
@@ -148,7 +131,7 @@ def coachlogout():
    session.clear()
    print("Logged out.")
    gc.collect()
-   return render_template('/suleima/coach.html')
+   return render_template('/suleima/coachhome.html')
 
 @app.route("/loginsuccess", methods=['POST', 'GET']) 
 def loginsuccess():
@@ -175,8 +158,8 @@ def coachbook():
       cities.append(city)
    return render_template('/suleima/coachbook.html', departurelist=cities)
 
-@app.route ('/arrivalcity/', methods = ['POST', 'GET'])
-def ajax_returncity():   
+@app.route ('/arrivalcoach/', methods = ['POST', 'GET'])
+def ajax_returncoach():   
 	print('/arrivalcity') 
 
 	if request.method == 'GET':
@@ -185,7 +168,7 @@ def ajax_returncity():
 		if conn != None:    #Checking if connection is None         
 			print('MySQL Connection is established')                          
 			dbcursor = conn.cursor()    #Creating cursor object            
-			dbcursor.execute('SELECT DISTINCT arrivCity FROM routes WHERE deptCity = %s;', (deptcity,))   
+			dbcursor.execute('SELECT DISTINCT arrivCity FROM coachroutes3 WHERE deptCity = %s;', (deptcity,))   
 			print('SELECT arrival statement executed successfully.')             
 			rows = dbcursor.fetchall()
 			total = dbcursor.rowcount                                    
@@ -195,3 +178,39 @@ def ajax_returncity():
 		else:
 			print('DB connection Error')
 			return jsonify(returncities='DB Connection Error')
+
+@app.route ('/select-coach/', methods = ['POST', 'GET'])
+def select_coach():
+	if request.method == 'POST':
+		print('Select booking initiated')
+		departcity = request.form['departureslist']
+		arrivalcity = request.form['arrivalslist']
+		outdate = request.form['outdate']
+		returndate = request.form['returndate']
+		adultseats = request.form['adultseats']
+		childseats = request.form['childseats']
+		lookupdata = [departcity, arrivalcity, outdate, returndate, adultseats, childseats]
+		#print(lookupdata)
+		conn = get_connection()
+		if conn != None:    #Checking if connection is None         
+			print('MySQL Connection is established')                          
+			dbcursor = conn.cursor()    #Creating cursor object            
+			dbcursor.execute('SELECT * FROM coachroutes3 WHERE deptCity = %s AND arrivCity = %s;', (departcity, arrivalcity))   
+		#	print('SELECT statement executed successfully.')             
+			rows = dbcursor.fetchall()
+			datarows=[]			
+			for row in rows:
+				data = list(row)                    
+				fare = (float(row[5]) * float(adultseats)) + (float(row[5]) * 0.5 * float(childseats))
+				#print(fare)
+				data.append(fare)
+				#print(data)
+				datarows.append(data)			
+			dbcursor.close()              
+			conn.close() #Connection must be closed
+			#print(datarows)
+			#print(len(datarows))			
+			return render_template('/suleima/c_bookstart.html', resultset=datarows, lookupdata=lookupdata)
+		else:
+			print('DB connection Error')
+			return redirect(url_for('index'))

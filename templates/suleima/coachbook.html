@@ -14,9 +14,9 @@
                       }
                       else{
                           var response = JSON.parse(req.responseText);                   
-                          //document.getElementById('myDiv').innerHTML = response.username
+                          document.getElementById('myDiv').innerHTML = response.username
                           var size = response.size;                   
-                          //alert(response.returncities[0]);
+                          alert(response.returncities[0]);
                           for (var x=0; x < arrivalslist.length; x++){
                               arrivalslist.remove(x);                        
                           }
@@ -40,34 +40,34 @@
         </script>
 
       <h1> Choose your route: </h1>
-        <form action="/selectBooking/" method="POST"> 
+        <form action="/select-coach/" class="coachform" method="POST"> 
             Select departure city: 
-            <select name="departureslist" onchange="getarrivalcity(this.value)">
+            <select class="c-input" name="departureslist" onchange="getarrivalcity(this.value)">
             {% for departure in departurelist %}
                       <option value="{{departure}}"> {{departure}} </option>	    
                   {% endfor %} 
             </select>       
             <br />
             Select arrival city:
-            <select id="arrivalslist" name="arrivalslist">            
+            <select class="c-input"  id="arrivalslist" name="arrivalslist">            
                 {% for departure in departurelist %}
                 <option value="{{departure}}"> {{departure}} </option>	    
             {% endfor %} 
             </select>
             <br/>
             Select outgoing date:
-            <input type="date" name="outdate" id="outdate" required />
+            <input class="c-input" type="date" name="outdate" id="outdate" required />
             <br/>
             Select return date:
-            <input type="date" name="returndate" id="returndate" required />
+            <input class="c-input"  type="date" name="returndate" id="returndate" required />
             <br/>
             Select adult seats:
-            <input type="number" name="adultseats" id="adultseats" required />
+            <input class="c-input"  type="number" name="adultseats" id="adultseats" required />
             <br/>
             Select child seats:
-            <input type="number" name="childseats" id="childseats" value=0 />
+            <input class="c-input"  type="number" name="childseats" id="childseats" value=0 />
             <br/>
-            <input type="submit" value="Proceed Booking"/>
+            <input class="c-submit" type="submit" value="Proceed Booking"/>
           </form>      
 
       

@@ -1,20 +1,18 @@
 {% extends "suleima/coachlayout.html" %}
 {% block content %}
-                    <h1>Welcome to Coach travel</h1>
-                    <h3>Register Now to continue to the booking process</h3>
-                    <h3>or log in to an existing account</h3>
-                    <form method="POST" action="/coachreg"  class="fdesign">
-                        <label for="username">Username: </label>
-                        <input type="text" id="date" name="username" placeholder="username" required value="{{request.form.username}}"> 
-                        <br>                        
-                        <label for="email">Email: </label>
-                        <input type="email" placeholder="Email" id="date" name="email" required value="{{request.form.email}}">
-                        <br>
-                        <label for="password">Password: </label>
-                        <input type="password" id="date" name="password" placeholder="password" required value="{{request.form.password}}">
-                        <br>
+    <h1>Welcome to Coach travel</h1>
+    <h3>Register Now to continue to the booking process</h3>
 
-                        <input type="submit" id="sub" value="submit">
-
-                    </form>
+    <form method="POST" action="/coachreg"  class="coachform">
+        <label class="c-label" for="username">Username: </label> <br>
+        <input class="c-input" type="text" id="date" name="username" placeholder="username" required value="{{request.form.username}}"> 
+        <br>                        
+        <label for="email">Email: </label><br>
+        <input class="c-input" type="email" placeholder="Email" id="date" name="email" required value="{{request.form.email}}">
+        <br>
+        <label for="password">Password: </label><br>
+        <input class="c-input" type="password" id="date" name="password" placeholder="password" required value="{{request.form.password}}">
+        <br>
+        <input class="c-submit" type="submit" id="sub" value="submit">
+    </form>
 {% endblock %}

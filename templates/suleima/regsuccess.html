@@ -1,7 +1,10 @@
 {% extends "suleima/coachlayout.html" %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
+
                     <h1>Welcome {{request.form["username"]}} to Coach travel</h1>
-                    <a href="{{ url_for('coach') }}"><button>look up your trip options!</button></a>
+                    <a href="{{ url_for('coachlogin') }}"><button class="coachbutton">please log in to confirm your account</button></a>
+                    <br><br><br><br><br><br>
                     
 
 {% endblock %}

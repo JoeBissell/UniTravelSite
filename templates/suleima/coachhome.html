@@ -1,10 +1,21 @@
 {% extends "suleima/coachlayout.html" %}
 {% block content %}
-                    
-    <h1> <b>Welcome {{request.form["username"]}} to Coach travel</b> </h1>
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
+    
+    <h1> <b>Welcome {{ username }} to Coach travel</b> </h1>
     <h3>Maximum number of bookable seats for Coach Travel is 45 per trip</h3>
     <h3>there are no trips to Dundee and Aberdeen</h3>
     <h3>Coach trips operate Sunday to Friday </h3>
-    <a href="{{ url_for('coach') }}"><button class="coachbutton">Start looking for Coach trips!</button></a>
+
+    {% if session.logged_in %} 
+
+        <a href="{{ url_for('coachbook') }}"><button class="coachbutton">Start looking up trips now!</button></a>                 
+    {% else %}
+        <h3>Please register or log in before proceeding. </h3>
+        <br/>  <br><br><br><br>
+    {% endif %}
+
+
+    <br><br>
 
 {% endblock %}
