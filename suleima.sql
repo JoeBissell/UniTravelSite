@@ -89,3 +89,15 @@ CREATE TABLE coachusers (
     usertype VARCHAR(8) DEFAULT 'standard',
     primary key(userid)
     );
+
+
+CREATE TABLE c_bookings2 (
+  idBooking INT NOT NULL auto_increment, 
+  deptDate  datetime NOT NULL,   
+  idRoutes INT NOT NULL,  
+  noOfSeats INT NOT NULL default 1, 
+  totFare Double NOT NULL,  
+ FOREIGN KEY (idRoutes) REFERENCES coachroutes3 (idRoutes), 
+ FOREIGN KEY (userid) REFERENCES userid (userid)
+ PRIMARY KEY (idBooking)
+    ); 

@@ -74,7 +74,7 @@ def coachreg():
                      dbcursor.close()
                      conn.close()
                      gc.collect()
-                     return render_template("suleima/regsuccess.html")
+                     return render_template("suleima/regsuccess.html", username=username)
                else:
                   error = "Connection error."
                   return render_template("suleima/coachreg.html", error=error)
@@ -140,7 +140,7 @@ def coachlogout():
 @app.route("/loginsuccess", methods=['POST', 'GET']) 
 def loginsuccess():
     username=request.form['username']
-    return render_template('/suleima/loginsuccess.html')
+    return render_template('/suleima/loginsuccess.html', username=username)
 
 def login_req(f):
    @wraps(f)
@@ -183,7 +183,7 @@ def coachbook():
       city = str(city).strip(",")
       city = str(city).strip("'")
       cities.append(city)
-   return render_template('/suleima/coachbook.html', departurelist=cities)
+   return render_template('/suleima/coachbook.html', username=username, departurelist=cities)
 
 @app.route ('/arrivalcoach/', methods = ['POST', 'GET'])
 @login_req
@@ -209,89 +209,92 @@ def ajax_returncoach():
 @app.route ('/select-coach/', methods = ['POST', 'GET'])
 @login_req
 def select_coach():
-	if request.method == 'POST':
-		print('Select booking initiated')
-		departcity = request.form['departureslist']
-		arrivalcity = request.form['arrivalslist']
-		outdate = request.form['outdate']
-		adultseats = request.form['adultseats']
-		childseats = request.form['childseats']
-		lookupdata = [departcity, arrivalcity, outdate, adultseats, childseats]
-		#print(lookupdata)
-		conn = get_connection()
-		if conn != None:    #Checking if connection is None         
-			print('MySQL Connection is established')                          
-			dbcursor = conn.cursor()    #Creating cursor object            
-			dbcursor.execute('SELECT * FROM coachroutes3 WHERE deptCity = %s AND arrivCity = %s;', (departcity, arrivalcity))   
-			print('SELECT statement executed successfully.')             
-			rows = dbcursor.fetchall()
-			datarows=[]			
-			for row in rows:
-				data = list(row)                    
-				fare = (float(row[5]) * float(adultseats)) + (float(row[5]) * 0.5 * float(childseats))
-				print(fare)
-				data.append(fare)
-				print(data)
-				datarows.append(data)			
-			dbcursor.close()              
-			conn.close() #Connection must be closed
-			print(datarows)
-			print(len(datarows))			
-			return render_template('/suleima/c_bookstart.html', resultset=datarows, lookupdata=lookupdata)
-		else:
-			print('DB connection Error')
-			return redirect(url_for('index'))
+      username = session['username']
+      if request.method == 'POST':
+         print('Select booking initiated')
+         departcity = request.form['departureslist']
+         arrivalcity = request.form['arrivalslist']
+         outdate = request.form['outdate']
+         adultseats = request.form['adultseats']
+         childseats = request.form['childseats']
+         lookupdata = [departcity, arrivalcity, outdate, adultseats, childseats]
+         print(lookupdata)
+         conn = get_connection()
+         if conn != None:    #Checking if connection is None         
+            print('MySQL Connection is established')                          
+            dbcursor = conn.cursor()    #Creating cursor object            
+            dbcursor.execute('SELECT * FROM coachroutes3 WHERE deptCity = %s AND arrivCity = %s;', (departcity, arrivalcity))   
+            print('SELECT statement executed successfully.')             
+            rows = dbcursor.fetchall()
+            datarows=[]			
+            for row in rows:
+               data = list(row)                    
+               fare = (float(row[5]) * float(adultseats)) + (float(row[5]) * 0.5 * float(childseats))
+               print(fare)
+               data.append(fare)
+               print(data)
+               datarows.append(data)			
+            dbcursor.close()              
+            conn.close() #Connection must be closed
+            print(datarows)
+            print(len(datarows))			
+            return render_template('/suleima/c_bookstart.html', resultset=datarows, lookupdata=lookupdata, username=username)
+         else:
+            print('DB connection Error')
+            return redirect(url_for('index'))
 
 
 @app.route ('/c_confirm/', methods = ['POST', 'GET'])
 @login_req
 def c_confirm():
-	if request.method == 'POST':		
-		print('booking confirm initiated')
-		journeyid = request.form['bookingchoice']		
-		departcity = request.form['deptcity']
-		arrivalcity = request.form['arrivcity']
-		outdate = request.form['outdate']
-		adultseats =request.form['adultseats']
-		childseats =request.form['childseats']
-		totalfare = request.form['totalfare']
-		cardnumber = request.form['cardnumber']
+      if request.method == 'POST':		
+         print('booking confirm initiated')
+         journeyid = request.form['bookingchoice']		
+         departcity = request.form['deptcity']
+         arrivalcity = request.form['arrivcity']
+         outdate = request.form['outdate']
+         adultseats =request.form['adultseats']
+         childseats =request.form['childseats']
+         totalfare = request.form['totalfare']
+         cardnumber = request.form['cardnumber']
+         userid = session['userid']
+         username = session['username']
 
-		totalseats = adultseats + childseats
-		bookingdata = [journeyid, departcity, arrivalcity, outdate, adultseats, childseats, totalfare]
-		print(bookingdata)
-		conn = get_connection()
-		if conn != None:    #Checking if connection is None         
-			print('MySQL Connection is established')                          
-			dbcursor = conn.cursor()    #Creating cursor object     	
-			dbcursor.execute('INSERT INTO c_bookings (deptDate, idRoutes, noOfSeats, totFare) VALUES \
-				(%s, %s, %s, %s);', (outdate,  journeyid, totalseats, totalfare))   
-			print('Booking statement executed successfully.')             
-			conn.commit()	
-			#dbcursor.execute('SELECT AUTO_INCREMENT - 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s;', ('TEST_DB', 'bookings'))   
-			dbcursor.execute('SELECT LAST_INSERT_ID();')
-			print('SELECT statement executed successfully.')             
-			rows = dbcursor.fetchone()
-			#print ('row count: ' + str(dbcursor.rowcount))
-			bookingid = rows[0]
-			bookingdata.append(bookingid)
-			dbcursor.execute('SELECT * FROM coachroutes3 WHERE idRoutes = %s;', (journeyid,))   			
-			rows = dbcursor.fetchall()
-			deptTime = rows[0][2]
-			arrivTime = rows[0][4]
-			bookingdata.append(deptTime)
-			bookingdata.append(arrivTime)
-			print(bookingdata)
-			print(len(bookingdata))
-			cardnumber = cardnumber[-4:-1]
-			print(cardnumber)
-			dbcursor.execute
-			dbcursor.close()              
-			conn.close() #Connection must be closed
-			return render_template('suleima/c_confirm.html', resultset=bookingdata, cardnumber=cardnumber)
-		else:
-			print('DB connection Error')
-			return redirect(url_for('index'))
+         totalseats = adultseats + childseats
+         bookingdata = [journeyid, departcity, arrivalcity, outdate, adultseats, childseats, totalfare, userid]
+         print(bookingdata)
+         conn = get_connection()
+         if conn != None:    #Checking if connection is None         
+            print('MySQL Connection is established')                          
+            dbcursor = conn.cursor()    #Creating cursor object     	
+            dbcursor.execute('INSERT INTO c_bookings2 (deptDate, idRoutes, noOfSeats, totFare, userid) VALUES \
+               (%s, %s, %s, %s, %s);', (outdate,  journeyid, totalseats, totalfare, userid))   
+            print('Booking statement executed successfully.')             
+            conn.commit()	
+            #dbcursor.execute('SELECT AUTO_INCREMENT - 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s;', ('TEST_DB', 'bookings'))   
+            dbcursor.execute('SELECT LAST_INSERT_ID();')
+            print('SELECT statement executed successfully.')             
+            rows = dbcursor.fetchone()
+            #print ('row count: ' + str(dbcursor.rowcount))
+            bookingid = rows[0]
+            bookingdata.append(bookingid)
+            dbcursor.execute('SELECT * FROM coachroutes3 WHERE idRoutes = %s;', (journeyid,))   			
+            rows = dbcursor.fetchall()
+            deptTime = rows[0][2]
+            arrivTime = rows[0][4]
+            bookingdata.append(deptTime)
+            bookingdata.append(arrivTime)
+            print(bookingdata)
+            print(len(bookingdata))
+            cardnumber = cardnumber[-4:-1]
+            print(cardnumber)
+            dbcursor.execute
+            dbcursor.close()              
+            conn.close() #Connection must be closed
+            return render_template('suleima/c_confirm.html', username=username, userid=userid, resultset=bookingdata, cardnumber=cardnumber)
+         else:
+            print('DB connection Error')
+            return redirect(url_for('index'))
 
 
 @app.route ('/dumpsVar/', methods = ['POST', 'GET'])
@@ -310,3 +313,31 @@ def dumpVar():
 		for key in list(result.keys()):
 			output = output + " </br> " + key + " : " + result.get(key)
 		return output  
+
+## VIEW BOOKINGS
+@app.route('/c_deletebooking', methods=['GET', 'POST'])
+@login_req
+def c_deletebooking():
+   conn = get_connection()
+   if conn != None:
+      if conn.is_connected():
+         userid = session['userid']
+         username = session['username']
+         print('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('SELECT * FROM c_bookings2 WHERE userid = %s;', (userid,))
+         print('SELECT bookings executed.')
+         bookingrows = dbcursor.fetchall()
+         dbcursor.close()
+         conn.close()
+         if not bookingrows:
+            error = 'No bookings'
+            return render_template('oscar/usermanage/usermanage.html', error=error)
+         else:
+            return render_template('oscar/usermanage/viewbookings.html', bookingresult=bookingrows, userid=userid, username=username)
+      else:
+         error = "Connection error."
+         return render_template("oscar/index.html", error=error)
+   else:
+         error = "Connection error."
+         return render_template("oscar/index.html", error=error)

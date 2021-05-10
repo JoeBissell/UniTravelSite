@@ -35,7 +35,7 @@
                 <!-- thi is the left side part in desktop mode-->
                 <div class="col-3 right">
                     <div class="aside">
-                        {% if session.logged_in %} Welcome {{ username }} 
+                        {% if session.logged_in %} Welcome {{request.form["username"]}} 
                         <br/>
                         <br/>
                         <a href="{{ url_for('coachlogout') }}"><button class="coachbutton">Log out</button></a>                 
