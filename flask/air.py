@@ -1,11 +1,12 @@
 import mysql.connector
+from flask import Flask, render_template, request, session, redirect, url_for, escape, abort
+from passlib.hash import sha256_crypt
 import hashlib
 import gc
-from flask import Flask, render_template, request, session, redirect, url_for, escape, abort, jsonify
-from passlib.hash import sha256_crypt
 from functools import wraps
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo
+from flask import Flask, request, render_template, url_for, jsonify, redirect
+import mysql.connector
+from datetime import datetime
 
 app = Flask(__name__)  
 
@@ -235,14 +236,18 @@ def airtravelbooking_select():
          datarows=[]
          for row in rows:
             data = list(row)
-            fare = (float(row[5]))
-            if childseats:
-               fare = fare / 2
+            print('Working')
+            print(row[5])
+            print(data) 
+            print(datarows)                 
+            fare = (float(row[6]) * float(adultseats)) + (float(row[6]) * 0.5 * float(childseats))
+            print(fare)
             data.append(fare)
-            datarows.append(data)
+            print(data)
+            datarows.append(data)	
          dbcursor.close()
          conn.close()
-         return render_template('hollie/airTravelstartbooking.html', username=username, resultset=datarows, lookupdata=lookupdata)
+         return render_template('hollie/airTravelstartbooking.html', resultset=datarows, lookupdata=lookupdata)
       else:
          print('Connection error.')
          return redirect(url_for('index'))
