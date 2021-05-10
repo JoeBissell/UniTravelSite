@@ -1,0 +1,12 @@
+{% extends "suleima/coachlayout.html" %}
+{% block content %}
+
+<h3>Admin Page</h3>
+    
+<h4>{{ msg }}</h4>
+
+<br>
+    <a href="{{ url_for('c_admininsert') }}"><button class="coachbutton">add a new coach route</button></a>
+    <a href="{{ url_for('c_adminroutes') }}"><button class="coachbutton">view all routes</button></a>
+
+{% endblock %}

@@ -3,20 +3,22 @@
     <h1>This is start of the basic booking process</h1> 
     <!--[journeyid, departcity, arrivalcity, outdate, adultseats, childseats, totalfare, bookingid, deptTime, arrivTime]-->
     <form action="/dumpsVar/" class="coachform" method="POST">
-    Booking ID: {{resultset[7]}} <br/>
+    Booking ID: {{resultset[8]}} <br/>
     Departure City : {{resultset[1]}} <br/>
     Trip Date : {{resultset[3]}} <br/>
-    Departure Time : {{resultset[8]}} <br/>
+    Departure Time : {{resultset[9]}} <br/>
     Arrival City : {{resultset[2]}} <br/>  
-    Arrival Time : {{resultset[9]}} <br/>
+    Arrival Time : {{resultset[10]}} <br/>
     Total Seats : {{resultset[4]}} <br/>
     Total Fare : {{resultset[6]}} <br/>
+    user ID : {{resultset[7]}} <br/>
+
     Payment: Card ending with ****** {{cardnumber}} <br/>
     <input type="hidden" name="totalfare" value="{{resultset[6]}}" /> 
-    <input type="hidden" name="bookingid" value="{{resultset[7]}}" />   
+    <input type="hidden" name="bookingid" value="{{resultset[8]}}" />   
     <input type="submit" class="c-submit" value="Proceed to view reciept" /> 
     </form>  
-    <a href=""><button class="coachbutton"> Go to Home Page</button></a>
+    <a href="{{ url_for('coachhome') }}"><button class="coachbutton"> Go to Home Page</button></a>
 
 
 {% endblock %}

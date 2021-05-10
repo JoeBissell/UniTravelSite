@@ -5,7 +5,7 @@
 
 
       <h3> Coach trip details: </h3>
-<form class="coachform" action="/c_confirm/" method="POST">
+    <form class="coachform" action="/c_confirm/" method="POST">
     <div class="tripinfo">
 
         Departure City : {{lookupdata[0]}} <br/>
@@ -36,8 +36,8 @@
           <td> {{row[2]}} </td> 
           <td> {{row[4]}} </td> 
           <td> {{row[5]}} </td>              
-           <td> {{row[6]}} </td>
-           <input type="hidden" name="totalfare" id="totalfare" value="{{row[6]}}"/>
+          <td> {{row[6]}} </td>
+          <input type="hidden" name="totalfare" id="totalfare" value="{{row[6]}}"/>
           <td> <input type="radio" name="bookingchoice" value="{{row[0]}}" checked></td> 
       </tr> 
       

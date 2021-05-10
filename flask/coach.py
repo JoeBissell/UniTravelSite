@@ -35,8 +35,6 @@ def check_login(f):
    return wrap
 
 
-
-
 @app.route("/regsuccess", methods=['POST', 'GET']) 
 def regsuccess():
     username = session['username']
@@ -117,7 +115,7 @@ def coachlogin():
                         session['userid'] = str(data[2])
                         print("Already logged in.")
                         if session['usertype'] == 'admin':
-                           return render_template("suleima/admin.html", username=username, data='user specific data', usertype=session['usertype'], userid=session['userid'])
+                           return render_template("suleima/c_admin.html", username=username, data='user specific data', usertype=session['usertype'], userid=session['userid'])
                         else: 
                            return render_template("suleima/loginsuccess.html", username=username, data='user specific data', usertype=session['usertype'], userid=session['userid'])
                      else:
@@ -160,7 +158,6 @@ def admin_req(f):
          return f(*args, **kwargs)
       else:
          print("Admin login required.")
-         abort(401)
    return wrap
 
 
@@ -183,6 +180,7 @@ def coachbook():
       city = str(city).strip(",")
       city = str(city).strip("'")
       cities.append(city)
+   print(cities)
    return render_template('/suleima/coachbook.html', username=username, departurelist=cities)
 
 @app.route ('/arrivalcoach/', methods = ['POST', 'GET'])
@@ -243,7 +241,6 @@ def select_coach():
             print('DB connection Error')
             return redirect(url_for('index'))
 
-
 @app.route ('/c_confirm/', methods = ['POST', 'GET'])
 @login_req
 def c_confirm():
@@ -260,15 +257,15 @@ def c_confirm():
          userid = session['userid']
          username = session['username']
 
-         totalseats = adultseats + childseats
+         totalseats = int(adultseats) + int(childseats)
          bookingdata = [journeyid, departcity, arrivalcity, outdate, adultseats, childseats, totalfare, userid]
          print(bookingdata)
          conn = get_connection()
          if conn != None:    #Checking if connection is None         
             print('MySQL Connection is established')                          
             dbcursor = conn.cursor()    #Creating cursor object     	
-            dbcursor.execute('INSERT INTO c_bookings2 (deptDate, idRoutes, noOfSeats, totFare, userid) VALUES \
-               (%s, %s, %s, %s, %s);', (outdate,  journeyid, totalseats, totalfare, userid))   
+            dbcursor.execute('INSERT INTO c_bookings3 (deptDate, idRoutes, noOfSeats, totFare, userid) VALUES \
+               (%s, %s, %s, %s, %s);', (outdate, journeyid, totalseats, totalfare, userid))   
             print('Booking statement executed successfully.')             
             conn.commit()	
             #dbcursor.execute('SELECT AUTO_INCREMENT - 1 FROM information_schema.TABLES WHERE TABLE_SCHEMA = %s AND TABLE_NAME = %s;', ('TEST_DB', 'bookings'))   
@@ -296,7 +293,6 @@ def c_confirm():
             print('DB connection Error')
             return redirect(url_for('index'))
 
-
 @app.route ('/dumpsVar/', methods = ['POST', 'GET'])
 def dumpVar():
 	if request.method == 'POST':
@@ -315,9 +311,9 @@ def dumpVar():
 		return output  
 
 ## VIEW BOOKINGS
-@app.route('/c_deletebooking', methods=['GET', 'POST'])
+@app.route('/c_viewbkings', methods=['GET', 'POST'])
 @login_req
-def c_deletebooking():
+def c_viewbkings():
    conn = get_connection()
    if conn != None:
       if conn.is_connected():
@@ -325,19 +321,159 @@ def c_deletebooking():
          username = session['username']
          print('Connected to DB.')
          dbcursor = conn.cursor()
-         dbcursor.execute('SELECT * FROM c_bookings2 WHERE userid = %s;', (userid,))
+         dbcursor.execute('SELECT * FROM c_bookings3 WHERE userid = %s;', (userid,))
          print('SELECT bookings executed.')
          bookingrows = dbcursor.fetchall()
          dbcursor.close()
          conn.close()
          if not bookingrows:
             error = 'No bookings'
-            return render_template('oscar/usermanage/usermanage.html', error=error)
+            print(error)
+            return render_template('suleima/coachhome.html', error=error)
          else:
-            return render_template('oscar/usermanage/viewbookings.html', bookingresult=bookingrows, userid=userid, username=username)
+            print(bookingrows)
+            return render_template('suleima/c_viewbkings.html', bookingresult=bookingrows, userid=userid, username=username)
       else:
          error = "Connection error."
-         return render_template("oscar/index.html", error=error)
+         print(error)
+         return render_template("suleima/coachhome.html", error=error)
    else:
          error = "Connection error."
-         return render_template("oscar/index.html", error=error)
+         print(error)
+         return render_template("suleima/coachhome.html", error=error)
+
+
+## DELETE BOOKING
+@app.route('/c_cancelbking', methods=['POST', 'GET'])
+@login_req
+def c_cancelbking():
+   if request.method == 'GET':
+      bookingid = request.args.get('deletebooking')
+      if bookingid != None:
+         conn=get_connection()
+         if conn != None:
+            if conn.is_connected():
+               print('Connected to DB.')
+               dbcursor = conn.cursor()
+               sql_statement = 'DELETE FROM c_bookings3 WHERE idBooking = %s'
+               args = (bookingid,)
+               dbcursor.execute(sql_statement, args)
+               print('DELETE executed.')
+               conn.commit()
+               dbcursor.close()
+               conn.close()
+               msg = 'booking has been canceled'
+               return render_template('suleima/coachhome.html', msg=msg)
+            else:
+               print('Connection error.')
+         else:
+            error = "Connection error."
+            return render_template("suleima/coachhome.html", error=error)
+      else:
+         error = "no bookings available"
+         return render_template('suleima/coachhome.html', error=error)
+
+
+
+## ADMIN ADD ROUTE TO DB
+@app.route('/c_admin')
+@admin_req
+def c_admin():
+   return render_template('suleima/c_admin.html')
+
+@app.route('/c_adminroutes')
+@admin_req
+def c_adminroutes():
+   conn = get_connection()
+   if conn != None:
+      if conn.is_connected():
+         print('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('SELECT * FROM coachroutes3;')
+         print('SELECT executed.')
+         rows = dbcursor.fetchall()
+         dbcursor.close()
+         conn.close()
+         return render_template('suleima/c_adminroutes.html', resultset=rows)
+      else:
+         error = "Connection error."
+         return render_template("suleima/coachhome.html", error=error)
+   else:
+         error = "Connection error."
+         return render_template("suleima/coachhome.html", error=error)
+
+
+
+## ADMIN DELETE ROUTE
+@app.route('/c_admindelete', methods=['POST', 'GET'])
+@admin_req
+def c_admindelete():
+   if request.method == 'GET':
+      routeid = request.args.get('removeroute')
+      if routeid != None:
+         conn=get_connection()
+         if conn != None:
+            if conn.is_connected():
+               print('Connected to DB.')
+               dbcursor = conn.cursor()
+               sql_statement = 'DELETE FROM coachroutes3 WHERE idRoutes = %s'
+               args = (routeid,)
+               dbcursor.execute(sql_statement, args)
+               print('DELETE executed.')
+               conn.commit()
+               dbcursor.close()
+               conn.close()
+               msg = 'Record removed'
+               return render_template('suleima/c_admin.html', msg=msg)
+            else:
+               print('Connection error.')
+         else:
+            error = "Connection error."
+            return render_template("suleima/c_admin.html", error=msg)
+      else:
+         error="routeid is isvalid"
+         return render_template('suleima/c_admin.html', error=msg)
+
+
+@app.route('/c_admininsert')
+@admin_req
+def c_admininsert():
+   return render_template('suleima/c_admininsert.html')
+
+## ADMIN ADD ROUTE TO DB
+@app.route('/admininsert',  methods=['POST', 'GET'])
+@admin_req
+def admininsert():
+      msg=""
+      print('Adding route to DB.')
+      if request.method == 'POST':
+            print("test")
+            idroute = request.form['idroute']
+            leaving = request.form['departure']
+            leavingtime = request.form['deptime']
+            arrival = request.form['arrival']
+            arrivaltime = request.form['arrivaltime']
+            price = request.form['price']
+            conn = get_connection()
+            if conn.is_connected():
+               cursor = conn.cursor()
+               print("connected to database")
+               sql_statement = "INSERT INTO coachroutes3 (idRoutes, deptCity, deptTime, arrivCity, arrivTime, stFare) VALUES (%s, %s, %s, %s, %s, %s);"
+               args = (idroute, leaving, leavingtime, arrival, arrivaltime, price)
+               cursor.execute(sql_statement, args)
+               print("INSERT executed.")
+               conn.commit()
+               cursor.close()
+               msg = "Record added successfully"
+               print(msg)
+               return render_template('suleima/c_admin.html', msg= msg)
+            else:
+               conn.rollback()
+               msg += "Error while inserting"
+               print(msg)
+               return render_template('suleima/c_admin.html', msg= msg)
+      else:
+         print('Not POST')
+         return 'Not POST'
+
+

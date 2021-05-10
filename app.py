@@ -28,9 +28,9 @@ app.secret_key = 'verysecretkey'
 ## create connection to DB
 def get_connection():
    conn = mysql.connector.connect(host='localhost',
-                                  user='suleima2abbara',
-                                  password='Suleima2abbarA14+$++',
-                                  database='suleima2abbara_prj')
+                                  user='root',
+                                  password='password',
+                                  database='travelsite')
    return conn
 
 ## LOG IN
@@ -174,6 +174,19 @@ app.add_url_rule('/arrivalcoach/', view_func=coach.ajax_returncoach, methods=['P
 app.add_url_rule('/select-coach/', view_func=coach.select_coach, methods=['POST', 'GET'])
 app.add_url_rule('/c_confirm/', view_func=coach.c_confirm, methods=['POST', 'GET'])
 app.add_url_rule('/dumpsVar/', view_func=coach.dumpVar, methods=['POST', 'GET'])
+app.add_url_rule('/c_viewbkings/', view_func=coach.c_viewbkings, methods=['POST', 'GET'])
+app.add_url_rule('/c_cancelbking/', view_func=coach.c_cancelbking, methods=['POST', 'GET'])
+app.add_url_rule('/c_admin', view_func=coach.c_admin)
+app.add_url_rule('/c_adminroutes', view_func=coach.c_adminroutes)
+app.add_url_rule('/c_admindelete', view_func=coach.c_admindelete, methods=['POST', 'GET'])
+app.add_url_rule('/c_admininsert', view_func=coach.c_admininsert)
+app.add_url_rule('/admininsert', view_func=coach.admininsert, methods=['POST', 'GET'])
+
+
+
+
+
+
 
 
 

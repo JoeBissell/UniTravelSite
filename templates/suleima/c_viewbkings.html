@@ -1,22 +1,26 @@
 {% extends "suleima/coachlayout.html" %}
 {% block content %}
-<form method="GET" action="/c_deletebooking">
-    <table>
+<form class="coachform" method="GET" action="/c_cancelbking">
+    <table class="c_table">
         <tr>
+            <th> Booking ID</th>
             <th> Date</th>
-            <th> Leaving </th>
-            <th> Arrival </th>
+            <th> Seats </th>
+            <th> Fare </th>
+            <th> user ID </th>
             <th> Cancel booking? </th>
         </tr>
         {% for row in bookingresult %}
         <tr>
-            <td> {{row[1]}} </td>
-            <td> {{row[6]}} </td>
-            <td> {{row[7]}} </td>
+            <td> {{row[0]}} </td>
+            <td> {{row[1]}}</td>
+            <td> {{row[3]}}</td>
+            <td> {{row[4]}}</td>
+            <td> {{row[5]}} </td>
             <td> <input type="radio" name="deletebooking" value="{{row[0]}}"></td>
         </tr>
         {% endfor %}
     </table>
-    <input type="submit" value="Cancel booking">
+    <input class="c-submit" type="submit" value="Cancel booking">
 </form>   
 {% endblock %}

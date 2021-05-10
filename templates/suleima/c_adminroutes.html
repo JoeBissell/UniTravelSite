@@ -1,0 +1,27 @@
+{% extends "suleima/coachlayout.html" %}
+{% block content %}
+
+<h3>Admin Page</h3>
+<form class="coachform" action="/c_admindelete" method="GET" >
+    <table class="c_table">
+        <tr>
+            <th> Leaving </th>
+            <th> Leaving time </th>
+            <th> Arrival </th>
+            <th> Arrival time </th>
+            <th> Delete route? </th>
+        </tr>
+        {% for row in resultset %}
+        <tr>
+            <td> {{row[1]}} </td>
+            <td> {{row[2]}} </td>
+            <td> {{row[3]}} </td>
+            <td> {{row[4]}} </td>
+            <td> <input type="radio" name="removeroute" value="{{row[0]}}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input type="submit" class="c-submit" value="Remove route">
+</form>
+
+{% endblock %}
