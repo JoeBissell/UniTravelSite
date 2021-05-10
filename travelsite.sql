@@ -104,3 +104,12 @@ VALUES
     ('Newcastle', '06:00:00', 'Birmingham', '19:30:00'),
     ('Aberdeen', '07:00:00', 'Portsmouth', '01:00:00'
 );
+
+CREATE TABLE airusers (
+	userid INTEGER NOT NULL auto_increment,
+    username VARCHAR(64) NOT NULL UNIQUE,
+    email VARCHAR(120) NOT NULL UNIQUE,
+    password_hash VARCHAR(128),
+    usertype VARCHAR(8) DEFAULT 'standard',
+    primary key(userid)
+    );

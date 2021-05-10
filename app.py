@@ -180,17 +180,20 @@ app.add_url_rule('/dumpsVar/', view_func=coach.dumpVar, methods=['POST', 'GET'])
 ## HOLLIE'S AIR TRAVEL APP
 # HOMEPAGE, LOGIN, SIGN UP AND REGISTER APP ROUTES
 app.add_url_rule('/airtravelhome', view_func=air.airtravelhome)
-#app.add_url_rule('/airtravel', view_func=air.airtravel, methods=['POST', 'GET'])
 app.add_url_rule('/airtravelsuccessreg', view_func=air.airtravelsuccessreg, methods=['POST', 'GET'])
 app.add_url_rule('/registerairtravel', view_func=air.registerairtravel, methods=['POST', 'GET'])
 app.add_url_rule('/airtravellogin', view_func=air.airtravellogin, methods=['POST', 'GET'])
-#app.add_url_rule('/airtravelhome', view_func=air.airtravelhome)
-#app.add_url_rule('/airtravel', view_func=air.airtravel, methods=['POST', 'GET'])
-#app.add_url_rule('/airtravelsuccessreg', view_func=air.airtravelsuccessreg, methods=['POST', 'GET'])
-#app.add_url_rule('/registerairtravel', view_func=air.registerairtravel, methods=['POST', 'GET'])
-#app.add_url_rule('/airtravellogin', view_func=air.airtravellogin, methods=['POST', 'GET'])
-#app.add_url_rule('/logoutairtravel', view_func=air.logoutairtravel, methods=['POST', 'GET'])
-#app.add_url_rule('/successairlogin', view_func=air.successairlogin, methods=['POST', 'GET'])
+app.add_url_rule('/logoutairtravel', view_func=air.logoutairtravel, methods=['POST', 'GET'])
+app.add_url_rule('/successairlogin', view_func=air.successairlogin, methods=['POST', 'GET'])
+# BOOKING ROUTES
+app.add_url_rule('/airtravelbooking', view_func=air.airtravelbooking, methods=['POST', 'GET'])
+app.add_url_rule('/airtravelarrival/', view_func=air.ajax_returnairtravel, methods=['POST', 'GET'])
+app.add_url_rule('/airtravelbookingselect/', view_func=air.airtravelbooking_select, methods=['POST', 'GET'])
+app.add_url_rule('/airtravelbookingconfirm/', view_func=air.airtravelbooking_confirm, methods=['POST', 'GET'])
+app.add_url_rule('/varDump/', view_func=air.varDump, methods=['POST', 'GET'])
+# ADMIN ROUTES
+
+# USER ACCOUNT ROUTES
 
 
 

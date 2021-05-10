@@ -1,7 +1,7 @@
 import mysql.connector
 import hashlib
 import gc
-from flask import Flask, render_template, request, session, redirect, url_for, escape, abort
+from flask import Flask, render_template, request, session, redirect, url_for, escape, abort, jsonify
 from passlib.hash import sha256_crypt
 from functools import wraps
 from wtforms import StringField, PasswordField, SubmitField, BooleanField
@@ -10,23 +10,41 @@ from wtforms.validators import DataRequired, Length, Email, EqualTo
 app = Flask(__name__)  
 
 # DATABASE CONNECTION
-def get_connection():
-   conn = mysql.connector.connect(host='localhost',
-                                  user='root',
-                                  password='Puppy123?£',
-                                  database='AirTravel')
-   return conn
+def getConnection():    
+    try:
+        conn = mysql.connector.connect(host='localhost',                              
+                              user='root',
+                              password='Doctorwho123?£',
+                              database='airtravel')  
+    except mysql.connector.Error as err:
+        if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
+            print('User name or Password is not working')
+        elif err.errno == errorcode.ER_BAD_DB_ERROR:
+            print('Database does not exist')
+        else:
+            print(err)                        
+    else:  #will execute if there is no exception raised in try block
+        return conn
  
 # HOMEPAGE
 @app.route('/airtravelhome')         
-def airtravelhome():    
-   #username = session['username']   
-   return render_template('/hollie/airTravelform.html')
+def airtravelhome():  
+   if 'username' in session:
+      username = session['username']
+      return render_template('/hollie/airTravelwelcome.html', username=username)
+   else:
+      return render_template('/hollie/airTravelwelcome.html')
 
-@app.route("/airtravel", methods=['POST', 'GET']) 
-def coach():
-    username = session['username'] 
-    return render_template('/hollie/airTravelform.html', username=username)
+# LOGIN REQUIRED
+def requiredLogin(f):
+   @wraps(f)
+   def wrap(*args, **kwargs):
+      if 'logged_in' in session:
+         return f(*args, **kwargs)
+      else:
+         print("Login is required.")
+      return render_template("hollie/airTravellogin.html", error="You are required to login first!")
+   return wrap
 
 # LOGIN 
 @app.route('/airtravellogin', methods=["GET", "POST"])
@@ -39,7 +57,7 @@ def airtravellogin():
          password = request.form['password']
          print('Login into your account please stand by')
          if username !=None and password != None:
-            conn = get_connection()
+            conn = getConnection()
             if conn != None:
                if conn.is_connected():
                   print('Connected to DB.')
@@ -48,13 +66,13 @@ def airtravellogin():
                   data = dbcursor.fetchone()
                   if dbcursor.rowcount < 1:
                      error = " The Username or Password entered is incorrect"
-                     return render_template("hollie/airTravelreg.html", error=error)
+                     return render_template("hollie/airTravelsignup.html", error=error)
                   else:
                      if sha256_crypt.verify(request.form['password'], str(data[0])):
                         session['logged_in'] = True
                         session['username'] = request.form['username']
                         session['usertype'] = str(data[1])
-                        session['userid'] = str(data[2])
+                        session['airuserid'] = str(data[2])
                         print("You have already logged in!")
                         if session['usertype'] == 'admin':
                            return render_template("hollie/admin.html", username=username, data='user specific data', usertype=session['usertype'], airuserid=session['airuserid'])
@@ -75,13 +93,23 @@ def successairlogin():
     username=request.form['username']
     return render_template('/hollie/airTravellogin.html')
 
+# CHECKING LOGIN / ALREADY LOGGED IN
+def airTravelloginCheck(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+      if ('logged_in' not in session):
+         return f(*args, **kwargs)
+      else:
+         return render_template('hollie/airTravelwelcome.html' , error= 'Already logged in')
+    return wrap
+
 # LOG OUT OF ACCOUNT
 @app.route('/logoutairtravel')
 def logoutairtravel():
    session.clear()
    print("Logged out.")
    gc.collect()
-   return render_template('/hollie/airTravelform.html')
+   return render_template('/hollie/airTravelwelcome.html')
 
 # REGISTER ACCOUNT
 @app.route('/registerairtravel', methods=['POST', 'GET'])
@@ -94,7 +122,7 @@ def registerairtravel():
          password = request.form['password']
          email = request.form['email']
          if username != None and password != None and email != None:
-            conn = get_connection()
+            conn = getConnection()
             if conn != None: 
                if conn.is_connected(): 
                   print ('Connected to DB.')
@@ -115,12 +143,14 @@ def registerairtravel():
                      dbcursor.close()
                      conn.close()
                      gc.collect()
-                     return render_template("hollie/airTravellogin.html")
+                     return render_template("hollie/airTravelsignup.html")
                else:
                   error = "Connection error."
+                  print("Wrong!")
                   return render_template("hollie/airTravelreg.html", error=error)
             else: 
                error = "Connection error."
+               print("Nope!")
                return render_template("hollie/airTravelreg.html", error=error)
          else:
             print('Empty parameters.')
@@ -133,3 +163,162 @@ def registerairtravel():
 def airtravelsuccessreg():
     username = request.form['username']
     return render_template('/hollie/airTravellogin.html')
+
+# PROCESS FOR USERS
+# BOOKING PROCESS
+@app.route('/airtravelbooking', methods=['POST', 'GET'])
+@requiredLogin
+def airtravelbooking():
+      conn = getConnection()
+      if conn != None:           
+         print('Connected to DB.')                          
+         dbcursor = conn.cursor()             
+         dbcursor.execute('SELECT DISTINCT leaving FROM airroutes;')   
+         print('SELECT executed.')             
+         rows = dbcursor.fetchall()                                    
+         dbcursor.close()              
+         conn.close() 
+         airplace = []
+         for place in rows:
+            place = str(place).strip("(")
+            place = str(place).strip(")")
+            place = str(place).strip(",")
+            place = str(place).strip("'")
+            airplace.append(place)
+         return render_template('hollie/airTravelbooking.html', leavinglist=airplace)
+      else:
+         print('Connection error.')
+         return 'Connection error.'
+
+## BOOKINGS FETCH ARRIVALS
+@app.route ('/airtravelarrival/', methods = ['POST', 'GET'])
+@requiredLogin
+def ajax_returnairtravel():   
+	print('Fetching arrivals.') 
+	if request.method == 'GET':
+		arrival = request.args.get('q')
+		conn = getConnection()
+		if conn != None:          
+			print('Connected to DB.')                          
+			dbcursor = conn.cursor()             
+			dbcursor.execute('SELECT DISTINCT arrival FROM airroutes WHERE leaving = %s;', (arrival,))   
+			print('SELECT executed.')          
+			rows = dbcursor.fetchall()
+			total = dbcursor.rowcount                                    
+			dbcursor.close()              
+			conn.close() 		
+			return jsonify(returncities=rows, size=total)
+		else:
+			print('Connection error.')
+			return jsonify(returncities='Connection error.')
+
+## PROCEED WITH BOOKING
+@app.route ('/airtravelbookingselect/', methods = ['POST', 'GET'])
+@requiredLogin
+def airtravelbooking_select():
+   if request.method == 'POST':
+      print('Booking initiated.')
+      leavingcity = request.form['departureslist']
+      arrivalcity = request.form['arrivalslist']
+      outdate = request.form['outdate']
+      returndate = request.form['returndate']
+      adultseats = request.form['adultseats']
+      childseats = request.form['childseats']
+      lookupdata = [leavingcity, arrivalcity, outdate, returndate, adultseats, childseats]
+      conn = getConnection()
+      if conn != None:
+         print('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('SELECT * FROM airroutes WHERE leaving = %s AND arrival = %s', (leavingcity, arrivalcity))
+         print('SELECT executed.')
+         rows = dbcursor.fetchall()
+         datarows=[]
+         for row in rows:
+            data = list(row)
+            fare = (float(row[5]))
+            if childseats:
+               fare = fare / 2
+            data.append(fare)
+            datarows.append(data)
+         dbcursor.close()
+         conn.close()
+         return render_template('hollie/airTravelstartbooking.html', username=username, resultset=datarows, lookupdata=lookupdata)
+      else:
+         print('Connection error.')
+         return redirect(url_for('index'))
+
+## BOOKING CONFIRM
+@app.route('/airtravelbookingconfirm/', methods=['POST', 'GET'])
+@requiredLogin
+def airtravelbooking_confirm():
+   if request.method == 'POST':
+      print('Booking initiated.')
+      airid = request.form['bookingchoice']
+      airbookingid = request.form['bookingchoice']
+      departcity = request.form['leavecity']
+      arrivalcity = request.form['arrivalcity']
+      leavedate = request.form['leavedate']
+      numseats = request.form['numseats']
+      totalfare = request.form['totalfare']
+      cardnumber = request.form['cardnumber']
+      airuserid = session['airuserid']
+      username = session['username']
+      bookingdata = [airid, airbookingid, departcity, arrivalcity, leavedate, numseats, totalfare, airuserid]
+      print(bookingdata)
+      conn = getConnection()
+      if conn != None:
+         print ('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('INSERT INTO airtravelbooking (leavingdate, airid, numseats, totalfare, airuserid, leaving, arrival) VALUES \
+            (%s, %s, %s, %s, %s, %s, %s);', (leavedate, airid, numseats, totalfare, airuserid, departcity, arrivalcity))
+         print('INSERT executed.')
+         conn.commit()
+         dbcursor.execute('SELECT LAST_INSERT_ID();')
+         rows = dbcursor.fetchone()
+         bookingid = rows[0]
+         bookingdata.append(bookingid)
+         dbcursor.execute('SELECT * FROM airroutes WHERE airid = %s', (airid,))
+         rows = dbcursor.fetchall()
+         deptTime = rows[0][2]
+         arrivTime = rows[0][4]
+         bookingdata.append(deptTime)
+         bookingdata.append(arrivTime)
+         cardnumber = cardnumber[-4:-1]
+         print(cardnumber)
+         dbcursor.execute
+         dbcursor.close()
+         conn.close()
+         return render_template('hollie/airTravelbookcon.html', username=username, resultset=bookingdata, cardnumber=cardnumber, userid=userid)
+   else:
+      print('Connection error.')
+      error = 'Connection error.'
+      return render_template('airTravelwelcome.html', error=error)
+
+@app.route ('/varDump/', methods = ['POST', 'GET'])
+def varDump():
+	if request.method == 'POST':
+		result = request.form
+		output = "<H2>Data Received: </H2></br>"
+		output += "Number of Data Fields : " + str(len(result))
+		for key in list(result.keys()):
+			output = output + " </br> " + key + " : " + result.get(key)
+		return output
+	else:
+		result = request.args
+		output = "<H2>Data Received: </H2></br>"
+		output += "Number of Data Fields : " + str(len(result))
+		for key in list(result.keys()):
+			output = output + " </br> " + key + " : " + result.get(key)
+		return output  
+
+# ADMIN FEATURES
+# ADMIN LOG IN REQUIRED
+def admin_req(f):
+   @wraps(f)
+   def wrap(*args, **kwargs):
+      if ('logged_in' in session) and (session['usertype'] == 'admin'):
+         return f(*args, **kwargs)
+      else:
+         print("Admin login required.")
+         abort(401)
+   return wrap
