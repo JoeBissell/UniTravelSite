@@ -259,23 +259,25 @@ def airtravelbooking_confirm():
    if request.method == 'POST':
       print('Booking initiated.')
       airid = request.form['bookingchoice']
-      airbookingid = request.form['bookingchoice']
-      departcity = request.form['leavecity']
-      arrivalcity = request.form['arrivalcity']
-      leavedate = request.form['leavedate']
-      numseats = request.form['numseats']
+      departcity = request.form['deptcity']
+      arrivalcity = request.form['arrivcity']
+      leavedate = request.form['outdate']
+      returndate = request.form['returndate']
+      childSeats = request.form['childseats']
+      adultSeats = request.form['adultseats']
       totalfare = request.form['totalfare']
       cardnumber = request.form['cardnumber']
       airuserid = session['airuserid']
       username = session['username']
-      bookingdata = [airid, airbookingid, departcity, arrivalcity, leavedate, numseats, totalfare, airuserid]
+      totalseats = int(adultSeats) + int(childSeats)
+      bookingdata = [airid, departcity, arrivalcity, leavedate, returndate, childSeats, adultSeats, totalfare, airuserid]
       print(bookingdata)
       conn = getConnection()
       if conn != None:
          print ('Connected to DB.')
          dbcursor = conn.cursor()
-         dbcursor.execute('INSERT INTO airtravelbooking (leavingdate, airid, numseats, totalfare, airuserid, leaving, arrival) VALUES \
-            (%s, %s, %s, %s, %s, %s, %s);', (leavedate, airid, numseats, totalfare, airuserid, departcity, arrivalcity))
+         dbcursor.execute('INSERT INTO airtravelbooking (leavingdate, airid, numseats, totalfare, airuserid) VALUES \
+            (%s, %s, %s, %s, %s);', (leavedate, airid, totalseats, totalfare, airuserid))
          print('INSERT executed.')
          conn.commit()
          dbcursor.execute('SELECT LAST_INSERT_ID();')
@@ -293,7 +295,7 @@ def airtravelbooking_confirm():
          dbcursor.execute
          dbcursor.close()
          conn.close()
-         return render_template('hollie/airTravelbookcon.html', username=username, resultset=bookingdata, cardnumber=cardnumber, userid=userid)
+         return render_template('hollie/airTravelbookcon.html', username=username, resultset=bookingdata, cardnumber=cardnumber, airuserid=airuserid)
    else:
       print('Connection error.')
       error = 'Connection error.'
@@ -303,18 +305,25 @@ def airtravelbooking_confirm():
 def varDump():
 	if request.method == 'POST':
 		result = request.form
-		output = "<H2>Data Received: </H2></br>"
+		output = "<H2 class="receipt">Booking Confirmed: </H2></br>"
 		output += "Number of Data Fields : " + str(len(result))
 		for key in list(result.keys()):
 			output = output + " </br> " + key + " : " + result.get(key)
 		return output
 	else:
 		result = request.args
-		output = "<H2>Data Received: </H2></br>"
+		output = "<H2 class="receipt">Booking Confirmed: </H2></br>"
 		output += "Number of Data Fields : " + str(len(result))
 		for key in list(result.keys()):
 			output = output + " </br> " + key + " : " + result.get(key)
 		return output  
+
+# USER FEATURES
+# VIEW BOOKING
+
+# DELETE BOOKING
+
+# CHANGING THEIR ROUTE
 
 # ADMIN FEATURES
 # ADMIN LOG IN REQUIRED
@@ -327,3 +336,9 @@ def admin_req(f):
          print("Admin login required.")
          abort(401)
    return wrap
+
+# ADDING A ROUTE 
+
+# DELETING A ROUTE
+
+# AMENDING A ROUTE
