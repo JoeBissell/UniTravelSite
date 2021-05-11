@@ -331,7 +331,7 @@ def c_viewbkings():
          dbcursor.close()
          conn.close()
          if not bookingrows:
-            error = 'no bookings'
+            error = 'there are no bookings available'
             print(error)
             return render_template('suleima/coachhome.html', error=error)
          else:
@@ -366,15 +366,18 @@ def c_cancelbking():
                conn.commit()
                dbcursor.close()
                conn.close()
-               msg = 'booking has been canceled'
-               return render_template('suleima/coachhome.html', msg=msg)
+               error = 'the booking has been canceled'
+               print(error)
+               return render_template('suleima/coachhome.html', error=error)
             else:
                print('Connection error.')
          else:
             error = "Connection error."
+            print(error)
             return render_template("suleima/coachhome.html", error=error)
       else:
-         error = "no bookings available"
+         error = "there are no bookings available"
+         print(error)
          return render_template('suleima/coachhome.html', error=error)
 
 

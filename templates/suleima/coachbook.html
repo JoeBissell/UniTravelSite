@@ -2,8 +2,6 @@
 {% block content %}
 
         <script>
-
-
         function getarrivalcity(deptcity)    
         {
               var req = new XMLHttpRequest();        
@@ -16,20 +14,13 @@
                       }
                       else{
                           var response = JSON.parse(req.responseText);                   
-                          //document.getElementById('myDiv').innerHTML = response.username
                           var size = response.size;                   
-                          //alert(response.returncities[0]);
                           for (var x=0; x < arrivalslist.length; x++){
                               arrivalslist.remove(x);                        
                           }
-                          
                           for (var i=0; i < size; i++){  
-      
                                   arrivalslist.add(new Option(response.returncities[i], response.returncities[i]));    
                           }
-                              //var option = document.createElement("Option");
-                              //option.text = response.returncities;
-                              //arrivalslist.add(option);
                       }
                   }
               }
@@ -38,7 +29,6 @@
               req.send(); 
               return false;
           }
-      
         </script>
 
       <h1> Choose your route: </h1>
@@ -59,7 +49,6 @@
             <br/>
             Select date:
             <input class="c-input" type="date" name="outdate" id="outdate" required />
-
             <br/>
             Select adult seats:
             <input class="c-input"  type="number" name="adultseats" id="adultseats" required />

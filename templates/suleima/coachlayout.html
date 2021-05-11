@@ -4,17 +4,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
         <title>Coach Travel</title>
+    </head>
 
     <body>
         <div id="suleima-wrapper">
             <div class="coach-header">
-
                 <h1>UWE Coach Travel</h1>
-
             </div>
-
             <div class="row">
-                <!--this is the menu on the left in desktop mode-->
+                <!--menu on left-->
                 <div class="col-3 menu"> 
                     <ul>
                         <a href=""><li class="menuitem">Air travel</li></a>
@@ -24,15 +22,13 @@
                         <li class="menuitem">Car hire</li>
                         <a href="{{ url_for('index') }}"><li class="menuitem">All travel options</li></a>
                     </ul>
-
                 </div>
-
-                <!--this is the main content part in desktop mode-->
+                <!--content-->
                 <div class="col-6 content">
                     {% block content %}
                     {% endblock %}
                 </div>
-                <!-- thi is the left side part in desktop mode-->
+                <!-- right side bar-->
                 <div class="col-3 right">
                     <div class="aside">
                         {% if session.logged_in %} Welcome {{request.form["username"]}} 
@@ -49,12 +45,9 @@
                         {% endif %} 
                     </div>
                 </div>
-
             </div>
             <div class="coachfooter">
                 <h5>this travel method is covered by Suleima Abbara - 19020111</h5>
-
-            
             </div>
         </div>
     </body>
