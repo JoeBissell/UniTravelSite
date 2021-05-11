@@ -207,7 +207,9 @@ app.add_url_rule('/varDump/', view_func=air.varDump, methods=['POST', 'GET'])
 # ADMIN ROUTES
 
 # USER ACCOUNT ROUTES
-
+app.add_url_rule('/airtravelusermanag', view_func=air.airtravelusermanag)
+app.add_url_rule('/air_viewbookings', view_func=air.air_viewbookings, methods=['POST', 'GET'])
+app.add_url_rule('/air_cancelbooking/', view_func=air.air_cancelbooking, methods=['POST', 'GET'])
 
 
 

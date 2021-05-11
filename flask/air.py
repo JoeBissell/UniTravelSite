@@ -305,29 +305,93 @@ def airtravelbooking_confirm():
 def varDump():
 	if request.method == 'POST':
 		result = request.form
-		output = "<H2 class="receipt">Booking Confirmed: </H2></br>"
+		output = "<H2>Booking Confirmed: </H2></br>"
 		output += "Number of Data Fields : " + str(len(result))
 		for key in list(result.keys()):
 			output = output + " </br> " + key + " : " + result.get(key)
 		return output
 	else:
 		result = request.args
-		output = "<H2 class="receipt">Booking Confirmed: </H2></br>"
+		output = "<H2>Booking Confirmed: </H2></br>"
 		output += "Number of Data Fields : " + str(len(result))
 		for key in list(result.keys()):
 			output = output + " </br> " + key + " : " + result.get(key)
 		return output  
 
 # USER FEATURES
+# USER MANAGEMENT PAGE
+@app.route('/airtravelusermanag')         
+def airtravelusermanag():  
+   if 'username' in session:
+      username = session['username']
+      return render_template('/hollie/airTraveluserman.html', username=username)
+   else:
+      return render_template('/hollie/airTraveluserman.html')
 # VIEW BOOKING
-
+@app.route('/air_viewbookings', methods=['GET', 'POST'])
+@requiredLogin
+def air_viewbookings():
+   conn = getConnection()
+   if conn != None:
+      if conn.is_connected():
+         airuserid = session['airuserid']
+         username = session['username']
+         print('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('SELECT * FROM airtravelbooking WHERE airuserid = %s;', (airuserid,))
+         print('SELECT bookings executed.')
+         bookingrows = dbcursor.fetchall()
+         dbcursor.close()
+         conn.close()
+         if not bookingrows:
+            error = 'No bookings'
+            print(error)
+            return render_template('hollie/airTraveluserman.html', error=error)
+         else:
+            print(bookingrows)
+            return render_template('hollie/airTravelviewbook.html', bookingresult=bookingrows, airuserid=airuserid, username=username)
+      else:
+         error = "Connection error."
+         print(error)
+         return render_template("hollie/airTraveluserman.html", error=error)
+   else:
+         error = "Connection error."
+         print(error)
+         return render_template("hollie/airTraveluserman.html", error=error)
 # DELETE BOOKING
-
+@app.route('/air_cancelbooking', methods=['POST', 'GET'])
+@requiredLogin
+def air_cancelbooking():
+   if request.method == 'GET':
+      bookingid = request.args.get('deletebooking')
+      if bookingid != None:
+         conn=getConnection()
+         if conn != None:
+            if conn.is_connected():
+               print('Connected to DB.')
+               dbcursor = conn.cursor()
+               sql_statement = 'DELETE FROM airtravelbooking WHERE airbookingid = %s'
+               args = (bookingid,)
+               dbcursor.execute(sql_statement, args)
+               print('DELETE executed.')
+               conn.commit()
+               dbcursor.close()
+               conn.close()
+               msg = 'booking has been canceled'
+               return render_template('hollie/airTraveluserman.html', msg=msg)
+            else:
+               print('Connection error.')
+         else:
+            error = "Connection error."
+            return render_template("hollie/airTraveluserman.html", error=error)
+      else:
+         error = "no bookings available"
+         return render_template('hollie/airTraveluserman.html', error=error)
 # CHANGING THEIR ROUTE
 
 # ADMIN FEATURES
 # ADMIN LOG IN REQUIRED
-def admin_req(f):
+def required_admin(f):
    @wraps(f)
    def wrap(*args, **kwargs):
       if ('logged_in' in session) and (session['usertype'] == 'admin'):
