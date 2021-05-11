@@ -203,6 +203,11 @@ app.add_url_rule('/airtravelbookingselect/', view_func=air.airtravelbooking_sele
 app.add_url_rule('/airtravelbookingconfirm/', view_func=air.airtravelbooking_confirm, methods=['POST', 'GET'])
 app.add_url_rule('/varDump/', view_func=air.varDump, methods=['POST', 'GET'])
 # ADMIN ROUTES
+app.add_url_rule('/air_admin', view_func=air.air_admin)
+app.add_url_rule('/air_routesadmin', view_func=air.air_routesadmin)
+app.add_url_rule('/air_deleteadmin', view_func=air.air_deleteadmin, methods=['POST', 'GET'])
+app.add_url_rule('/air_insertroute', view_func=air.air_insertroute)
+app.add_url_rule('/airinsertadmin', view_func=air.airinsertadmin, methods=['POST', 'GET'])
 
 # USER ACCOUNT ROUTES
 app.add_url_rule('/airtravelusermanag', view_func=air.airtravelusermanag)

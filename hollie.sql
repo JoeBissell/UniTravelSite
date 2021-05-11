@@ -63,3 +63,6 @@ CREATE TABLE airtravelbooking (
     FOREIGN KEY (airid) REFERENCES airroutes (airid), 
     PRIMARY KEY (airbookingid)
 ); 
+UPDATE airusers
+SET usertype = 'admin'
+WHERE airuserid = 1;

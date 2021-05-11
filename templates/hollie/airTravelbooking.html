@@ -39,8 +39,8 @@
         }
         function checkdate()
         {
-            outdate = document.getElementById(outdate);
-            returndate = document.getElementById(returndate);
+            outdate = document.querySelector('#outdate').value;
+            returndate = document.querySelector('#returndate').value;
             getdate1 = new Date(outdate);
             whtoutdate = outdate.getDay(outdate)
             if (whtoutdate = 0){
@@ -70,11 +70,11 @@
             </select>
             <br/>
             Select outgoing date:
-            <input type="date" name="outdate" id="outdate" required />
+            <input type="date" onclick="checkdate()" name="outdate" id="outdate" required />
             <p id="errordate1"></p>
             <br/>
             Select return date:
-            <input type="date" name="returndate" id="returndate" required />
+            <input type="date" onclick="checkdate()" name="returndate" id="returndate" required />
             <p id="errordate2"></p>
             <br/>
             Select adult seats:
@@ -83,7 +83,7 @@
             Select child seats:
             <input type="number" name="childseats" id="childseats" value=0 />
             <br/>
-            <input type="submit" onclick="checkdate()" value="Proceed Booking"/>
+            <input type="submit" value="Proceed Booking"/>
           </form>      
       
       </body>

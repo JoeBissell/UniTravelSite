@@ -1,0 +1,12 @@
+{% extends "hollie/airTravelhomeDesign.html" %}
+{% block content %}
+
+<h3>Admin Page</h3>
+    
+<h4>{{ msg }}</h4>
+
+<br>
+    <a href="{{ url_for('air_insertroute') }}"><button class="airbutton">Add a new route to Air</button></a>
+    <a href="{{ url_for('air_routesadmin') }}"><button class="airbutton">View all available routes</button></a>
+
+{% endblock %}

@@ -76,7 +76,7 @@ def airtravellogin():
                         session['airuserid'] = str(data[2])
                         print("You have already logged in!")
                         if session['usertype'] == 'admin':
-                           return render_template("hollie/admin.html", username=username, data='user specific data', usertype=session['usertype'], airuserid=session['airuserid'])
+                           return render_template("hollie/airTraveladmin.html", username=username, data='user specific data', usertype=session['usertype'], airuserid=session['airuserid'])
                         else: 
                            return render_template("hollie/airTravellogin.html", username=username, data='user specific data', usertype=session['usertype'], airuserid=session['airuserid'])
                      else:
@@ -397,12 +397,102 @@ def required_admin(f):
       if ('logged_in' in session) and (session['usertype'] == 'admin'):
          return f(*args, **kwargs)
       else:
-         print("Admin login required.")
-         abort(401)
+         print("admin login required.")
    return wrap
+# ADMIN LOG IN
+@app.route('/air_admin')
+@required_admin
+def air_admin():
+   return render_template('hollie/airTraveladmin.html')
 
 # ADDING A ROUTE 
-
+@app.route('/airinsertadmin',  methods=['POST', 'GET'])
+@required_admin
+def airinsertadmin():
+      msg=""
+      print('adding coach route starting.')
+      if request.method == 'POST':
+            idroute = request.form['airid']
+            leaving = request.form['departure']
+            leavingtime = request.form['deptime']
+            arrival = request.form['arrival']
+            arrivaltime = request.form['arrivaltime']
+            price = request.form['price']
+            conn = get_connection()
+            if conn.is_connected():
+               cursor = conn.cursor()
+               print("connected to database successful")
+               sql_statement = "INSERT INTO airroutes (airid, deptCity, deptTime, arrivCity, arrivTime, stFare) VALUES (%s, %s, %s, %s, %s, %s);"
+               args = (idroute, leaving, leavingtime, arrival, arrivaltime, price)
+               cursor.execute(sql_statement, args)
+               print("INSERT executed.")
+               conn.commit()
+               cursor.close()
+               msg = "route added successfully"
+               print(msg)
+               return render_template('hollie/airTraveladmin.html', msg= msg)
+            else:
+               conn.rollback()
+               msg += "Error while inserting"
+               print(msg)
+               return render_template('hollie/airTraveladmin.html', msg= msg)
+      else:
+         print('Not POST')
+         return 'Not POST'
+# PUTTING THAT ADD ON FORM PAGE
+@app.route('/air_insertroute')
+@required_admin
+def air_insertroute():
+   return render_template('hollie/airTravelinsertadmin.html')
 # DELETING A ROUTE
-
+@app.route('/air_deleteadmin', methods=['POST', 'GET'])
+@required_admin
+def air_deleteadmin():
+   if request.method == 'GET':
+      routeid = request.args.get('removeroute')
+      if routeid != None:
+         conn=getConnection()
+         if conn != None:
+            if conn.is_connected():
+               print('database connection successful')
+               dbcursor = conn.cursor()
+               sql_statement = 'DELETE FROM airroutes WHERE airid = %s'
+               args = (routeid,)
+               dbcursor.execute(sql_statement, args)
+               print('DELETE executed.')
+               conn.commit()
+               dbcursor.close()
+               conn.close()
+               msg = 'coach route deleted'
+               return render_template('hollie/airTraveladmin.html', msg=msg)
+            else:
+               print('error')
+         else:
+            error = "error"
+            return render_template("hollie/airTraveladmin.html", error=msg)
+      else:
+         error="error"
+         return render_template('hollie/airTraveladmin.html', error=msg)
 # AMENDING A ROUTE
+
+# VIEWING ALL ROUTES
+@app.route('/air_routesadmin')
+@required_admin
+def air_routesadmin():
+   conn = getConnection()
+   if conn != None:
+      if conn.is_connected():
+         print('Connected to DB.')
+         dbcursor = conn.cursor()
+         dbcursor.execute('SELECT * FROM airroutes;')
+         print('SELECT executed.')
+         rows = dbcursor.fetchall()
+         dbcursor.close()
+         conn.close()
+         return render_template('hollie/airTravelrouteadmin.html', resultset=rows)
+      else:
+         error = "error"
+         return render_template("hollie/airTravelwelcome.html", error=error)
+   else:
+         error = "error"
+         return render_template("hollie/airTravelwelcome.html", error=error)
