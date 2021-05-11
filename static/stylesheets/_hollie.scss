@@ -1,5 +1,40 @@
+* {box-sizing: border-box;} 
+
+#airtravel-hollie{
+    background-color: #f2e1d1;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 5px;
+
+    button.airbutton2{
+        padding: 10px;
+        margin-left: 15px;
+        color: #000000;
+        text-align: center;
+        justify-content: center;
+        border: none;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+    input.airbutton3{
+        padding: 10px;
+        margin-left: 15px;
+        color: #000000;
+        text-align: center;
+        justify-content: center;
+        border: none;
+        background-color: #ffffff;
+        cursor: pointer;
+    }
+}
+#airtravel-hollie.formtitles{
+    size: 12pt;
+    background-color: #57828e;
+    
+}
 #hollie-wrapper{
-    * {box-sizing: border-box;} 
+    background-color: #f2e1d1;
+    color: #000000;
+
     body{
         background-color: #f2e1d1;
     }
@@ -13,9 +48,7 @@
         float: left;
         padding: 15px;
     }
-    html{
-        font-family: 'Lucida Sans', sans-serif;
-    }
+    
     .header{
         background-color: #6e9aa6;
         color: #ffffff;
@@ -96,25 +129,41 @@
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
     .airform{
+        background-color: #57828e;
+        padding: 10px;
+        opacity: 75%;
         .airbutton{
             padding: 10px;
+            margin-left: 140px;
             color: #000000;
             text-align: center;
+            justify-content: center;
             border: none;
             background-color: #ffffff;
             cursor: pointer;
         }
         .air-grab{
             background-color: #57828e;
+            opacity: 75%;
         }
         .air-submit{
             padding: 10px;
+            margin-left: 140px;
             color: #000000;
             text-align: center;
             border: none;
             background-color: #ffffff;
             cursor: pointer;
         }
+        .formtitles{
+            background-color: #57828e;
+            opacity: 75%;
+        }
+        .air-input{
+            padding: 5px;
+            text-align: center;
+        }
+
     }
     .footer{
         background-color: #6e9aa6;

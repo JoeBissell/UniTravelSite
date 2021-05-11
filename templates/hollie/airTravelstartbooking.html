@@ -1,10 +1,11 @@
 {% extends "hollie/airTravelhomeDesign.html" %}
 {% block content %}
-<h1>This is the end of the basic booking process</h1> 
-<h2> booking details </h2>
+<h1>Almost Here!</h1>
+<h2>Check your booking details, before processing your payment</h2>
+<h2 class="formtiles"> Booking Details:</h2>
 
 
-  <form action="/airtravelbookingconfirm/" method="POST">   
+  <form class="airform" action="/airtravelbookingconfirm/" method="POST">   
       Departure City : {{lookupdata[0]}} <br/>
       <input type="hidden" name="deptcity" id="deptcity" value="{{lookupdata[0]}}"/>
       Arrival City : {{lookupdata[1]}} <br/>
@@ -19,14 +20,14 @@
       <input type="hidden" name="childseats" id="childseats" value="{{lookupdata[5]}}"/>
 
   <table border = 1> 
-      <tr>
+      <tr class="bookingstart">
           <th> Departure Time </th> <th> Arrival Time </th>  
-          <th> Standard fare </th> <th> Total fare </th> 
+          <th> Travel Time </th> <th> Total fare </th> 
           <th> Select option </th>
       </tr>
       
     {% for row in resultset %}
-    <tr> 
+    <tr class="bookingstart"> 
           <td> {{row[2]}} </td> 
           <td> {{row[4]}} </td> 
           <td> {{row[5]}} </td>              
@@ -38,7 +39,7 @@
    {% endfor %} 
   </table>  
   <br/>
-  <H2> Payment </H2>
+  <H2 class="formtitles"> Payment:</H2>
     Full name on card: 
     <input type="text" name="cardname" id="cardname" /> <br/>
     Card number:
@@ -47,8 +48,8 @@
     <input type="text" name="cardexpiry" id="cardexpiry" max="9999" size="4"/> <br/>
     CVV:
     <input type="number" name="cvv" id="cvv" max="999" size="3"/> <br/>
-    <input type="submit" value="Confirm Booking and Payment"/>
+    <input class="airbutton" type="submit" value="Confirm Booking and Payment"/>
   </form> 
-  <a href="/">Go to Home Page</a>
+  <a href="{{ url_for('airtravelhome') }}">Go to Home Page</a>
 </p>
 {% endblock %}

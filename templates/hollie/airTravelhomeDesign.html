@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="airtravel-hollie">
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='stylesheets/main.css') }}"/>
@@ -39,13 +39,13 @@
                         {% if session.logged_in %} Welcome {{ username }} 
                         <br/>
                         <br/>
-                        <a href="{{ url_for('logoutairtravel') }}"><input type="submit" value="Logout"></a>                 
+                        <a href="{{ url_for('logoutairtravel') }}"><input class="airbutton3" type="submit" value="Logout"></a>                 
                         {% else %}
                         <h4>Don't have an account? Sign up for free here!</h4>
                         <h1>Register now!</h1>
-                        <a href="{{ url_for('registerairtravel') }}"><button>Register</button></a>
+                        <a href="{{ url_for('registerairtravel') }}"><button class="airbutton2">Register</button></a>
                         <h3>or Log In to an existing account</h3>
-                        <a href="{{ url_for('airtravellogin') }}"><button class="coachbutton">Log in</button></a>
+                        <a href="{{ url_for('airtravellogin') }}"><button class="airbutton2">Log in</button></a>
                         <br/>
                         <br/>  
                         {% endif %} 

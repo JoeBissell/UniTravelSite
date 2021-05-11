@@ -1,8 +1,9 @@
 {% extends "hollie/airTravelhomeDesign.html" %}
 {% block content %}
-<h1>This is start of the basic booking process</h1> 
+<h1>Comfirmation of your booking</h1>
+<h3>Thank you for choosing Tosjosumbalie Travel</h3>
 <!--[journeyid, departcity, arrivalcity, outdate, returndate, adultseats, childseats, totalfare, bookingid, deptTime, arrivTime]-->
-<form action="/varDump/" method="POST">
+<form class="airform" action="/varDump/" method="POST">
 Booking ID: {{ resultset[9] }} <br/>
 User ID: {{ resultset[8] }} <br/>
 Departure City : {{resultset[1]}} <br/>
@@ -17,7 +18,7 @@ Total Fare : {{resultset[7]}} <br/>
 Payment: Card ending with ****** {{cardnumber}} <br/>
 <input type="hidden" name="totalfare" value="{{resultset[7]}}" /> 
 <input type="hidden" name="bookingid" value="{{resultset[9]}}" />   
-<input type="submit" value="View your receipt" /> 
+<input class="airbutton" type="submit" value="View your receipt" /> 
 </form>  
 <a href="{{ url_for('airtravelhome') }}" class="airbutton">Go to Home Page</a>
 </p>

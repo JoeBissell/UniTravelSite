@@ -387,7 +387,6 @@ def air_cancelbooking():
       else:
          error = "no bookings available"
          return render_template('hollie/airTraveluserman.html', error=error)
-# CHANGING THEIR ROUTE
 
 # ADMIN FEATURES
 # ADMIN LOG IN REQUIRED
@@ -473,8 +472,6 @@ def air_deleteadmin():
       else:
          error="error"
          return render_template('hollie/airTraveladmin.html', error=msg)
-# AMENDING A ROUTE
-
 # VIEWING ALL ROUTES
 @app.route('/air_routesadmin')
 @required_admin

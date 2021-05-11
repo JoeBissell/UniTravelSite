@@ -6,17 +6,17 @@
             <th> Booking ID</th>
             <th> Date</th>
             <th> Seats </th>
-            <th> Fare </th>
-            <th> user ID </th>
+            <th> Price </th>
+            <th> User ID </th>
             <th> Cancel booking? </th>
         </tr>
         {% for row in bookingresult %}
         <tr>
             <td> {{row[0]}} </td>
             <td> {{row[1]}}</td>
-            <td> {{row[3]}}</td>
             <td> {{row[4]}}</td>
-            <td> {{row[5]}} </td>
+            <td> {{row[5]}}</td>
+            <td> {{row[3]}} </td>
             <td> <input type="radio" name="deletebooking" value="{{row[0]}}"></td>
         </tr>
         {% endfor %}

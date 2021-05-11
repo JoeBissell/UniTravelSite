@@ -19,14 +19,14 @@
     <label for="arrivaltime"> Arrival time: </label>
     <input class="air-input" type="time" placeholder="" autocomplete="off" name="arrivaltime" required value="{{request.form.arrivaltime}}">
 </br>
-    <label for="price"> Ticket price: $ </label>
+    <label for="price"> Ticket price: £ </label>
     <input class="air-input" type="number" step="any" placeholder="" autocomplete="off" name="price" required value="{{request.form.price}}">
 </br>
 </br>
-    <input class="c-submit" type="submit" value="Insert route">
+    <input class="airbutton" type="submit" value="Insert route">
 </br>
 </br>
-    <p style="color: blue;">{{msg}}</p>
+    <p style="color: yellowgreen;">{{msg}}</p>
 </form>
 
 {% endblock %}
