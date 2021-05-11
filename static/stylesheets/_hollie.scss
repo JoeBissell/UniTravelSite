@@ -95,7 +95,27 @@
         font-size: 14px;
         box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
     }
-
+    .airform{
+        .airbutton{
+            padding: 10px;
+            color: #000000;
+            text-align: center;
+            border: none;
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+        .air-grab{
+            background-color: #57828e;
+        }
+        .air-submit{
+            padding: 10px;
+            color: #000000;
+            text-align: center;
+            border: none;
+            background-color: #ffffff;
+            cursor: pointer;
+        }
+    }
     .footer{
         background-color: #6e9aa6;
         color: #ffffff;

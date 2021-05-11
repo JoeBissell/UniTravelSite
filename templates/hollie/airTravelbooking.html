@@ -56,34 +56,32 @@
       </head>
       <body>
       <h1> Demo Example - associated drop down lists </h1>
-        <form action="/airtravelbookingselect/" method="POST"> 
+        <form class="airform" action="/airtravelbookingselect/" method="POST"> 
             Select departure city: 
-            <select name="departureslist" onchange="getarrivalcity(this.value)">
+            <select class="air-grab" name="departureslist" onchange="getarrivalcity(this.value)">
             {% for leaving in leavinglist %}
                   <option value="{{leaving}}"> {{leaving}} </option>	    
             {% endfor %} 
             </select>       
             <br />
             Select arrival city:
-            <select id="arrivalslist" name="arrivalslist">            
-            
-            </select>
+            <select class="air-grab" id="arrivalslist" name="arrivalslist"></select>
             <br/>
             Select outgoing date:
-            <input type="date" onclick="checkdate()" name="outdate" id="outdate" required />
+            <input class="air-grab" type="date" onclick="checkdate()" name="outdate" id="outdate" required />
             <p id="errordate1"></p>
             <br/>
             Select return date:
-            <input type="date" onclick="checkdate()" name="returndate" id="returndate" required />
+            <input class="air-grab" type="date" onclick="checkdate()" name="returndate" id="returndate" required />
             <p id="errordate2"></p>
             <br/>
             Select adult seats:
-            <input type="number" name="adultseats" id="adultseats" required />
+            <input class="air-grab" type="number" name="adultseats" id="adultseats" required />
             <br/>
             Select child seats:
-            <input type="number" name="childseats" id="childseats" value=0 />
+            <input class="air-grab" type="number" name="childseats" id="childseats" value=0 />
             <br/>
-            <input type="submit" value="Proceed Booking"/>
+            <input class="air-submit" type="submit" class="airbutton" value="Proceed Booking"/>
           </form>      
       
       </body>
