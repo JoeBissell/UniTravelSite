@@ -145,7 +145,7 @@ def index():
 
 @app.route("/joe")
 def joe():
-    return render_template("joe/layout.html")
+    return render_template("joe/index.html")
 
 @app.route("/hollie")
 def hollie():

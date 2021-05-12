@@ -6,6 +6,6 @@ from flask import Flask, render_template, request, session, redirect, url_for, e
 
 print('hi')
 
-@app.route("/joee")
-def joee():
-    return render_template("joe/index.html")
+# @app.route("/joee")
+# def joee():
+#     return render_template("joe/index.html")
