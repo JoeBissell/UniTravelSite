@@ -409,20 +409,21 @@ def air_admin():
 @required_admin
 def airinsertadmin():
       msg=""
-      print('adding coach route starting.')
+      print('adding air route starting.')
       if request.method == 'POST':
-            idroute = request.form['airid']
-            leaving = request.form['departure']
-            leavingtime = request.form['deptime']
+            airid = request.form['airid']
+            leaving = request.form['leaving']
+            leavingtime = request.form['leavingtime']
             arrival = request.form['arrival']
             arrivaltime = request.form['arrivaltime']
-            price = request.form['price']
+            totaltime = request.form['totaltime']
+            standfare = request.form['standfare']
             conn = getConnection()
             if conn.is_connected():
                cursor = conn.cursor()
                print("connected to database successful")
-               sql_statement = "INSERT INTO airroutes (airid, deptCity, deptTime, arrivCity, arrivTime, stFare) VALUES (%s, %s, %s, %s, %s, %s);"
-               args = (idroute, leaving, leavingtime, arrival, arrivaltime, price)
+               sql_statement = "INSERT INTO airroutes (airid, leaving, leavingtime, arrival, arrivaltime, totaltime, standFare) VALUES (%s, %s, %s, %s, %s, %s, %s);"
+               args = (airid, leaving, leavingtime, arrival, arrivaltime, totaltime, standfare)
                cursor.execute(sql_statement, args)
                print("INSERT executed.")
                conn.commit()
@@ -462,7 +463,7 @@ def air_deleteadmin():
                conn.commit()
                dbcursor.close()
                conn.close()
-               msg = 'coach route deleted'
+               msg = 'air route deleted'
                return render_template('hollie/airTraveladmin.html', msg=msg)
             else:
                print('error')

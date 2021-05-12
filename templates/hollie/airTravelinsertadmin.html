@@ -3,15 +3,15 @@
 
 <h3>Admin Page</h3>
     
-<form class="airform" action="/admininsert" method="POST">
+<form class="airform" action="/airinsertadmin" method="POST">
     <label for="idroute"> Route ID: </label>
-    <input class="air-input" type="number" placeholder="xxxx" autocomplete="off" name="idroute" required value="{{request.form.idroute}}">
+    <input class="air-input" type="number" placeholder="xxxx" autocomplete="off" name="airid" required value="{{request.form.airid}}">
 <br>
     <label for="leaving"> Departure: </label>
-    <input class="air-input" type="text" placeholder="" autocomplete="off" name="departure" required value="{{request.form.departure}}">
+    <input class="air-input" type="text" placeholder="" autocomplete="off" name="leaving" required value="{{request.form.leaving}}">
 </br>
     <label for="leavingtime"> Departure time:</label>
-    <input class="air-input" type="time" placeholder="" autocomplete="off" name="deptime" required value="{{request.form.deptime}}">
+    <input class="air-input" type="time" placeholder="" autocomplete="off" name="leavingtime" required value="{{request.form.leavingtime}}">
 </br>
     <label for="arrival"> Arrival: </label>
     <input class="air-input" type="text" placeholder="" autocomplete="off" name="arrival" required value="{{request.form.arrival}}">
@@ -19,8 +19,11 @@
     <label for="arrivaltime"> Arrival time: </label>
     <input class="air-input" type="time" placeholder="" autocomplete="off" name="arrivaltime" required value="{{request.form.arrivaltime}}">
 </br>
-    <label for="price"> Ticket price: £ </label>
-    <input class="air-input" type="number" step="any" placeholder="" autocomplete="off" name="price" required value="{{request.form.price}}">
+    <label for="totaltime"> Total Time: </label>
+    <input class="air-input" type="time" step="any" placeholder="" autocomplete="off" name="totaltime" required value="{{request.form.totaltime}}">
+</br>
+<label for="price"> Ticket price: £ </label>
+<input class="air-input" type="number" step="any" placeholder="" autocomplete="off" name="standfare" required value="{{request.form.standfare}}">
 </br>
 </br>
     <input class="airbutton" type="submit" value="Insert route">
