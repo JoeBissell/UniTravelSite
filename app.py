@@ -18,12 +18,11 @@ sys.path.insert(0, './flask')
 #  + Train - Bradley   +
 #  +++++++++++++++++++++
 
-import taxi
-import coach
-import air
-
 app = Flask(__name__)
 app.secret_key = 'verysecretkey'
+
+# Import each persons python
+import taxi, coach, air, carhire
 
 ## create connection to DB
 def get_connection():
@@ -146,7 +145,7 @@ def index():
 
 @app.route("/joe")
 def joe():
-    return render_template("joe/index.html")
+    return render_template("joe/layout.html")
 
 @app.route("/hollie")
 def hollie():
@@ -213,7 +212,5 @@ app.add_url_rule('/airinsertadmin', view_func=air.airinsertadmin, methods=['POST
 app.add_url_rule('/airtravelusermanag', view_func=air.airtravelusermanag)
 app.add_url_rule('/air_viewbookings', view_func=air.air_viewbookings, methods=['POST', 'GET'])
 app.add_url_rule('/air_cancelbooking/', view_func=air.air_cancelbooking, methods=['POST', 'GET'])
-
-
 
 app.run(debug = True, port = 5000)
