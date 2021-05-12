@@ -10,9 +10,11 @@
 </head>
 <body class="joe-body">
     {% include "joe/nav.html" %}
-    <div id="joe-wrapper">
+    <main>
+        <div class="wrapper">
         {% block content %}{% endblock %}
-    </div>
+        </div>
+    </main>
     {% include "joe/footer.html" %}
 </body>
 </html>
