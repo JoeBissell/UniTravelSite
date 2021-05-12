@@ -417,7 +417,7 @@ def airinsertadmin():
             arrival = request.form['arrival']
             arrivaltime = request.form['arrivaltime']
             price = request.form['price']
-            conn = get_connection()
+            conn = getConnection()
             if conn.is_connected():
                cursor = conn.cursor()
                print("connected to database successful")
