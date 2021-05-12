@@ -5,14 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='stylesheets/main.css')}}">
-    <title>UWE Travel Site | {% block title %}{% endblock %} </title>
+    <title>{% block title %}UWE Travel Site{% endblock %} </title>
 
 </head>
-<body>
-    {% block nav %}{% endblock %} 
+<body class="joe-body">
+    {% include "joe/nav.html" %}
     <div id="joe-wrapper">
         {% block content %}{% endblock %}
     </div>
-    {% block footer %}{% endblock %}
+    {% include "joe/footer.html" %}
 </body>
 </html>
