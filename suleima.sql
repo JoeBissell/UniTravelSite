@@ -90,14 +90,17 @@ CREATE TABLE coachusers (
     primary key(userid)
     );
 
+UPDATE coachusers
+SET usertype = 'admin'
+WHERE id = 13;
 
-CREATE TABLE c_bookings2 (
+CREATE TABLE c_bookings3 (
   idBooking INT NOT NULL auto_increment, 
   deptDate  datetime NOT NULL,   
   idRoutes INT NOT NULL,  
   noOfSeats INT NOT NULL default 1, 
   totFare Double NOT NULL,  
  FOREIGN KEY (idRoutes) REFERENCES coachroutes3 (idRoutes), 
- FOREIGN KEY (userid) REFERENCES userid (userid)
+ FOREIGN KEY (userid) REFERENCES coachusers (userid)
  PRIMARY KEY (idBooking)
     ); 

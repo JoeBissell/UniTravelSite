@@ -29,6 +29,16 @@
               req.send(); 
               return false;
           }
+
+
+            const validate = dateString => {
+            const day = (new Date(dateString)).getDay();
+            if (day==6) {
+                return false;
+            }
+            return true; 
+
+}
         </script>
 
       <h1> Choose your route: </h1>
