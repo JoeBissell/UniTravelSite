@@ -21,11 +21,12 @@
                 <!-- left menu-->
                 <div class="col-3 menu"> 
                     <ul>
-                        <li>air travel</li>
-                        <li>coach travel</li>
-                        <li>taxi travel</li>
-                        <li>car hire</li>
-                        <li>all travel options</li>
+                        <a href="{{ url_for('airtravelhome') }}"><li>Air travel</li></a>
+                        <a href="{{ url_for('Trainhome') }}"><li>Train travel</li></a>
+                        <a href="{{ url_for('coachhome') }}"><li>Coach Travel</li></a>
+                        <a href="{{ url_for('oscarindex') }}"><li>Taxi travel</li></a>
+                        <li>Car hire</li>
+                        <a href="{{ url_for('index') }}"><li>All travel options</li></a>
                     </ul>
                     <div class="train">
                     <img src="https://webstockreview.net/images/clipart-train-animated-gif-4.gif" style="width:450px;height:300px">

@@ -24,14 +24,14 @@ def get_connection():
 def Trainhome():  
    if 'username' in session:
       username = session['username']
-      return render_template('/brad/TrainTravel.html', username=username)
+      return render_template('/brad/Trainhome.html', username=username)
    else:
-      return render_template('/brad/TrainTravel.html')
+      return render_template('/brad/Trainhome.html')
 
 @app.route("/Train", methods=['POST', 'GET']) 
 def Train():
     username = session['username'] 
-    return render_template('/brad/TrainTravel.html', username=username)
+    return render_template('/brad/Trainhome.html', username=username)
 
 
 #Display registration success message 
