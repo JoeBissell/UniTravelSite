@@ -20,21 +20,23 @@ def get_connection():
    return conn
 
 #Home page
-@app.route('/Trainhome')        
-def Trainhome():
+@app.route('/Trainhome')         
+def Trainhome():  
    if 'username' in session:
-      username = session['username'] 
-      return render_template('/brad/Trainlogin.html')
+      username = session['username']
+      return render_template('/brad/TrainTravel.html', username=username)
+   else:
+      return render_template('/brad/TrainTravel.html')
 
 @app.route("/Train", methods=['POST', 'GET']) 
 def Train():
     username = session['username'] 
-    return render_template('/brad/Trainlogin.html', username=username)
+    return render_template('/brad/TrainTravel.html', username=username)
 
 
 #Display registration success message 
-@app.route("/regsuccess", methods=['POST', 'GET']) 
-def regsuccess():
+@app.route("/trainregsuccess", methods=['POST', 'GET']) 
+def trainregsuccess():
     username = request.form['username']
     return render_template('/brad/regsuccess.html')
 
@@ -145,8 +147,8 @@ def Trainlogout():
    return render_template('/brad/Trainlogin.html')
 
 #Display login success message
-@app.route("/loginsuccess", methods=['POST', 'GET']) 
-def loginsuccess():
+@app.route("/trainloginsuccess", methods=['POST', 'GET']) 
+def trainloginsuccess():
     username=request.form['username']
     return render_template('/brad/loginsuccess.html')
 
@@ -288,8 +290,8 @@ def Trainconfirm_booking():
       return render_template('/brad/Trainhome.html', error=error)
 
 #Booking receipt
-@app.route ('/varDump/', methods = ['POST', 'GET'])
-def varDump():
+@app.route ('/trainvarDump/', methods = ['POST', 'GET'])
+def trainvarDump():
 	if request.method == 'POST':
 		result = request.form
 		output = "<H2>Confirmed Booking: </H2></br>"
@@ -368,7 +370,4 @@ def Trainviewbook():
          error = "Connection error."
          print(error)
          return render_template("/brad/Trainhome.html", error=error)
-
-
-app.run(debug = True, port = 5000)
 
