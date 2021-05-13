@@ -124,11 +124,10 @@ def carhirelogin():
         if conn != None:
             dbcursor = conn.cursor()
             # Check if username & password is in db
-            query = "SELECT * FROM carhireusers WHERE username = %s AND password_hash = %s;"
-            dbcursor.execute(query,[username, password])
-            rows = dbcursor.fetchall()
-
-            if dbcursor.rowcount > 0:
+            dbcursor = conn.cursor()
+            dbcursor.execute("SELECT password_hash FROM carhireusers where username = %s;", [username])
+            result = dbcursor.fetchone()
+            if sha256_crypt.verify(password, result[0]):
                 success_msg = "success_logged_in"
 
                 # Start session
