@@ -105,6 +105,31 @@ body {
   margin: 0;
 }
 
+.joe-body table {
+  margin-top: 20px;
+  background-color: white;
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.joe-body table tr {
+  border: 1px solid black;
+}
+
+.joe-body table tr td, .joe-body table tr th {
+  padding: 10px;
+}
+
+.joe-body table tr th {
+  background-color: #51A4B4;
+  text-align: left;
+  line-height: 30px;
+}
+
+.joe-body table tr td {
+  min-width: 130px;
+}
+
 .joe-body header {
   width: 100%;
   height: 85px;
@@ -200,6 +225,18 @@ body {
 
 .joe-body footer #footer-wrapper {
   height: inherit;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.joe-body #bookings-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -340,31 +377,6 @@ body {
       -ms-flex-pack: center;
           justify-content: center;
   padding-top: 15px;
-}
-
-.joe-body main #main-container section#cars table {
-  margin-top: 20px;
-  background-color: white;
-  border: 1px solid black;
-  border-collapse: collapse;
-}
-
-.joe-body main #main-container section#cars table tr {
-  border: 1px solid black;
-}
-
-.joe-body main #main-container section#cars table tr td, .joe-body main #main-container section#cars table tr th {
-  padding: 10px;
-}
-
-.joe-body main #main-container section#cars table tr th {
-  background-color: #51A4B4;
-  text-align: left;
-  line-height: 30px;
-}
-
-.joe-body main #main-container section#cars table tr td {
-  min-width: 170px;
 }
 
 .joe-body main #main-container section#cars .button {

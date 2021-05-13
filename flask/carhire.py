@@ -13,8 +13,6 @@ def joe():
         results = dbcursor.fetchall()
         dbcursor.close
 
-        print("Connected!")
-
         return render_template("joe/index.html", carDetails = results)
 
 @app.route("/viewbookings")
@@ -23,7 +21,16 @@ def viewbookings():
 
 @app.route("/booktickets")
 def booktickets():
-    return render_template("joe/pages/makebookings.html")
+    conn = get_connection()
+    if conn != None:
+        dbcursor = conn.cursor()
+        query = 'SELECT manufacturer, brand, numberOfSeats, costPerDay, type FROM carhire'
+        dbcursor.execute(query)
+        results = dbcursor.fetchall()
+        dbcursor.close
+
+        return render_template("joe/pages/makebookings.html", carDetails = results)
+    return render_template("joe/pages/makebookings.html", msg = "not_logged_in")
 
 @app.route("/cancelbookings")
 def cancelbookings():

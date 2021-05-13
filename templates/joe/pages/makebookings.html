@@ -1,0 +1,29 @@
+{% extends 'joe/layout.html' %}
+
+{% block title %}{{super()}} | Make a Booking{% endblock %}
+
+{% block content %}
+<div class="carhire-container" id="bookings-container">
+    <table>
+        <tr>
+            <th>Manufacturer</th>
+            <th>Brand</th>
+            <th>Number of Seats</th>
+            <th>Cost per Day</th>
+            <th>Type of Car</th>
+            <th>Booking</th>
+        </tr>
+        {% for detail in carDetails %} 
+        <tr>
+            <td>{{ detail[0] }}</td>
+            <td>{{ detail[1] }}</td>
+            <td>{{ detail[2] }}</td>
+            <td>£{{ detail[3] }}</td>
+            <td>{{ detail[4] }}</td>
+            <td><a href="/">Book this car</td>
+
+        </tr>
+        {% endfor %}
+    </table>                    
+</div>
+{% endblock %}

@@ -95,6 +95,32 @@
         margin: 0;
     }
 
+    // Tables Styles
+
+    table {
+        margin-top: 20px;
+        background-color: white;
+        border: 1px solid black;
+        border-collapse: collapse;
+        tr {
+            border: 1px solid black;
+
+            td, th {
+                padding: 10px;
+            }
+
+            th {
+                background-color: $alt-color;
+                text-align: left;
+                line-height: 30px;
+            }
+
+            td {
+                min-width: 130px;
+            }
+        }
+    }
+
     // Nav Styles
 
     header {
@@ -194,6 +220,12 @@
     }
 
     // Main Content Styles
+
+    #bookings-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 
     main {
         flex-grow: 1;
@@ -314,29 +346,7 @@
                 justify-content: center;
                 padding-top: 15px;
 
-                table {
-                    margin-top: 20px;
-                    background-color: white;
-                    border: 1px solid black;
-                    border-collapse: collapse;
-                    tr {
-                        border: 1px solid black;
-
-                        td, th {
-                            padding: 10px;
-                        }
-
-                        th {
-                            background-color: $alt-color;
-                            text-align: left;
-                            line-height: 30px;
-                        }
-
-                        td {
-                            min-width: 170px;
-                        }
-                    }
-                }
+            
                 .button {
                     padding: 18px;
                     border-radius: 12px;
