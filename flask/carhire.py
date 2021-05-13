@@ -65,8 +65,9 @@ def carhireregister():
 
             # Otherwise, hash the password and create the account
             hashed_password = sha256_crypt.hash((str(password)))
-            query = "INSERT INTO carhireusers (username, email,  password_hash) VALUES (%s, %s, %s);"
+            query = "INSERT INTO carhireusers (username, email, password_hash) VALUES (%s, %s, %s);"
             dbcursor.execute(query, [username, email, hashed_password])
+            conn.commit()
             success_msg = "success_account_created"
             return render_template("joe/pages/login.html", msg = success_msg)
 
