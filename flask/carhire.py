@@ -29,8 +29,8 @@ def booktickets():
 def cancelbookings():
     return render_template("joe/pages/cancelbookings.html")
 
-@app.route("/carhirelogin")
-def carhirelogin():
+@app.route("/carhireloginregister")
+def carhireloginregister():
     return render_template("joe/pages/login.html")
 
 @app.route("/carhireregister", methods=['POST', 'GET'])
@@ -42,19 +42,16 @@ def carhireregister():
         conn = get_connection()
         if conn != None:
             dbcursor = conn.cursor()
-            # password = sha256_crypt.hash(password)
             # Check if username is already in use
             query = "SELECT * FROM carhireusers WHERE username = %s;"
             dbcursor.execute(query,[username])
             rows = dbcursor.fetchall()
-            # dbcursor.close()
 
             if dbcursor.rowcount > 0:
                 error_msg = "error_username_taken"
                 return render_template("joe/pages/login.html", msg = error_msg)
             
             # Check if email is already in use
-            # dbcursor = conn.cursor()
             query = "SELECT * FROM carhireusers WHERE email = %s;"
             dbcursor.execute(query,[email])
             rows = dbcursor.fetchall()
@@ -71,7 +68,27 @@ def carhireregister():
             success_msg = "success_account_created"
             return render_template("joe/pages/login.html", msg = success_msg)
 
+@app.route("/carhirelogin", methods=['POST', 'GET'])
+def carhirelogin():
+    if request.method == "POST":
+        username = request.form["login-username"]
+        password = request.form["login-password"]
+        conn = get_connection()
+        if conn != None:
+            dbcursor = conn.cursor()
+            # Check if username & password is in db
+            query = "SELECT * FROM carhireusers WHERE username = %s AND password_hash = %s;"
+            dbcursor.execute(query,[username, password])
+            rows = dbcursor.fetchall()
 
+            if dbcursor.rowcount > 0:
+                success_msg = "success_logged_in"
+                return render_template("joe/pages/login.html", msg = success_msg)
+
+            else:    
+                error_msg = "error_invalid_login"
+                return render_template("joe/pages/login.html", msg = error_msg)
+        
 
             
 

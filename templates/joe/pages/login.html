@@ -9,12 +9,21 @@
      <div id="login-registration-container">
         <div id="login-container">
             <h2>Would you like to login?</h2>
-            <form method="POST" action="/carhireregister">
+            <form method="POST" action="/carhirelogin">
                 <label for="login-username">Username:</label>
                 <input type="text" id="login-username" name="login-username" required>
                 <label for="login-password">Password:</label>
                 <input type="password" id="login-password" name="login-password" required>
                 <input type="submit" value="Login">
+                {% if msg == "error_invalid_login" %}
+                <div class="error">
+                    <span class="error-text">error:</span> Sorry, those details don't match what we have on our system.
+                </div>
+                {% elif msg == "success_logged_in" %}
+                <div class="success">
+                    <span class="success-text">success:</span> Thank you. You are now logged in.
+                </div>
+                {% endif %}
             </form>
         </div>
         <div id="registration-container">
