@@ -4,6 +4,7 @@
 }
 {% block content %}
 <div id="carhire-container">
+    <h1>Welcome to the UWE Car Hiring System</h1>
     <section id="slideshow">
         <div id="slides">
             <img src="{{url_for('static', filename='images/joe/slideshowOne.jpeg')}}">
@@ -13,6 +14,7 @@
         </div>
     </section>
     <section id="cars">
+        <h2>We currently have the below cars</h2>
         <table>
             <tr>
                 <th>Manufacturer</th>
@@ -30,27 +32,30 @@
                 <td>{{ detail[4] }}</td>
             </tr>
             {% endfor %}
-            <button>Book a car today!</button>
         </table>
+        <a href="#" class="button">Book a car today!</a>
     </section>
     <section id="options">
-        <div id="option">
-            <span>Make a Booking</span>
-        </div>
-        <div id="option">
-            <span>Delete a Booking</span>
-        </div>
-        <div id="option">
-            <span>Change account details</span>
-        </div>
-        <div id="option">
-            <span>Make a Booking</span>
-        </div>
-        <div id="option">
-            <span>Book a ticket</span>
-        </div>
-        <div id="option">
-            <span>View all your bookings</span>
+        <h2>What would you like to do?</h2>
+        <div id="options-container">
+            <div id="option">
+                <span>Make a Booking</span>
+            </div>
+            <div id="option">
+                <span>Delete a Booking</span>
+            </div>
+            <div id="option">
+                <span>Change account details</span>
+            </div>
+            <div id="option">
+                <span>Make a Booking</span>
+            </div>
+            <div id="option">
+                <span>Book a ticket</span>
+            </div>
+            <div id="option">
+                <span>View all your bookings</span>
+            </div>
         </div>
         
     </section>
