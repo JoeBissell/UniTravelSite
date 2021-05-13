@@ -24,7 +24,7 @@ def booktickets():
     conn = get_connection()
     if conn != None:
         dbcursor = conn.cursor()
-        query = 'SELECT carID, manufacturer, brand, numberOfSeats, costPerDay, type FROM carhire'
+        query = 'SELECT carID, manufacturer, brand, numberOfSeats, costPerDay, type, bookedBy FROM carhire WHERE bookedBy IS NULL'
         dbcursor.execute(query)
         results = dbcursor.fetchall()
         dbcursor.close
@@ -41,8 +41,7 @@ def bookcar():
     query = 'UPDATE carhire SET bookedBy = %s WHERE carid = %s;'
     dbcursor.execute(query, (user_id, car_id))
     conn.commit()
-
-    return 'done'
+    return render_template("joe/pages/makebookings.html", msg = "booking_added")
 
 @app.route("/cancelbookings")
 def cancelbookings():

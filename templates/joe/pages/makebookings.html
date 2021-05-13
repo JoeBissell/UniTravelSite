@@ -5,7 +5,11 @@
 {% block content %}
 <div class="carhire-container">
     {% if session['logged_in'] == True %} 
+
    <strong style="display: block; padding: 15px 0 0 15px;">Welcome {{session['username']}}, what car would you like?</strong></strong>
+   {% if msg == 'booking_added' %} 
+   <p>Booking added</p>
+   {% endif %}
    <div id="bookings-container"> 
         <table>
             <tr>

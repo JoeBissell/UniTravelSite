@@ -126,3 +126,5 @@ CREATE TABLE taxibookings (
     FOREIGN KEY (userid) REFERENCES taxiusers (userid), 
     PRIMARY KEY (bookingid)
 ); 	
+
+SELECT * FROM carhire
