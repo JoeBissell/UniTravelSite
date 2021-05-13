@@ -45,7 +45,27 @@ def bookcar():
 
 @app.route("/cancelbookings")
 def cancelbookings():
-    return render_template("joe/pages/cancelbookings.html")
+    conn = get_connection()
+    if conn != None:
+        user_id = session['userid']
+        dbcursor = conn.cursor()
+        query = 'SELECT carID, manufacturer, brand, numberOfSeats, costPerDay, type, bookedBy FROM carhire WHERE bookedBy = %s;'
+        dbcursor.execute(query, [user_id])
+        results = dbcursor.fetchall()
+        dbcursor.close
+        return render_template("joe/pages/cancelbookings.html", carDetails = results)
+
+@app.route("/cancelcar")
+def cancelcar():
+    conn = get_connection()
+    dbcursor = conn.cursor()
+    car_id =request.args.get('carid')
+    user_id = session['userid']
+    query = 'UPDATE carhire SET bookedBy = NULL WHERE carid = %s;'
+    dbcursor.execute(query, [car_id])
+    conn.commit()
+    return render_template("joe/pages/cancelbookings.html", msg = "booking_removed")
+
 
 @app.route("/carhireloginregister")
 def carhireloginregister():
