@@ -24,13 +24,25 @@ def booktickets():
     conn = get_connection()
     if conn != None:
         dbcursor = conn.cursor()
-        query = 'SELECT manufacturer, brand, numberOfSeats, costPerDay, type FROM carhire'
+        query = 'SELECT carID, manufacturer, brand, numberOfSeats, costPerDay, type FROM carhire'
         dbcursor.execute(query)
         results = dbcursor.fetchall()
         dbcursor.close
 
         return render_template("joe/pages/makebookings.html", carDetails = results)
     return render_template("joe/pages/makebookings.html", msg = "not_logged_in")
+
+@app.route("/bookcar")
+def bookcar():
+    conn = get_connection()
+    dbcursor = conn.cursor()
+    car_id =request.args.get('carid')
+    user_id = session['userid']
+    query = 'UPDATE carhire SET bookedBy = %s WHERE carid = %s;'
+    dbcursor.execute(query, (user_id, car_id))
+    conn.commit()
+
+    return 'done'
 
 @app.route("/cancelbookings")
 def cancelbookings():
@@ -102,7 +114,7 @@ def carhirelogin():
                 # Set if user is admin or not and add details to session
                 print(results[1])
                 session['usertype'] = str(results[1])
-                session['usertype'] = str(results[2])
+                session['userid'] = str(results[2])
 
                 return render_template("joe/pages/login.html", msg = success_msg)
 

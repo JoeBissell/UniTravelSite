@@ -3,27 +3,34 @@
 {% block title %}{{super()}} | Make a Booking{% endblock %}
 
 {% block content %}
-<div class="carhire-container" id="bookings-container">
-    <table>
-        <tr>
-            <th>Manufacturer</th>
-            <th>Brand</th>
-            <th>Number of Seats</th>
-            <th>Cost per Day</th>
-            <th>Type of Car</th>
-            <th>Booking</th>
-        </tr>
-        {% for detail in carDetails %} 
-        <tr>
-            <td>{{ detail[0] }}</td>
-            <td>{{ detail[1] }}</td>
-            <td>{{ detail[2] }}</td>
-            <td>£{{ detail[3] }}</td>
-            <td>{{ detail[4] }}</td>
-            <td><a href="/">Book this car</td>
+<div class="carhire-container">
+    {% if session['logged_in'] == True %} 
+   <strong style="display: block; padding: 15px 0 0 15px;">Welcome {{session['username']}}, what car would you like?</strong></strong>
+   <div id="bookings-container"> 
+        <table>
+            <tr>
+                <th>Car ID</th>
+                <th>Manufacturer</th>
+                <th>Brand</th>
+                <th>Number of Seats</th>
+                <th>Cost per Day</th>
+                <th>Type of Car</th>
+                <th>Booking</th>
+            </tr>
+            {% for detail in carDetails %} 
+            <tr>
+                <td>{{ detail[0] }}</td>
+                <td>{{ detail[1] }}</td>
+                <td>{{ detail[2] }}</td>
+                <td>£{{ detail[3] }}</td>
+                <td>{{ detail[4] }}</td>
+                <td>{{ detail[5] }}</td>
+                <td><a href="/bookcar?carid={{detail[0]}}">Book this car</td>
 
-        </tr>
-        {% endfor %}
-    </table>                    
+            </tr>
+            {% endfor %}
+        </table>   
+    </div>  
+    {% endif %}               
 </div>
 {% endblock %}
