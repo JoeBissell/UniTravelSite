@@ -9,12 +9,12 @@
     <title>{% block title %}UWE Travel Site{% endblock %} </title>
 </head>
 <body class="joe-body">
-    {% include "joe/nav.html" %}
+    {% include "joe/components/nav.html" %}
     <main>
         <div class="wrapper" id="main-container">
         {% block content %}{% endblock %}
         </div>
     </main>
-    {% include "joe/footer.html" %}
+    {% include "joe/components/footer.html" %}
 </body>
 </html>
