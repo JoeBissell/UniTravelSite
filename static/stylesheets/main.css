@@ -207,14 +207,27 @@ body {
   padding: 14px;
   min-height: 150px;
   border-radius: 8px;
-  background-color: white;
+}
+
+.joe-body main #main-container #carhire-container section {
+  width: 100%;
+  min-height: 470px;
 }
 
 .joe-body main #main-container #carhire-container section#slideshow {
-  border-radius: 8px;
-  min-height: 470px;
+  border-radius: 8px 8px 0 0;
   width: 100%;
   position: relative;
+  background-color: white;
+}
+
+.joe-body main #main-container #carhire-container section#slideshow #slides {
+  width: 97%;
+  top: 12px;
+  left: 15px;
+  position: absolute;
+  height: 445px;
+  overflow: hidden;
 }
 
 .joe-body main #main-container #carhire-container section#slideshow #slideshow-progress {
@@ -228,12 +241,13 @@ body {
 }
 
 .joe-body main #main-container #carhire-container section#slideshow img {
+  padding: inherit;
   z-index: 1;
   position: absolute;
   opacity: 1;
   display: block;
-  height: 470px;
-  width: inherit;
+  height: inherit;
+  width: 100%;
   border-radius: 8px;
   -webkit-transition: opacity .2s ease;
   transition: opacity .2s ease;
@@ -241,6 +255,10 @@ body {
 
 .joe-body main #main-container #carhire-container section#slideshow img:not(:first-child) {
   opacity: 0;
+}
+
+.joe-body main #main-container section#options {
+  background-color: rgba(44, 100, 227, 0.26);
 }
 
 #oscar-wrapper {

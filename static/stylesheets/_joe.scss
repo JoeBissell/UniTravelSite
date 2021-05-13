@@ -74,6 +74,7 @@
     // Colours 
 
     $primary-color: #002745;
+    $secondary-color: rgba(44, 100, 227, .26);
     $offwhite: #EEE;
 
     font-family: Arial, Helvetica, sans-serif;
@@ -185,18 +186,35 @@
             padding: 14px;
             min-height: 150px;
             border-radius: 8px;
-            background-color: white;   
+             
 
             // Index Styles
 
             #carhire-container {
+                section {
+                    width: 100%;
+                    min-height: 470px;
+
+                }
+
                 section#slideshow {
                     // margin: 10px;
-                    border-radius: 8px;
-                    min-height: 470px;
+                    border-radius: 8px 8px 0 0;
                     width: 100%;
                     // background-color: tomato;
                     position: relative;
+                    background-color: white;  
+                    // padding: 12px;
+                    // box-sizing: border-box;
+
+                    #slides {
+                        width: 97%;
+                        top: 12px;
+                        left: 15px;
+                        position: absolute;
+                        height: 445px;
+                        overflow: hidden;
+                    }
 
                     #slideshow-progress {
                         position: absolute;
@@ -209,12 +227,13 @@
                     }
 
                     img {
+                        padding: inherit;
                         z-index: 1;
                         position: absolute;
                         opacity: 1;
                         display: block;
-                        height: 470px;
-                        width: inherit;
+                        height: inherit;
+                        width: 100%;
                         border-radius: 8px;
                         transition: opacity .2s ease;
 
@@ -223,11 +242,13 @@
                             opacity: 0;
                         }
                     }
-
                 }
             }
- 
+
+            section#options {
+                background-color: $secondary-color;
+                
+            }
         }
     }
-
 }
