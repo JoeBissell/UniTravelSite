@@ -22,7 +22,7 @@ app = Flask(__name__)
 app.secret_key = 'verysecretkey'
 
 # Import each persons python
-import taxi, coach, air, carhire
+import taxi, coach, air, carhire, Train
 
 ## create connection to DB
 def get_connection():
@@ -212,5 +212,30 @@ app.add_url_rule('/airinsertadmin', view_func=air.airinsertadmin, methods=['POST
 app.add_url_rule('/airtravelusermanag', view_func=air.airtravelusermanag)
 app.add_url_rule('/air_viewbookings', view_func=air.air_viewbookings, methods=['POST', 'GET'])
 app.add_url_rule('/air_cancelbooking/', view_func=air.air_cancelbooking, methods=['POST', 'GET'])
+
+# BRAD APP ROUTES
+#My App routes
+app.add_url_rule('/Trainhome', view_func=Train.Trainhome)
+app.add_url_rule('/Train', view_func=Train.Train, methods=['POST', 'GET'])
+
+#Registration App routes
+app.add_url_rule('/Trainreg', view_func=Train.Trainreg, methods=['POST', 'GET'])
+app.add_url_rule('/trainregsuccess', view_func=Train.trainregsuccess, methods=['POST', 'GET'])
+
+#Login App routes
+app.add_url_rule('/Trainlogin', view_func=Train.Trainlogin, methods=['POST', 'GET'])
+app.add_url_rule('/trainloginsuccess', view_func=Train.trainloginsuccess, methods=['POST', 'GET'])
+app.add_url_rule('/Trainlogout', view_func=Train.Trainlogout, methods=['POST', 'GET'])
+
+#Booking App routes
+app.add_url_rule('/Trainbooking', view_func=Train.Trainbooking, methods=['POST', 'GET'])
+app.add_url_rule('/Trainarrival', view_func=Train.ajax_returntraintravel, methods=['POST', 'GET'])
+app.add_url_rule('/Trainselectbooking', view_func=Train.Trainselect_booking, methods=['POST', 'GET'])
+app.add_url_rule('/Trainconfirmbooking', view_func=Train.Trainconfirm_booking, methods=['POST', 'GET'])
+app.add_url_rule('/trainvarDump', view_func=Train.trainvarDump, methods=['POST', 'GET'])
+
+#User features - Cancel booking and View booking
+app.add_url_rule('/Train_cancelbooking', view_func=Train.Train_cancelbooking, methods=['POST', 'GET'])
+app.add_url_rule('/Trainviewbook', view_func=Train.Trainviewbook, methods=['POST', 'GET'])
 
 app.run(debug = True, port = 5000)

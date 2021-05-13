@@ -1,0 +1,7 @@
+{% extends "brad/TrainTravel.html" %}
+{% block content %}
+                    <h1>Welcome {{request.form["username"]}} to Train travel</h1>
+                    <a href="{{ url_for('Trainlogin') }}"><button>please log in to look up your trip options!</button></a>
+                    
+
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "brad/TrainTravel.html" %} 
+{% block content %} 
+<div class='fdesign' >
+<h1>Welcome {{request.form["username"]}} to Train travel</h1>
+<a href="{{ url_for('Trainbooking') }}"><button class='trainbutton'>Click here to look up your travel journeys!</button></a>
+</div>
+{% endblock %} 
+
+
