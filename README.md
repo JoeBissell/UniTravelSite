@@ -10,10 +10,8 @@ Team:
   * Coach
 * Oscar Averill
   * Taxi
-  * Login &amp; Registration
 * Joe Bissell
   * Car Hire
-  * Index page
 * Bradley Verrinder
   * Train
 
