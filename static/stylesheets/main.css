@@ -129,6 +129,15 @@ body {
           align-items: center;
 }
 
+.joe-body header #header-wrapper #nav-title-container a {
+  -webkit-transition: color .5s ease;
+  transition: color .5s ease;
+}
+
+.joe-body header #header-wrapper #nav-title-container a:hover {
+  color: #51A4B4;
+}
+
 .joe-body header #header-wrapper #nav-title-container span {
   display: block;
 }
@@ -291,6 +300,10 @@ body {
 
 .joe-body main #main-container section#options div:nth-child(odd) {
   border-radius: 0 8px 0 8px;
+}
+
+.joe-body main #main-container section#options div:hover {
+  background-color: #418f9e;
 }
 
 #oscar-wrapper {

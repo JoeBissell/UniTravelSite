@@ -110,6 +110,15 @@
             align-items: center;
 
             #nav-title-container {
+
+                a {
+                    transition: color .5s ease;
+                }
+
+                a:hover {
+                    color: $alt-color;
+                }
+                
                 span {
                     display: block;
 
@@ -271,6 +280,10 @@
                         border-radius: 0 8px 0 8px;
                     }
                     
+                    &:hover {
+                        background-color: #418f9e;
+                    }
+
                 }
                 
             }
