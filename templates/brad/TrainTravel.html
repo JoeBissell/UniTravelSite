@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="/static/styles/main.css"/>
+
+    </head>
+
+    <body>
+        <div id="brad-wrapper">
+            <div class="header">
+                <h1>Tosjosumbalie Travel</h1>
+                <a href = "{{ url_for('Trainlogin') }}"><button class='trainbutton'>Login Here</button></a>
+            </div>
+
+            <div class="aside">
+                <p>Please remember you MUST wear a face covering on public transport, more information on covid-19 <a href="https://www.gov.uk/guidance/coronavirus-covid-19-safer-travel-guidance-for-passengers#public-transport">here</a></p>
+            </div>
+
+            <div class="row">
+                <!-- left menu-->
+                <div class="col-3 menu"> 
+                    <ul>
+                        <li>air travel</li>
+                        <li>coach travel</li>
+                        <li>taxi travel</li>
+                        <li>car hire</li>
+                        <li>all travel options</li>
+                    </ul>
+                    <div class="train">
+                    <img src="https://webstockreview.net/images/clipart-train-animated-gif-4.gif" style="width:450px;height:300px">
+                    </div>
+                </div>
+                
+
+                <!--this is the main content part in desktop mode-->
+                <div class="col-6">
+                    {% block content %}
+                    {% endblock %}
+                </div>
+                
+                <!-- thi is the left side part in desktop mode-->
+                <div class="col-3 right">
+                    <div class="aside">
+                    {% if session.logged_in %} Welcome {{ username }} Thank you for Logging in to Tosjosumbalie Train Travel
+                    <br/>
+                    <br/>
+                    <br/>
+                    Click here to Log out: <a href="{{ url_for('Trainlogout') }}"><input class='trainbutton' type="submit" value="Logout"></a>
+                    {% else %} 
+                    <div class="account">
+                        <h4>Not created an account yet? Sign up for free below!</h4>
+                        <h1>Register now!</h1>
+                        <a href="{{ url_for('Trainreg') }}"><button>Register</button></a>
+                        <br/>
+                        
+                        <br>
+                        <br>
+                        <br>
+                        </div>
+                    <br/>
+                    {% endif %}
+                    </div>
+                    <br>
+                    
+                </div>
+
+            </div>
+            <div class="footer">
+                <p>COPYRIGHT BRAD AND CONTACT US DETAILS</p>
+
+            </div>
+        </div>
+    </body>
+</html>

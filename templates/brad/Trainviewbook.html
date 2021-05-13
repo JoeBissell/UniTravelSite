@@ -1,0 +1,26 @@
+{% extends "TrainTravel.html" %}
+{% block content %}
+<form  class='fdesign' method="GET" action="/Train_cancelbooking">
+    <table>
+        <tr>
+            <th> Booking ID</th>
+            <th> Departure Date</th>
+            <th> Seats </th>
+            <th> Fare </th>
+            <th> user ID </th>
+            <th> Cancel booking? </th>
+        </tr>
+        {% for row in bookingresult %}
+        <tr>
+            <td> {{row[0]}} </td>
+            <td> {{row[1]}}</td>
+            <td> {{row[5]}}</td>
+            <td> {{row[4]}}</td>
+            <td> {{row[6]}} </td>
+            <td> <input type="radio" name="deletebooking" value="{{row[0]}}"></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <input class='trainbutton' type="submit" value="Cancel booking">
+</form>   
+{% endblock %}

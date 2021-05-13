@@ -1,0 +1,18 @@
+{% extends "TrainTravel.html" %} 
+{% block content %} 
+
+<form method="POST" action="/Trainreg" class="fdesign">
+    <h2>Not created an account yet? Sign up for free below!</h2>
+    <input type="text" name="username" placeholder="Username" required value="{{request.form.username}}">
+    <br>
+    <br>
+    <input type="email" name="email" placeholder="Email Address" required value="{{request.form.email}}">
+    <input type="password" name="password" placeholder="Create Password" required value="{{request.form.password}}">
+    <br>
+
+    <input type="submit" id="sub" value="submit">
+</form>
+<br>
+<br>
+<br>
+{% endblock %} 

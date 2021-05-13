@@ -1,0 +1,23 @@
+{% extends "TrainTravel.html" %}
+{% block content %} 
+<form class='fdesign' action="/varDump/" method="POST">
+    <h1>Here is your reservation</h1>
+Booking ID: {{ resultset[9] }} <br/>
+User ID: {{ resultset[8] }} <br/>
+Departure City : {{resultset[1]}} <br/>
+Departure Date : {{resultset[3]}} <br/>
+Arrival City : {{resultset[2]}} <br/>  
+Return Date : {{resultset[4]}} <br/>
+Adult Seats : {{resultset[6]}} <br/>
+Child Seats : {{resultset[5]}} <br/>
+Total Fare : {{resultset[7]}} <br/>
+Payment: Card ending with ****** {{cardnumber}} <br/>
+<input type="hidden" name="totalfare" value="{{resultset[7]}}" /> 
+<input type="hidden" name="bookingid" value="{{resultset[9]}}" />   
+<input class='trainbutton' type="submit" value="View your receipt" /> 
+</form>  
+<br/>
+<br/>
+<a href="{{ url_for('Trainviewbook') }}" class="trainbutton">View your previous reservations</a>
+</p>
+{% endblock %}
