@@ -1,9 +1,10 @@
 {% extends "joe/layout.html" %} 
 
-{% block title %}{{super()}} |Main Page{% endblock %}
+{% block title %}{{super()}} | Main Page{% endblock %}
 }
 {% block content %}
-<div id="carhire-container">
+<div class="carhire-container">
+    <h1>Welcome to the UWE Car Hiring System</h1>
     <section id="slideshow">
         <div id="slides">
             <img src="{{url_for('static', filename='images/joe/slideshowOne.jpeg')}}">
@@ -12,13 +13,51 @@
             <div id="slideshow-progress"></div>
         </div>
     </section>
+    <section id="cars">
+        <h2>We currently have the below cars</h2>
+        <table>
+            <tr>
+                <th>Manufacturer</th>
+                <th>Brand</th>
+                <th>Number of Seats</th>
+                <th>Cost per Day</th>
+                <th>Type of Car</th>
+            </tr>
+            {% for detail in carDetails %} 
+            <tr>
+                <td>{{ detail[0] }}</td>
+                <td>{{ detail[1] }}</td>
+                <td>{{ detail[2] }}</td>
+                <td>£{{ detail[3] }}</td>
+                <td>{{ detail[4] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="#" class="button">Book a car today!</a>
+    </section>
     <section id="options">
-        <div id="option"></div>
-        <div id="option"></div>
-        <div id="option"></div>
-        <div id="option"></div>
-        <div id="option"></div>
-        <div id="option"></div>
+        <h2>What would you like to do?</h2>
+        <div id="options-container">
+            <div id="option">
+                <span>Make a Booking</span>
+            </div>
+            <div id="option">
+                <span>Delete a Booking</span>
+            </div>
+            <div id="option">
+                <span>Change account details</span>
+            </div>
+            <div id="option">
+                <span>Make a Booking</span>
+            </div>
+            <div id="option">
+                <span>Book a ticket</span>
+            </div>
+            <div id="option">
+                <span>View all your bookings</span>
+            </div>
+        </div>
+        
     </section>
 
 

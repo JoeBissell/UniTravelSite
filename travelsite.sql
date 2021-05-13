@@ -1,13 +1,15 @@
-CREATE database travelsite;
+DROP DATABASE travelsite;
+CREATE database IF NOT EXISTS travelsite;
 USE travelsite;
 
+-- Taxi (Oscar)
 CREATE TABLE taxiusers (
 	userid INTEGER NOT NULL auto_increment,
     username VARCHAR(64) NOT NULL UNIQUE,
     email VARCHAR(120) NOT NULL UNIQUE,
     password_hash VARCHAR(128),
     usertype VARCHAR(8) DEFAULT 'standard',
-    primary key(id)
+    primary key(userid)
     );
 
 CREATE TABLE taxiroutes (
@@ -17,7 +19,7 @@ CREATE TABLE taxiroutes (
     arrival VARCHAR(64) NOT NULL,
     arrivaltime TIME NOT NULL,
     miles INTEGER NOT NULL,
-    primary key(id)
+    primary key(routeid)
     );
 INSERT INTO travelsite.taxiroutes (
 	leaving,
@@ -79,7 +81,7 @@ INSERT INTO travelsite.coachroutes (
 	leaving,
     leavingtime,
     arrival,
-    arrivaltime,
+    arrivaltime
     ) 
 
 VALUES 
@@ -113,3 +115,63 @@ CREATE TABLE airusers (
     usertype VARCHAR(8) DEFAULT 'standard',
     primary key(userid)
     );
+
+-- Car Hire (Joe)
+
+CREATE TABLE carhire (
+	carid INTEGER NOT NULL auto_increment,
+    manufacturer VARCHAR(30) NOT NULL,
+    brand VARCHAR(64) NOT NULL,
+    numberOfSeats VARCHAR(64) NOT NULL,
+    costPerDay INTEGER NOT NULL,
+    type VARCHAR(10) NOT NULL,
+    bookedBy INTEGER,
+    bookedFrom DATE,
+    bookedTo DATE,
+
+    primary key(carid)
+    );
+
+INSERT INTO travelsite.carhire (
+	manufacturer,
+    brand,
+    numberOfSeats,
+    costPerDay,
+    type
+    ) 
+
+VALUES 
+	('Vauxhall', 'Corsa', '5', '32', 'Standard'),
+	('Fiat', '500', '4', '23', 'Standard'),
+	('Peugeot', '208', '5', '27', 'Standard'),
+	('Opel', 'Corsa', '5', '28', 'Standad'),
+	('Fiat', 'Tipo', '5', '32', 'Standard'),
+	('Volkswagen', 'Golf', '4', '36', 'Standard'),
+	('Ford', 'Fiesta', '4', '26', 'Standard'),
+    ('Mercedes', 'Premium', '5', '167', 'Executive'),
+    ('Tesla', 'Model S', '5', '178', 'Executive'
+);
+
+CREATE TABLE carhireusers (
+	userid INTEGER NOT NULL auto_increment,
+    username VARCHAR(24) NOT NULL UNIQUE,
+    email VARCHAR(70) NOT NULL UNIQUE,
+    password_hash VARCHAR(128),
+    usertype VARCHAR(8) DEFAULT 'standard',
+    primary key(userid)
+);
+
+INSERT INTO travelsite.carhireusers (
+	username,
+    email,
+    password_hash,
+    usertype
+    ) 
+
+VALUES 
+	('Joe Bissell', 'joe.bissell@email.co.uk', 'pass', 'admin'),
+	('John Doe', 'john.doe@email.co.uk', 'pass', 'standard'),
+	('Sarah Doe', 'sarah.doe@email.co.uk', 'pass', 'standard'),
+	('Scott Walker', 'scott.walker@email.co.uk', 'pass', 'standard'),
+	('Jane Doe', 'sarah.doe@email.co.uk', 'pass', 'standard'
+);

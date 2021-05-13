@@ -1,0 +1,23 @@
+{% block nav %}
+<header>
+    <div class="wrapper" id="header-wrapper">
+        <div id="nav-title-container">
+            <a href="{{url_for('joe')}}">
+                <span>UWE Travel Site</span>
+                <span>Car Hire</span>
+            </a>
+        </div>
+        <div id="nav-list-container">
+            <nav>
+                <ul>
+                    <li><a href="{{url_for('viewbookings')}}">View Booking</a></li>
+                    <li><a href="{{url_for('booktickets')}}">Book Ticket</a></li>
+                    <li><a href="{{url_for('cancelbookings')}}">Cancel Booking</a></li>
+                    <li><a href="{{url_for('carhireloginregister')}}">Sign Up / Login</a></li>
+                    <li><a href="{{url_for('index')}}">Other Travel</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+{% endblock %}

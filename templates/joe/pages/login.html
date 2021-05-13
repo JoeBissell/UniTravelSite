@@ -1,0 +1,69 @@
+{% extends 'joe/layout.html' %}
+
+{% block title %}{{super()}} | Login &amp; Registraion{% endblock %}
+
+{% block content %}
+
+<div class="carhire-container">
+    <h1>Login &amp; Registration</h1>
+     <div id="login-registration-container">
+        <div id="login-container">
+            <h2>Would you like to login?</h2>
+            <form method="POST" action="/carhirelogin">
+                <label for="login-username">Username:</label>
+                <input type="text" id="login-username" name="login-username" required>
+                <label for="login-password">Password:</label>
+                <input type="password" id="login-password" name="login-password" required>
+                <input type="submit" value="Login">
+                {% if msg == "error_invalid_login" %}
+                <div class="error">
+                    <span class="error-text">error:</span> Sorry, those details don't match what we have on our system.
+                </div>
+                {% elif msg == "success_logged_in" %}
+                <div class="success">
+                    <span class="success-text">success:</span> Thank you. You are now logged in.
+                </div>
+                {% endif %}
+            </form>
+        </div>
+        <div id="registration-container">
+            <h2>Or make an account?</h2>
+            <form method="POST" action="/carhireregister">
+                <label for="register-email">Please enter your email:</label>
+                <input type="text" id="register-email" name="register-email" required>
+                <label for="register-username">Please enter a username:</label>
+                <input type="text" id="register-username" name="register-username" required>
+                <label for="register-password">Please enter a password:</label>
+                <input type="password" id="register-password" name="register-password" required>
+                <input type="submit" value="Create account">
+                {% if msg == "error_username_taken" %}
+                    <div class="error">
+                        <span class="error-text">error:</span> Sorry, that username is taken. Please try another one.
+                    </div>
+                {% elif msg == "error_email_taken" %}
+                <div class="error">
+                    <span class="error-text">error:</span> Sorry, that email is in use. Please try another one.
+                </div>
+                {% elif msg == "success_account_created" %}
+                <div class="success">
+                    <span class="success-text">success:</span> Registration Completed! Your account has been created.
+                </div>
+                {% endif %}
+
+
+            </form>
+        </div>
+    </div>
+    {% if session['logged_in'] == True %}
+    <a href="/logout" class="logout">
+        Logout
+    </a>
+    {% endif %}
+    {% if msg == "logged_out" %}
+    <span style="text-align: center">You have been logged out.</span>
+    {% endif %}
+
+</div>
+
+
+{% endblock %}

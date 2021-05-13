@@ -75,6 +75,8 @@
 
     $primary-color: #002745;
     $secondary-color: rgba(44, 100, 227, .26);
+    $alt-color: #51A4B4;
+    $alt-hover-color: #418f9e;
     $offwhite: #EEE;
 
     font-family: Arial, Helvetica, sans-serif;
@@ -85,6 +87,38 @@
     .wrapper {
         margin: 0 auto;
         width: 1024px;
+    }
+
+    h1, h2, h3 {
+        font-family: "Nunito";
+        text-align: center;
+        margin: 0;
+    }
+
+    // Tables Styles
+
+    table {
+        margin-top: 20px;
+        background-color: white;
+        border: 1px solid black;
+        border-collapse: collapse;
+        tr {
+            border: 1px solid black;
+
+            td, th {
+                padding: 10px;
+            }
+
+            th {
+                background-color: $alt-color;
+                text-align: left;
+                line-height: 30px;
+            }
+
+            td {
+                min-width: 130px;
+            }
+        }
     }
 
     // Nav Styles
@@ -109,6 +143,15 @@
             align-items: center;
 
             #nav-title-container {
+
+                a {
+                    transition: color .5s ease;
+                }
+
+                a:hover {
+                    color: $alt-color;
+                }
+                
                 span {
                     display: block;
 
@@ -178,23 +221,75 @@
 
     // Main Content Styles
 
+    #bookings-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     main {
         flex-grow: 1;
+
+        @mixin message($color) {
+            background-color: $color;
+            color: white;
+            border: 3px solid black;
+            padding: 15px;
+            
+            span {
+                text-transform: uppercase;
+                font-weight: bold;
+
+            } 
+
+        }
+
+        .error {
+            @include message(darkred)
+        }
+
+        .success {
+            @include message(darkgreen)
+        }
+
+        .logout {
+            border-radius: 4px;
+            padding: 15px;
+            background-color: tomato;
+            font-weight: bold;
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            text-decoration: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: darkred;
+                color: white;
+            }
+        }
 
         #main-container {
             margin-top: 30px;
             padding: 14px;
             min-height: 150px;
             border-radius: 8px;
-             
 
             // Index Styles
 
-            #carhire-container {
+            .carhire-container {
+                background-color: white;  
+                border-radius: 8px;
+                padding-bottom: 10px;
+
                 section {
                     width: 100%;
                     min-height: 470px;
 
+                }
+
+                > h1 {
+                    margin-bottom: 15px;
                 }
 
                 section#slideshow {
@@ -202,9 +297,7 @@
                     border-radius: 8px 8px 0 0;
                     width: 100%;
                     // background-color: tomato;
-                    position: relative;
-                    background-color: white;  
-                    // padding: 12px;
+                    position: relative;                    // padding: 12px;
                     // box-sizing: border-box;
 
                     #slides {
@@ -245,9 +338,196 @@
                 }
             }
 
-            section#options {
+            section#cars {
                 background-color: $secondary-color;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding-top: 15px;
+
+            
+                .button {
+                    padding: 18px;
+                    border-radius: 12px;
+                    background-color: $primary-color;
+                    font-family: "Nunito";
+                    color: white;
+                    font-weight: bold;
+                    font-size: 1.1rem;
+                    border: none;
+                    border: 4px solid black;
+                    margin: 10px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    text-shadow: 1px 1px 1px #222;
+                    transition: transform box-shadow ease .5s;
+
+                    &:hover {
+                        transform: translateY(-5px);
+                        box-shadow: 2px 2px 1px #222;
+                    }
+
+                }
+            }
+
+            section#options {
+                padding: 40px;
+                background-color: white;
+                min-height: 500px;
+                border-radius: 0 0 8px 8px;
+
+                > h2 {
+                    margin-bottom: 25px;
+                }
+
+                #options-container {
+                    display: grid;
+                    grid-template-columns: 1fr 1fr 1fr;
+                    grid-auto-rows: 1fr;
+                    grid-gap: 40px;
+                    min-height: inherit;
+
+                    div {
+                        background-color: $alt-color;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-family: "Nunito";
+                        font-size: 1.4rem;
+        
+                        &:nth-child(even) {
+                            border-radius: 8px 0 8px 0;
+                        }
+
+                        &:nth-child(odd) {
+                            border-radius: 0 8px 0 8px;
+                        }
+                        
+                        &:hover {
+                            background-color: $alt-hover-color;
+                        }
+
+                    }
+                }
                 
+            }
+
+            #login-registration-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 25px;
+
+
+                    > div {
+                    background-color: $alt-color;
+                    padding: 20px;
+                    width: 40%;
+                    min-height: 175px;
+
+                    h2 {
+                        margin-bottom: 15px;
+                    }
+
+                    &:nth-child(even) {
+                        border-radius: 8px 0 8px 0;
+                    }
+
+                    &:nth-child(odd) {
+                        border-radius: 0 8px 0 8px;
+                    }
+
+                    form {
+                        input {
+                            display: block;
+                        }
+
+                        input[type="text"],
+                        input[type="password"],
+                        input[type="submit"] {
+                            margin-bottom: 13px;
+                            padding: 7px;
+                            border-radius: 4px;
+                            width: 100%;
+                            border: 2px solid black;
+                        }
+
+                        input[type="submit"] {
+                            margin-top: 17px;
+                            background-color: white;
+                            font-weight: bold;
+                            font-size: 1rem;
+                            transition: all .5s ease;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: $primary-color;
+                                color: white;
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Media Queries
+
+ @media (max-width: 1000px) {
+     .joe-body {
+        header {
+             #header-wrapper {
+                 flex-direction: column;
+             }
+
+             #nav-title-container {
+                 margin-top: 15px;
+                a span {
+                     display: inline-block !important;
+                     margin-left: 10px;
+                 }
+             }
+
+             #nav-list-container {
+                padding-bottom: 12px;
+             }
+
+         }
+
+         .wrapper {
+             width: 90%;
+         }
+
+         table {
+             max-width: 100%;
+
+             td,
+             tr {
+                 padding: 2px;
+                 min-width: fit-content !important;
+             }
+         }
+     }
+ }
+
+ @media (max-width: 700px) {
+    .joe-body {
+        header {
+            height: fit-content;
+            padding: 15px;
+            nav {
+                ul  {
+                    li {
+                        display: block !important;
+                        margin-top: 15px;
+                        margin-left: 0px !important;
+                    }
+                }
             }
         }
     }
