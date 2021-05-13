@@ -450,10 +450,9 @@
 
 // Media Queries
 
- @media screen and (max-width: 670px) {
+ @media (max-width: 1000px) {
      .joe-body {
-        //  overflow: hidden;
-         header {
+        header {
              #header-wrapper {
                  flex-direction: column;
              }
@@ -487,3 +486,21 @@
          }
      }
  }
+
+ @media (max-width: 700px) {
+    .joe-body {
+        header {
+            height: fit-content;
+            padding: 15px;
+            nav {
+                ul  {
+                    li {
+                        display: block !important;
+                        margin-top: 15px;
+                        margin-left: 0px !important;
+                    }
+                }
+            }
+        }
+    }
+}

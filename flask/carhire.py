@@ -83,6 +83,15 @@ def carhirelogin():
 
             if dbcursor.rowcount > 0:
                 success_msg = "success_logged_in"
+                # Start session
+                session['logged_in'] = True
+                session['username'] = username
+                # Get some extra details about the account
+                dbcursor.execute("SELECT password_hash, usertype, userid FROM carhireusers WHERE username = %s;", [username])
+                results = dbcursor.fetchone()
+                # Set if user is admin or not
+                print(results[1])
+                session['usertype'] = str(results[1])
                 return render_template("joe/pages/login.html", msg = success_msg)
 
             else:    
