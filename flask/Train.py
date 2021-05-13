@@ -22,25 +22,25 @@ def get_connection():
 #Home page
 @app.route('/')
 def Trainhomes():
-   return render_template('/Trainhome.html') 
+   return render_template('/brad/Trainhome.html') 
 
 @app.route('/Trainhome')        
 def Trainhome():
    if 'username' in session:
       username = session['username'] 
-      return render_template('/Trainlogin.html')
+      return render_template('/brad/Trainlogin.html')
 
 @app.route("/Train", methods=['POST', 'GET']) 
 def Train():
     username = session['username'] 
-    return render_template('/Trainlogin.html', username=username)
+    return render_template('/brad/Trainlogin.html', username=username)
 
 
 #Display registration success message 
 @app.route("/regsuccess", methods=['POST', 'GET']) 
 def regsuccess():
     username = request.form['username']
-    return render_template('/regsuccess.html')
+    return render_template('/brad/regsuccess.html')
 
 #Registration feature
 @app.route('/Trainreg', methods=['POST', 'GET'])
@@ -66,7 +66,7 @@ def Trainreg():
                   if dbcursor.rowcount > 0:
                      print ('Username taken.')
                      error = "Username already taken."
-                     return render_template("Trainreg.html", error=error)
+                     return render_template("/brad/Trainreg.html", error=error)
                   else:
                      #due to an error when registering these values will be the only values that allow you to login despite your input during registration, i have spoken to Zaheer about this and this is what he instructed me to do.
                      #dbcursor.execute("INSERT INTO trainusers (username, password_hash, email) VALUES (%s, %s, %s)", (username, password, email))
@@ -76,19 +76,19 @@ def Trainreg():
                      dbcursor.close()
                      conn.close()
                      gc.collect()
-                     return render_template("regsuccess.html")
+                     return render_template("/brad/regsuccess.html")
                else:
                   error = "Connection error."
-                  return render_template("Trainreg.html", error=error)
+                  return render_template("/brad/Trainreg.html", error=error)
             else: 
                error = "Connection error."
-               return render_template("Trainreg.html", error=error)
+               return render_template("/brad/Trainreg.html", error=error)
          else:
             print('Empty parameters.')
-            return render_template("Trainreg.html", error=error)
+            return render_template("/brad/Trainreg.html", error=error)
    except Exception as e:
-      return render_template("Trainreg.html", error=e)
-   return render_template("Trainreg.html", error=error)
+      return render_template("/brad/Trainreg.html", error=e)
+   return render_template("/brad/Trainreg.html", error=error)
 
 #Login Feature
 @app.route('/Trainlogin', methods=["GET", "POST"])
@@ -110,7 +110,7 @@ def Trainlogin():
                   data = dbcursor.fetchone()
                   if dbcursor.rowcount < 1:
                      error = "Username or password incorrect"
-                     return render_template("/Trainlogin.html", error=error)
+                     return render_template("/brad/Trainlogin.html", error=error)
                   else:
                      if (request.form['password'], str(data[0])):
                         session['logged_in'] = True
@@ -118,18 +118,15 @@ def Trainlogin():
                         session['accountType'] = str(data[1])
                         session['userId'] = str(data[2])
                         print("Already logged in.")
-                        if session['accountType'] == 'admin':
-                           return render_template("admin.html", username=username, data='user specific data', accountType=session['accountType'], userId=session['userId'])
-                        else: 
-                           return render_template("/loginsuccess.html", username=username, data='user specific data', accountType=session['accountType'], userId=session['userId'])
+                        return render_template("/brad/loginsuccess.html", username=username, data='user specific data', accountType=session['accountType'], userId=session['userId'])
                      else:
                         error = "Invalid login 1."
                gc.collect()
-               return render_template("/Trainlogin.html", form=form, error=error)
+               return render_template("/brad/Trainlogin.html", form=form, error=error)
    except Exception as e:
       error = str(e) + "Invalid login 2."
-      render_template("/Trainlogin.html", form=form, error=error)
-   return render_template("/Trainlogin.html", form=form, error=error)
+      render_template("/brad/Trainlogin.html", form=form, error=error)
+   return render_template("/brad/Trainlogin.html", form=form, error=error)
 
 #Required login before booking
 def requiredLogin(f):
@@ -139,7 +136,7 @@ def requiredLogin(f):
          return f(*args, **kwargs)
       else:
          print("Login is required.")
-      return render_template("Trainlogin.html", error="You are required to login first!")
+      return render_template("/brad/Trainlogin.html", error="You are required to login first!")
    return wrap
 
 
@@ -149,13 +146,13 @@ def Trainlogout():
    session.clear()
    print("Logged out.")
    gc.collect()
-   return render_template('/Trainlogin.html')
+   return render_template('/brad/Trainlogin.html')
 
 #Display login success message
 @app.route("/loginsuccess", methods=['POST', 'GET']) 
 def loginsuccess():
     username=request.form['username']
-    return render_template('/loginsuccess.html')
+    return render_template('/brad/loginsuccess.html')
 
 #Booking process
 @app.route('/Trainbooking', methods=['POST', 'GET'])
@@ -177,7 +174,7 @@ def Trainbooking():
             place = str(place).strip(",")
             place = str(place).strip("'")
             Trainplace.append(place)
-         return render_template('Trainbooking.html', leavinglist=Trainplace)
+         return render_template('/brad/Trainbooking.html', leavinglist=Trainplace)
       else:
          print('Connection error.')
          return 'Connection error.'
@@ -238,7 +235,7 @@ def Trainselect_booking():
             datarows.append(data)	
          dbcursor.close()
          conn.close()
-         return render_template('Trainbookingstart.html', resultset=datarows, lookupdata=lookupdata)
+         return render_template('/brad/Trainbookingstart.html', resultset=datarows, lookupdata=lookupdata)
       else:
          print('Connection error.')
          return redirect(url_for('index'))
@@ -288,11 +285,11 @@ def Trainconfirm_booking():
          dbcursor.execute
          dbcursor.close()
          conn.close()
-         return render_template('Trainbookconfirm.html', username=username, resultset=bookingdata, cardnumber=cardnumber, userId=userId)
+         return render_template('/brad/Trainbookconfirm.html', username=username, resultset=bookingdata, cardnumber=cardnumber, userId=userId)
    else:
       print('Connection error.')
       error = 'Connection error.'
-      return render_template('Trainhome.html', error=error)
+      return render_template('/brad/Trainhome.html', error=error)
 
 #Booking receipt
 @app.route ('/varDump/', methods = ['POST', 'GET'])
@@ -333,15 +330,15 @@ def Train_cancelbooking():
                dbcursor.close()
                conn.close()
                msg = 'Congratulations! Your booking has been cancelled'
-               return render_template('Trainhome.html', msg=msg)
+               return render_template('/brad/Trainhome.html', msg=msg)
             else:
                print('Connection error.')
          else:
             error = "Connection error."
-            return render_template("Trainhome.html", error=error)
+            return render_template("/brad/Trainhome.html", error=error)
       else:
          error = "no bookings available"
-         return render_template('Trainhome.html', error=error)
+         return render_template('/brad/Trainhome.html', error=error)
 
 
 # view previous bookings
@@ -363,18 +360,18 @@ def Trainviewbook():
          if not bookingrows:
             error = 'there are no bookings available'
             print(error)
-            return render_template('Trainhome.html', error=error)
+            return render_template('/brad/Trainhome.html', error=error)
          else:
             print(bookingrows)
-            return render_template('Trainviewbook.html', bookingresult=bookingrows, userId=userId, username=username)
+            return render_template('/brad/Trainviewbook.html', bookingresult=bookingrows, userId=userId, username=username)
       else:
          error = "Connection error."
          print(error)
-         return render_template("Trainhome.html", error=error)
+         return render_template("/brad/Trainhome.html", error=error)
    else:
          error = "Connection error."
          print(error)
-         return render_template("Trainhome.html", error=error)
+         return render_template("/brad/Trainhome.html", error=error)
 
 
 app.run(debug = True, port = 5050)
