@@ -74,10 +74,12 @@
     // Colours 
 
     $primary-color: #002745;
+    $offwhite: #EEE;
 
     font-family: Arial, Helvetica, sans-serif;
     display: flex;
     flex-direction: column;
+    background-color: $offwhite;
 
     .wrapper {
         margin: 0 auto;
@@ -178,8 +180,53 @@
     main {
         flex-grow: 1;
 
-        &#main-index {
-            
+        #main-container {
+            margin-top: 30px;
+            padding: 14px;
+            min-height: 150px;
+            border-radius: 8px;
+            background-color: white;   
+
+            // Index Styles
+
+            #carhire-container {
+                section#slideshow {
+                    // margin: 10px;
+                    border-radius: 8px;
+                    min-height: 470px;
+                    width: 100%;
+                    // background-color: tomato;
+                    position: relative;
+
+                    #slideshow-progress {
+                        position: absolute;
+                        bottom: 0;
+                        height: 6px;
+                        background-color: $primary-color;
+                        width: 1%;
+                        z-index: 2;
+                        border-radius: 0 0 0 8px;
+                    }
+
+                    img {
+                        z-index: 1;
+                        position: absolute;
+                        opacity: 1;
+                        display: block;
+                        height: 470px;
+                        width: inherit;
+                        border-radius: 8px;
+                        transition: opacity .2s ease;
+
+                        
+                        &:not(:first-child) {
+                            opacity: 0;
+                        }
+                    }
+
+                }
+            }
+ 
         }
     }
 

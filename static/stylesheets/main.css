@@ -91,6 +91,7 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  background-color: #EEE;
 }
 
 .joe-body .wrapper {
@@ -199,6 +200,47 @@ body {
   -webkit-box-flex: 1;
       -ms-flex-positive: 1;
           flex-grow: 1;
+}
+
+.joe-body main #main-container {
+  margin-top: 30px;
+  padding: 14px;
+  min-height: 150px;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.joe-body main #main-container #carhire-container section#slideshow {
+  border-radius: 8px;
+  min-height: 470px;
+  width: 100%;
+  position: relative;
+}
+
+.joe-body main #main-container #carhire-container section#slideshow #slideshow-progress {
+  position: absolute;
+  bottom: 0;
+  height: 6px;
+  background-color: #002745;
+  width: 1%;
+  z-index: 2;
+  border-radius: 0 0 0 8px;
+}
+
+.joe-body main #main-container #carhire-container section#slideshow img {
+  z-index: 1;
+  position: absolute;
+  opacity: 1;
+  display: block;
+  height: 470px;
+  width: inherit;
+  border-radius: 8px;
+  -webkit-transition: opacity .2s ease;
+  transition: opacity .2s ease;
+}
+
+.joe-body main #main-container #carhire-container section#slideshow img:not(:first-child) {
+  opacity: 0;
 }
 
 #oscar-wrapper {

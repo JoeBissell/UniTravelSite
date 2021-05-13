@@ -5,13 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='stylesheets/main.css')}}">
+    <script src="{{url_for('static', filename='javascript/carhire.js')}}"></script>
     <title>{% block title %}UWE Travel Site{% endblock %} </title>
+    
 
 </head>
 <body class="joe-body">
     {% include "joe/nav.html" %}
     <main>
-        <div class="wrapper">
+        <div class="wrapper" id="main-container">
         {% block content %}{% endblock %}
         </div>
     </main>
