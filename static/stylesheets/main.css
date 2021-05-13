@@ -241,6 +241,25 @@ body {
   font-weight: bold;
 }
 
+.joe-body main .logout {
+  border-radius: 4px;
+  padding: 15px;
+  background-color: tomato;
+  font-weight: bold;
+  display: block;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.joe-body main .logout:hover {
+  background-color: darkred;
+  color: white;
+}
+
 .joe-body main #main-container {
   margin-top: 30px;
   padding: 14px;
@@ -251,6 +270,7 @@ body {
 .joe-body main #main-container .carhire-container {
   background-color: white;
   border-radius: 8px;
+  padding-bottom: 10px;
 }
 
 .joe-body main #main-container .carhire-container section {

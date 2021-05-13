@@ -83,23 +83,27 @@ def carhirelogin():
 
             if dbcursor.rowcount > 0:
                 success_msg = "success_logged_in"
+
                 # Start session
                 session['logged_in'] = True
                 session['username'] = username
+
                 # Get some extra details about the account
                 dbcursor.execute("SELECT password_hash, usertype, userid FROM carhireusers WHERE username = %s;", [username])
                 results = dbcursor.fetchone()
-                # Set if user is admin or not
+
+                # Set if user is admin or not and add details to session
                 print(results[1])
                 session['usertype'] = str(results[1])
+                session['usertype'] = str(results[2])
+
                 return render_template("joe/pages/login.html", msg = success_msg)
 
             else:    
                 error_msg = "error_invalid_login"
                 return render_template("joe/pages/login.html", msg = error_msg)
-        
 
-            
-
-
-    return render_template("joe/pages/login.html")
+@app.route("/logout")
+def logout():
+   session.clear()
+   return render_template('joe/pages/login.html', msg = "logged_out")

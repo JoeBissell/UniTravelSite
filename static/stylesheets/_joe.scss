@@ -220,6 +220,23 @@
             @include message(darkgreen)
         }
 
+        .logout {
+            border-radius: 4px;
+            padding: 15px;
+            background-color: tomato;
+            font-weight: bold;
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            text-decoration: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: darkred;
+                color: white;
+            }
+        }
+
         #main-container {
             margin-top: 30px;
             padding: 14px;
@@ -230,7 +247,8 @@
 
             .carhire-container {
                 background-color: white;  
-                border-radius: 8px;;
+                border-radius: 8px;
+                padding-bottom: 10px;
 
                 section {
                     width: 100%;

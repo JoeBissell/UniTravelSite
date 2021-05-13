@@ -54,6 +54,15 @@
             </form>
         </div>
     </div>
+    {% if session['logged_in'] == True %}
+    <a href="/logout" class="logout">
+        Logout
+    </a>
+    {% endif %}
+    {% if msg == "logged_out" %}
+    <span style="text-align: center">You have been logged out.</span>
+    {% endif %}
+
 </div>
 
 
