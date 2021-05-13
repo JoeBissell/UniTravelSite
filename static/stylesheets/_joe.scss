@@ -447,3 +447,43 @@
         }
     }
 }
+
+// Media Queries
+
+ @media screen and (min-width: 670px) {
+     .joe-body {
+        //  overflow: hidden;
+         header {
+             #header-wrapper {
+                 flex-direction: column;
+             }
+
+             #nav-title-container {
+                 margin-top: 15px;
+                a span {
+                     display: inline-block !important;
+                     margin-left: 10px;
+                 }
+             }
+
+             #nav-list-container {
+                padding-bottom: 12px;
+             }
+
+         }
+
+         .wrapper {
+             width: 90%;
+         }
+
+         table {
+             max-width: 100%;
+
+             td,
+             tr {
+                 padding: 2px;
+                 min-width: fit-content !important;
+             }
+         }
+     }
+ }
