@@ -160,6 +160,8 @@ def suleima():
     return render_template("suleima/coachhome.html")
 
 
+
+### suleima addara - 19020111 
 app.add_url_rule('/coachhome', view_func=coach.coachhome)
 app.add_url_rule('/coachreg', view_func=coach.coachreg, methods=['POST', 'GET'])
 app.add_url_rule('/regsuccess', view_func=coach.regsuccess, methods=['POST', 'GET'])
@@ -239,3 +241,4 @@ app.add_url_rule('/Train_cancelbooking', view_func=Train.Train_cancelbooking, me
 app.add_url_rule('/Trainviewbook', view_func=Train.Trainviewbook, methods=['POST', 'GET'])
 
 app.run(debug = True, port = 5000)
+
