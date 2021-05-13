@@ -19,6 +19,8 @@ Each person has done their own CSS, Flask, SQL and HTML.
 
 ### How to use
 
+Import database dump or run a sql file
+
 Run app.py
 
 Naviate to localhost:5000
