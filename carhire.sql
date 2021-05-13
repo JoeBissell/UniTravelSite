@@ -55,11 +55,11 @@ INSERT INTO travelsite.carhireusers (
     ) 
 
 VALUES 
-	('Joe Bissell', 'joe.bissell@email.co.uk', 'pass', 'admin'),
-	('John Doe', 'john.doe@email.co.uk', 'pass', 'standard'),
-	('Sarah Doe', 'sarah.doe@email.co.uk', 'pass', 'standard'),
-	('Scott Walker', 'scott.walker@email.co.uk', 'pass', 'standard'),
-	('Jane Doe', 'jane.doe@email.co.uk', 'pass', 'standard'
+	('joebissell', 'joe.bissell@email.co.uk', 'pass', 'admin'),
+	('johndoe', 'john.doe@email.co.uk', 'pass', 'standard'),
+	('sarahdoe', 'sarah.doe@email.co.uk', 'pass', 'standard'),
+	('scottwalker', 'scott.walker@email.co.uk', 'pass', 'standard'),
+	('janedoe', 'jane.doe@email.co.uk', 'pass', 'standard'
 );
 
 CREATE TABLE taxiusers (

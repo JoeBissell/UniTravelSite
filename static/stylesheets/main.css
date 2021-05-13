@@ -217,6 +217,30 @@ body {
           flex-grow: 1;
 }
 
+.joe-body main .error {
+  background-color: darkred;
+  color: white;
+  border: 3px solid black;
+  padding: 15px;
+}
+
+.joe-body main .error span {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.joe-body main .success {
+  background-color: darkgreen;
+  color: white;
+  border: 3px solid black;
+  padding: 15px;
+}
+
+.joe-body main .success span {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 .joe-body main #main-container {
   margin-top: 30px;
   padding: 14px;
