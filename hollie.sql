@@ -1,4 +1,4 @@
-USE Uni Database;
+USE airtravel;
 SHOW databases;
 CREATE DATABASE airtravel;
 USE airtravel;
