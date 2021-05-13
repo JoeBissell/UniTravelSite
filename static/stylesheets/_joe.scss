@@ -206,10 +206,14 @@
 
             // Index Styles
 
-            #carhire-container {
+            .carhire-container {
+                background-color: white;  
+                border-radius: 8px;;
+
                 section {
                     width: 100%;
                     min-height: 470px;
+
                 }
 
                 > h1 {
@@ -221,9 +225,7 @@
                     border-radius: 8px 8px 0 0;
                     width: 100%;
                     // background-color: tomato;
-                    position: relative;
-                    background-color: white;  
-                    // padding: 12px;
+                    position: relative;                    // padding: 12px;
                     // box-sizing: border-box;
 
                     #slides {
@@ -360,6 +362,66 @@
                     }
                 }
                 
+            }
+
+            #login-registration-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                align-items: center;
+                padding: 25px;
+
+
+                    > div {
+                    background-color: $alt-color;
+                    padding: 20px;
+                    width: 40%;
+                    min-height: 175px;
+
+                    h2 {
+                        margin-bottom: 15px;
+                    }
+
+                    &:nth-child(even) {
+                        border-radius: 8px 0 8px 0;
+                    }
+
+                    &:nth-child(odd) {
+                        border-radius: 0 8px 0 8px;
+                    }
+
+                    form {
+
+                        input {
+                            display: block;
+                        }
+
+                        input[type="text"],
+                        input[type="password"],
+                        input[type="submit"] {
+                            margin-bottom: 13px;
+                            padding: 7px;
+                            border-radius: 4px;
+                            width: 100%;
+                            border: 2px solid black;
+                        }
+
+                        input[type="submit"] {
+                            margin-top: 17px;
+                            background-color: white;
+                            font-weight: bold;
+                            font-size: 1rem;
+                            transition: all .5s ease;
+                            cursor: pointer;
+
+                            &:hover {
+                                background-color: $primary-color;
+                                color: white;
+                            }
+                        }
+                        
+                    }
+                }
             }
         }
     }

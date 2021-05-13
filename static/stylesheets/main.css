@@ -224,23 +224,27 @@ body {
   border-radius: 8px;
 }
 
-.joe-body main #main-container #carhire-container section {
+.joe-body main #main-container .carhire-container {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.joe-body main #main-container .carhire-container section {
   width: 100%;
   min-height: 470px;
 }
 
-.joe-body main #main-container #carhire-container > h1 {
+.joe-body main #main-container .carhire-container > h1 {
   margin-bottom: 15px;
 }
 
-.joe-body main #main-container #carhire-container section#slideshow {
+.joe-body main #main-container .carhire-container section#slideshow {
   border-radius: 8px 8px 0 0;
   width: 100%;
   position: relative;
-  background-color: white;
 }
 
-.joe-body main #main-container #carhire-container section#slideshow #slides {
+.joe-body main #main-container .carhire-container section#slideshow #slides {
   width: 97%;
   top: 12px;
   left: 15px;
@@ -249,7 +253,7 @@ body {
   overflow: hidden;
 }
 
-.joe-body main #main-container #carhire-container section#slideshow #slideshow-progress {
+.joe-body main #main-container .carhire-container section#slideshow #slideshow-progress {
   position: absolute;
   bottom: 0;
   height: 6px;
@@ -259,7 +263,7 @@ body {
   border-radius: 0 0 0 8px;
 }
 
-.joe-body main #main-container #carhire-container section#slideshow img {
+.joe-body main #main-container .carhire-container section#slideshow img {
   padding: inherit;
   z-index: 1;
   position: absolute;
@@ -272,7 +276,7 @@ body {
   transition: opacity .2s ease;
 }
 
-.joe-body main #main-container #carhire-container section#slideshow img:not(:first-child) {
+.joe-body main #main-container .carhire-container section#slideshow img:not(:first-child) {
   opacity: 0;
 }
 
@@ -393,6 +397,70 @@ body {
 
 .joe-body main #main-container section#options #options-container div:hover {
   background-color: #418f9e;
+}
+
+.joe-body main #main-container #login-registration-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 25px;
+}
+
+.joe-body main #main-container #login-registration-container > div {
+  background-color: #51A4B4;
+  padding: 20px;
+  width: 40%;
+  min-height: 175px;
+}
+
+.joe-body main #main-container #login-registration-container > div h2 {
+  margin-bottom: 15px;
+}
+
+.joe-body main #main-container #login-registration-container > div:nth-child(even) {
+  border-radius: 8px 0 8px 0;
+}
+
+.joe-body main #main-container #login-registration-container > div:nth-child(odd) {
+  border-radius: 0 8px 0 8px;
+}
+
+.joe-body main #main-container #login-registration-container > div form input {
+  display: block;
+}
+
+.joe-body main #main-container #login-registration-container > div form input[type="text"],
+.joe-body main #main-container #login-registration-container > div form input[type="password"],
+.joe-body main #main-container #login-registration-container > div form input[type="submit"] {
+  margin-bottom: 13px;
+  padding: 7px;
+  border-radius: 4px;
+  width: 100%;
+  border: 2px solid black;
+}
+
+.joe-body main #main-container #login-registration-container > div form input[type="submit"] {
+  margin-top: 17px;
+  background-color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  -webkit-transition: all .5s ease;
+  transition: all .5s ease;
+  cursor: pointer;
+}
+
+.joe-body main #main-container #login-registration-container > div form input[type="submit"]:hover {
+  background-color: #002745;
+  color: white;
 }
 
 #oscar-wrapper {
