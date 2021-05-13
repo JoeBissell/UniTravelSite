@@ -1,0 +1,26 @@
+{% extends "joe/layout.html" %} 
+
+{% block title %}{{super()}} |Main Page{% endblock %}
+}
+{% block content %}
+<div id="carhire-container">
+    <section id="slideshow">
+        <div id="slides">
+            <img src="{{url_for('static', filename='images/joe/slideshowOne.jpeg')}}">
+            <img src="{{url_for('static', filename='images/joe/slideshowTwo.jpg')}}">
+            <img src="{{url_for('static', filename='images/joe/slideshowThree.jpg')}}">
+            <div id="slideshow-progress"></div>
+        </div>
+    </section>
+    <section id="options">
+        <div id="option"></div>
+        <div id="option"></div>
+        <div id="option"></div>
+        <div id="option"></div>
+        <div id="option"></div>
+        <div id="option"></div>
+    </section>
+
+
+</div>
+{% endblock %}

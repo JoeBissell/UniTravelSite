@@ -1,0 +1,25 @@
+{% extends "brad/TrainTravel.html" %}
+
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="/static/stylesheets/main.css"/>
+
+    <table class="TrainTable">
+        <tr>
+            <th>Leaving</th>
+            <th>Leaving time</th>
+            <th>Arrival </th>
+            <th>Arrival time</th>
+            <th>ACTION</th>
+        </tr>
+        {% for row in resultset %}
+        <tr>
+            <td>{{row[1]}}</td>
+            <td>{{row[2]}}</td>
+            <td>{{row[3]}}</td>
+            <td>{{row[4]}}</td>
+            <td>BOOK NOW!</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
