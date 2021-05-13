@@ -17,10 +17,19 @@ def joe():
 
 @app.route("/viewbookings")
 def viewbookings():
-    return render_template("joe/pages/viewbookings.html")
+    conn = get_connection()
+    if conn != None:
+        user_id = session['userid']
+        dbcursor = conn.cursor()
+        query = 'SELECT carID, manufacturer, brand, numberOfSeats, costPerDay, type, bookedBy FROM carhire WHERE bookedBy = %s;'
+        dbcursor.execute(query, [user_id])
+        results = dbcursor.fetchall()
+        dbcursor.close
+        return render_template("joe/pages/viewbookings.html", carDetails = results)
+    
 
-@app.route("/booktickets")
-def booktickets():
+@app.route("/bookacar")
+def bookacar():
     conn = get_connection()
     if conn != None:
         dbcursor = conn.cursor()

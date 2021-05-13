@@ -1,0 +1,38 @@
+{% extends 'joe/layout.html' %}
+
+{% block title %}{{super()}} | Make a Booking{% endblock %}
+
+{% block content %}
+<div class="carhire-container">
+    {% if session['logged_in'] == True %} 
+
+   <strong style="display: block; padding: 15px 0 0 15px;">Welcome {{session['username']}}, here are your current bookings</strong></strong>
+
+   <div id="bookings-container"> 
+        <table>
+            <tr>
+                <th>Car ID</th>
+                <th>Manufacturer</th>
+                <th>Brand</th>
+                <th>Number of Seats</th>
+                <th>Cost per Day</th>
+                <th>Type of Car</th>
+            </tr>
+            {% for detail in carDetails %} 
+            <tr>
+                <td>{{ detail[0] }}</td>
+                <td>{{ detail[1] }}</td>
+                <td>{{ detail[2] }}</td>
+                <td>£{{ detail[3] }}</td>
+                <td>{{ detail[4] }}</td>
+                <td>{{ detail[5] }}</td>
+            </tr>
+            {% endfor %}
+        </table>   
+    </div>  
+    {% endif %}  
+    <br>
+    <a href="{{url_for('bookacar')}}">Would you like to book a car</a>
+    <br> <a href="{{url_for('cancelbookings')}}">or cancel a booking?</a>             
+</div>
+{% endblock %}
