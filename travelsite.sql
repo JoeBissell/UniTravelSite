@@ -1,4 +1,5 @@
-CREATE database travelsite;
+DROP DATABASE travelsite;
+CREATE database IF NOT EXISTS travelsite;
 USE travelsite;
 
 -- Taxi (Oscar)
@@ -8,7 +9,7 @@ CREATE TABLE taxiusers (
     email VARCHAR(120) NOT NULL UNIQUE,
     password_hash VARCHAR(128),
     usertype VARCHAR(8) DEFAULT 'standard',
-    primary key(id)
+    primary key(userid)
     );
 
 CREATE TABLE taxiroutes (
@@ -18,7 +19,7 @@ CREATE TABLE taxiroutes (
     arrival VARCHAR(64) NOT NULL,
     arrivaltime TIME NOT NULL,
     miles INTEGER NOT NULL,
-    primary key(id)
+    primary key(routeid)
     );
 INSERT INTO travelsite.taxiroutes (
 	leaving,
@@ -80,7 +81,7 @@ INSERT INTO travelsite.coachroutes (
 	leaving,
     leavingtime,
     arrival,
-    arrivaltime,
+    arrivaltime
     ) 
 
 VALUES 
@@ -122,7 +123,12 @@ CREATE TABLE carhire (
     manufacturer VARCHAR(30) NOT NULL,
     brand VARCHAR(64) NOT NULL,
     numberOfSeats VARCHAR(64) NOT NULL,
-    costPerDay int NOT NULL,
+    costPerDay INTEGER NOT NULL,
+    type VARCHAR(10) NOT NULL,
+    bookedBy INTEGER,
+    bookedFrom DATE,
+    bookedTo DATE,
+
     primary key(carid)
     );
 
@@ -131,29 +137,19 @@ INSERT INTO travelsite.carhire (
     brand,
     numberOfSeats,
     costPerDay,
+    type
     ) 
 
 VALUES 
-	('Newcastle', '16:45:00', 'Bristol', '4:00:00'),
-    ('Bristol', '8:00:00', 'Newcastle', '19:15:00'),
-    ('Cardiff', '6:00:00', 'Edinburgh', '19:30:00'),
-    ('Bristol', '11:30:00', 'Manchester', '20:30:00'),
-    ('Manchester', '12:20:00', 'Bristol', '21:30:00'),
-    ('Bristol', '07:40:00', 'London', '13:40:00'),
-    ('London', '11:00:00', 'Manchester', '23:00:00'),
-    ('Manchester', '12:20:00', 'Glasgow', '22:40:00'),
-    ('Bristol', '07:40:00', 'Glasgow', '17:25:00'),
-    ('Glasgow', '14:30:00', 'Newcastle', '01:45:00'),
-    ('Newcastle', '16:15:00', 'Manchester', '23:30:00'),
-    ('Manchester', '18:25:00', 'Bristol', '04:10:00'),
-    ('Bristol', '06:20:00', 'Manchester', '15:20:00'),
-    ('Dundee', '10:00:00', 'Portsmouth', '03:00:00'),
-    ('Edinburgh', '18:30:00', 'Cardiff', '08:00:00'),
-    ('Southampton', '12:00:00', 'Manchester', '01:30:00'),
-    ('Manchester', '19:00:00', 'Southampton', '08:30:00'),
-    ('Birmingham', '16:00:00', 'Newcastle', '05:30:00'),
-    ('Newcastle', '06:00:00', 'Birmingham', '19:30:00'),
-    ('Aberdeen', '07:00:00', 'Portsmouth', '01:00:00'
+	('Vauxhall', 'Corsa', '5', '32', 'Standard'),
+	('Fiat', '500', '4', '23', 'Standard'),
+	('Peugeot', '208', '5', '27', 'Standard'),
+	('Opel', 'Corsa', '5', '28', 'Standad'),
+	('Fiat', 'Tipo', '5', '32', 'Standard'),
+	('Volkswagen', 'Golf', '4', '36', 'Standard'),
+	('Ford', 'Fiesta', '4', '26', 'Standard'),
+    ('Mercedes', 'Premium', '5', '167', 'Executive'),
+    ('Tesla', 'Model S', '5', '178', 'Executive'
 );
 
 CREATE TABLE carhireusers (
@@ -169,7 +165,7 @@ INSERT INTO travelsite.carhireusers (
 	username,
     email,
     password_hash,
-    usertype,
+    usertype
     ) 
 
 VALUES 
@@ -177,5 +173,5 @@ VALUES
 	('John Doe', 'john.doe@email.co.uk', 'pass', 'standard'),
 	('Sarah Doe', 'sarah.doe@email.co.uk', 'pass', 'standard'),
 	('Scott Walker', 'scott.walker@email.co.uk', 'pass', 'standard'),
-	('Jane Doe', 'sarah.doe@email.co.uk', 'pass', 'standard')
+	('Jane Doe', 'sarah.doe@email.co.uk', 'pass', 'standard'
 );

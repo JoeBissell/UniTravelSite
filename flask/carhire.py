@@ -1,10 +1,20 @@
-from __main__ import app
+from __main__ import app, get_connection
 from flask import Flask, render_template, request, session, redirect, url_for, escape, abort, jsonify, redirect
+import mysql.connector
 
+@app.route("/joe")
+def joe():
+    conn = get_connection()
+    if conn != None:
+        dbcursor = conn.cursor()
+        query = 'SELECT manufacturer, brand, numberOfSeats, costPerDay, type FROM carhire'
+        dbcursor.execute(query)
+        results = dbcursor.fetchall()
+        dbcursor.close
+        
+        print("Connected!")
 
-# app = Flask(__name__)
-
-print('hi')
+        return render_template("joe/index.html", carDetails = results)
 
 @app.route("/viewbookings")
 def viewbookings():
