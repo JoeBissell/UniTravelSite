@@ -6,6 +6,11 @@
 
 <div class="carhire-container">
     <h1>Login &amp; Registration</h1>
+    {% if msg == "login_required" %} 
+    <div class="error">
+        <span class="error-text">error:</span> Sorry, you need to be logged in to do that.
+    </div>        
+    {% endif %}
      <div id="login-registration-container">
         <div id="login-container">
             <h2>Would you like to login?</h2>

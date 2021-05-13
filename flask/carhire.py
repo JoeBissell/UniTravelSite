@@ -1,7 +1,19 @@
 from __main__ import app, get_connection
 from flask import Flask, render_template, request, session, redirect, url_for, escape, abort, jsonify, redirect
 from passlib.hash import sha256_crypt
+from functools import wraps
 import mysql.connector
+
+# User must be logged in to enter some pages
+def login_req(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if 'logged_in' in session:
+            return f(*args, **kwargs)
+        else:
+            print("Login required.")
+        return render_template("joe/pages/login.html", msg = "login_required")
+    return wrap
 
 @app.route("/joe")
 def joe():
@@ -16,6 +28,7 @@ def joe():
         return render_template("joe/index.html", carDetails = results)
 
 @app.route("/viewbookings")
+@login_req
 def viewbookings():
     conn = get_connection()
     if conn != None:
@@ -26,9 +39,12 @@ def viewbookings():
         results = dbcursor.fetchall()
         dbcursor.close
         return render_template("joe/pages/viewbookings.html", carDetails = results)
+    else:
+        return 'h'
     
 
 @app.route("/bookacar")
+@login_req
 def bookacar():
     conn = get_connection()
     if conn != None:
@@ -53,6 +69,7 @@ def bookcar():
     return render_template("joe/pages/makebookings.html", msg = "booking_added")
 
 @app.route("/cancelbookings")
+@login_req
 def cancelbookings():
     conn = get_connection()
     if conn != None:
@@ -153,3 +170,4 @@ def carhirelogin():
 def logout():
    session.clear()
    return render_template('joe/pages/login.html', msg = "logged_out")
+
