@@ -20,10 +20,6 @@ def get_connection():
    return conn
 
 #Home page
-@app.route('/')
-def Trainhomes():
-   return render_template('/brad/Trainhome.html') 
-
 @app.route('/Trainhome')        
 def Trainhome():
    if 'username' in session:
@@ -374,5 +370,5 @@ def Trainviewbook():
          return render_template("/brad/Trainhome.html", error=error)
 
 
-app.run(debug = True, port = 5050)
+app.run(debug = True, port = 5000)
 
