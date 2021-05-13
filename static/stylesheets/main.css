@@ -53,11 +53,11 @@ body {
   margin-bottom: 10px;
 }
 
-#index-container #index-wrapper .item-container a:nth-child(0) {
+#index-container #index-wrapper .item-container a:nth-child(6) {
   background-color: tomato;
 }
 
-#index-container #index-wrapper .item-container a:nth-child(1) {
+#index-container #index-wrapper .item-container a:nth-child(5) {
   background-color: royalblue;
 }
 
